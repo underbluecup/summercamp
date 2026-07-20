@@ -3,292 +3,249 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0e2438">
+<meta name="theme-color" content="#ffffff">
 <title>2026 서머 캠프 · 섬과 다리 | Summer Camp 2026 Islands and Bridges</title>
 <meta name="description" content="2026 서머 캠프 〈섬과 다리〉 · 2026.8.6–8.9 · 주최 YPC. 서울 곳곳에서 열리는 나흘간의 전시·공유모임·낭독·워크숍·상영·퍼포먼스.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
 <style>
+/* =========================================================
+   Design tokens — colors are placeholders for later design.
+   (white bg / black text / hairlines / pastel accents)
+   ========================================================= */
 :root{
-  --ink:#0e2438;
-  --ink-soft:#20374d;
-  --sea:#186b7c;
-  --sea-2:#2f8a99;
-  --sea-mist:#cfe1e2;
-  --sand:#f4ecdb;
-  --paper:#fbf6ea;
-  --paper-2:#f6efe0;
-  --coral:#dd5e37;
-  --gold:#c99442;
-  --line:#e2d7bf;
-  --text:#1d2a33;
-  --muted:#5f6f77;
-  --shadow:0 10px 30px rgba(14,36,56,.10);
-  --serif:'Noto Serif KR', 'Fraunces', Georgia, serif;
-  --display:'Fraunces', 'Noto Serif KR', Georgia, serif;
-  --sans:'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --bg:#ffffff;
+  --ink:#141414;        /* near-black text */
+  --ink-2:#3d3d3d;
+  --muted:#8a8a8a;
+  --line:#141414;       /* strong black hairline */
+  --hair:#e4e4e4;       /* light divider */
+
+  /* pastel accents — swap freely */
+  --p-yellow:#f5ecc9;
+  --p-pink:#f6dfe2;
+  --p-blue:#dde8ef;
+  --p-green:#e0eadb;
+  --p-lilac:#e7e0ef;
+  --accent:#f5ecc9;     /* soft yellow — nod to Yellow Pen Club */
+
+  --serif:'Noto Serif KR','Fraunces',Georgia,'Times New Roman',serif;
+  --display:'Fraunces','Noto Serif KR',Georgia,serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;}
 body{
-  font-family:var(--sans);
-  color:var(--text);
-  background:#c9d6d2;
-  line-height:1.6;
+  font-family:var(--serif);
+  color:var(--ink);
+  background:#eaeaea;
+  line-height:1.65;
+  font-weight:400;
   -webkit-font-smoothing:antialiased;
+  letter-spacing:.005em;
 }
-/* phone frame on wide screens */
 #app{
-  max-width:480px;
-  margin:0 auto;
-  min-height:100vh;
-  min-height:100dvh;
-  background:var(--paper);
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 0 60px rgba(0,0,0,.18);
+  max-width:480px;margin:0 auto;position:relative;overflow:hidden;
+  min-height:100vh;min-height:100dvh;background:var(--bg);
 }
 @media(min-width:520px){
   body{padding:24px 0;}
-  #app{border-radius:26px;min-height:calc(100dvh - 48px);}
+  #app{border:1px solid var(--line);min-height:calc(100dvh - 48px);}
 }
 
-/* ---------- views ---------- */
-.view{
-  display:none;
-  padding:0 0 108px;
-  min-height:100dvh;
-  animation:fade .45s ease;
-}
+/* ---------------- views ---------------- */
+.view{display:none;padding:0 0 104px;min-height:100dvh;animation:fade .4s ease;}
 .view.active{display:block;}
-@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+@keyframes fade{from{opacity:0;}to{opacity:1;}}
+.pad{padding:0 24px;}
 
-.pad{padding:0 22px;}
+/* section header */
+.page-head{
+  padding:28px 24px 16px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:20;background:var(--bg);
+}
 .section-eyebrow{
-  font-family:var(--display);
-  font-style:italic;
-  color:var(--sea);
-  font-size:15px;
-  letter-spacing:.02em;
+  font-family:var(--display);font-style:italic;font-size:14px;color:var(--ink);
+  letter-spacing:.04em;
 }
 .section-title{
-  font-family:var(--serif);
-  font-weight:600;
-  color:var(--ink);
-  font-size:25px;
-  line-height:1.25;
-  margin:2px 0 4px;
-}
-.page-head{
-  padding:26px 22px 18px;
-  border-bottom:1px solid var(--line);
-  position:sticky;top:0;z-index:20;
-  background:rgba(251,246,234,.92);
-  backdrop-filter:saturate(1.2) blur(8px);
+  font-family:var(--serif);font-weight:600;font-size:26px;color:var(--ink);
+  line-height:1.2;margin-top:4px;
 }
 
-/* ---------- HOME / cover ---------- */
-#view-home{padding-bottom:108px;background:var(--ink);color:#f4ecdb;min-height:100dvh;}
+/* ---------------- HOME / cover ---------------- */
+#view-home{background:var(--bg);}
 .cover{
-  position:relative;
-  min-height:100dvh;
-  display:flex;flex-direction:column;
-  padding:calc(env(safe-area-inset-top) + 40px) 26px 120px;
-  overflow:hidden;
-  background:
-    radial-gradient(120% 80% at 80% 8%, rgba(47,138,153,.45), transparent 60%),
-    radial-gradient(90% 60% at 10% 95%, rgba(221,94,55,.28), transparent 60%),
-    linear-gradient(180deg,#0e2438 0%, #113049 55%, #0c2033 100%);
+  position:relative;min-height:100dvh;display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top) + 30px) 24px 116px;
 }
-.cover-sea{position:absolute;inset:0;z-index:0;opacity:.9;}
-.cover-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;
-  font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#a9c6c9;}
-.cover-top b{color:#f4ecdb;font-weight:500;letter-spacing:.16em;}
-.cover-mid{position:relative;z-index:2;margin-top:auto;margin-bottom:auto;padding-top:36px;}
-.cover-kicker{
-  font-family:var(--display);font-style:italic;font-size:18px;color:#e9c98b;margin-bottom:14px;
+.cover-top{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-bottom:16px;border-bottom:1px solid var(--line);
+  font-family:var(--display);font-style:italic;font-size:14px;letter-spacing:.02em;
 }
+.cover-top .r{font-style:normal;font-family:var(--serif);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2);}
+.cover-mid{margin-top:auto;margin-bottom:auto;padding:34px 0;}
+.cover-kicker{font-family:var(--display);font-style:italic;font-size:17px;color:var(--ink-2);margin-bottom:16px;}
 .cover-title{
-  font-family:var(--serif);font-weight:600;color:#fbf6ea;
-  font-size:clamp(44px,15vw,60px);line-height:1.02;letter-spacing:-.01em;
+  font-family:var(--serif);font-weight:600;color:var(--ink);
+  font-size:clamp(46px,16vw,64px);line-height:1.0;letter-spacing:-.01em;
 }
-.cover-title .sep{display:block;height:10px;}
+.cover-title .sep{display:block;height:6px;}
 .cover-title-en{
   font-family:var(--display);font-style:italic;font-weight:400;
-  font-size:clamp(20px,6vw,25px);color:#8fb6ba;margin-top:18px;line-height:1.2;
+  font-size:clamp(19px,5.6vw,23px);color:var(--ink-2);margin-top:20px;line-height:1.25;
 }
-.cover-rule{width:52px;height:2px;background:var(--coral);margin:26px 0 20px;border:none;}
-.cover-meta{position:relative;z-index:2;color:#d6e2e2;}
-.cover-meta .dates{font-family:var(--serif);font-size:22px;color:#fbf6ea;font-weight:500;letter-spacing:.01em;}
-.cover-meta .host{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#93b3b7;margin-top:10px;}
+.cover-mark{width:100%;height:1px;background:var(--line);margin:28px 0;}
+.cover-svg{width:100%;height:auto;display:block;margin:6px 0 26px;}
+.cover-meta .dates{font-family:var(--serif);font-weight:500;font-size:23px;color:var(--ink);}
+.cover-meta .host{font-family:var(--serif);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-top:10px;}
 .cover-cta{
-  position:relative;z-index:2;margin-top:30px;display:inline-flex;align-items:center;gap:10px;
-  align-self:flex-start;
-  background:var(--coral);color:#fff;border:none;
-  font-family:var(--sans);font-size:15px;font-weight:500;
-  padding:13px 22px;border-radius:100px;cursor:pointer;
-  box-shadow:0 8px 22px rgba(221,94,55,.4);
+  margin-top:30px;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--serif);font-size:15px;color:var(--ink);
+  background:var(--bg);border:1px solid var(--line);border-radius:0;
+  padding:13px 22px;cursor:pointer;transition:background .2s;
 }
-.cover-cta svg{width:16px;height:16px;}
-.cover-scroll{position:relative;z-index:2;margin-top:22px;font-size:12px;letter-spacing:.14em;color:#7fa1a6;text-transform:uppercase;}
-
-/* islands quick nav on cover */
-.cover-links{position:relative;z-index:2;margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.cover-cta:hover{background:var(--accent);}
+.cover-cta svg{width:17px;height:17px;}
+.cover-links{margin-top:30px;border-top:1px solid var(--line);}
 .cover-link{
-  display:flex;align-items:center;gap:10px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
-  border-radius:14px;padding:13px 14px;cursor:pointer;
-  font-size:14px;color:#dfeaec;transition:.2s;
+  display:flex;align-items:baseline;gap:14px;padding:15px 2px;
+  border-bottom:1px solid var(--hair);cursor:pointer;
 }
-.cover-link:hover{background:rgba(255,255,255,.12);}
-.cover-link .n{font-family:var(--display);font-style:italic;color:#e9c98b;font-size:15px;}
+.cover-link:hover{background:#fafafa;}
+.cover-link .n{font-family:var(--display);font-style:italic;font-size:15px;color:var(--muted);flex:0 0 26px;}
+.cover-link .t{font-family:var(--serif);font-size:17px;color:var(--ink);flex:1;}
+.cover-link .go{font-size:14px;color:var(--muted);}
 
-/* ---------- generic cards ---------- */
-.lead{font-family:var(--serif);font-size:18px;line-height:1.85;color:var(--ink-soft);margin:18px 0;}
-.para{font-size:14.5px;line-height:1.9;color:var(--text);margin:14px 0;}
-.para.muted{color:var(--muted);}
+/* ---------------- typographic blocks ---------------- */
+.lead{font-family:var(--serif);font-size:19px;line-height:1.8;color:var(--ink);margin:20px 0;font-weight:500;}
+.para{font-size:15px;line-height:1.85;color:var(--ink-2);margin:15px 0;}
+.para.muted{color:var(--muted);font-size:13.5px;}
 
-.factbox{
-  background:var(--paper-2);border:1px solid var(--line);border-radius:16px;
-  padding:16px 18px;margin:20px 0;
-}
-.factrow{display:flex;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line);}
+.factbox{border:1px solid var(--line);margin:22px 0;}
+.factrow{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid var(--hair);}
 .factrow:last-child{border-bottom:none;}
-.factrow .k{flex:0 0 62px;font-size:12.5px;color:var(--sea);font-weight:500;letter-spacing:.04em;padding-top:2px;}
-.factrow .v{flex:1;font-size:14px;color:var(--text);}
-.factrow .v b{font-weight:600;color:var(--ink);}
+.factrow .k{flex:0 0 58px;font-size:12.5px;color:var(--muted);font-family:var(--display);font-style:italic;padding-top:3px;}
+.factrow .v{flex:1;font-size:14.5px;color:var(--ink);}
+.factrow .v b{font-weight:600;}
+.factrow .v i{font-family:var(--display);font-style:italic;color:var(--muted);}
 
 .note{
-  display:flex;gap:10px;align-items:flex-start;
-  background:rgba(24,107,124,.07);border-left:3px solid var(--sea);
-  border-radius:0 12px 12px 0;padding:12px 14px;margin:18px 0;font-size:13px;color:var(--ink-soft);
+  border:1px solid var(--line);padding:14px 16px;margin:20px 0;font-size:13.5px;color:var(--ink-2);
+  display:flex;gap:11px;align-items:flex-start;background:var(--accent);
 }
-.note .star{color:var(--coral);font-weight:700;}
+.note .star{font-weight:700;color:var(--ink);}
+.linky{color:var(--ink);border-bottom:1px solid var(--ink);cursor:pointer;}
 
-/* ---------- schedule ---------- */
-.daytabs{display:flex;gap:7px;overflow-x:auto;padding:14px 22px 4px;scrollbar-width:none;}
-.daytabs::-webkit-scrollbar{display:none;}
+/* ---------------- schedule ---------------- */
+.daytabs{display:flex;border-bottom:1px solid var(--line);}
 .daytab{
-  flex:0 0 auto;border:1px solid var(--line);background:var(--paper);
-  border-radius:12px;padding:9px 14px;cursor:pointer;text-align:center;min-width:66px;
-  transition:.2s;
+  flex:1;border:none;border-right:1px solid var(--hair);background:var(--bg);
+  padding:13px 4px;cursor:pointer;text-align:center;font-family:var(--serif);
 }
-.daytab .d{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);line-height:1;}
-.daytab .w{font-size:11px;color:var(--muted);margin-top:3px;}
-.daytab.active{background:var(--ink);border-color:var(--ink);}
-.daytab.active .d{color:#fbf6ea;}
-.daytab.active .w{color:#9fbabd;}
-
-.day-panel{display:none;padding:8px 22px 0;}
+.daytab:last-child{border-right:none;}
+.daytab .d{font-weight:600;font-size:19px;color:var(--ink);line-height:1;}
+.daytab .w{font-size:11px;color:var(--muted);margin-top:4px;font-family:var(--display);font-style:italic;}
+.daytab.active{background:var(--accent);}
+.day-panel{display:none;padding:6px 24px 0;}
 .day-panel.active{display:block;animation:fade .35s ease;}
-.day-head{font-family:var(--display);font-style:italic;color:var(--sea);font-size:15px;margin:14px 0 6px;}
+.day-head{font-family:var(--display);font-style:italic;font-size:15px;color:var(--ink-2);margin:18px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line);}
 
-.slot{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);}
+.slot{display:flex;gap:15px;padding:16px 0;border-bottom:1px solid var(--hair);}
 .slot:last-child{border-bottom:none;}
-.slot .time{flex:0 0 52px;font-family:var(--serif);font-weight:600;color:var(--sea);font-size:15px;line-height:1.3;padding-top:1px;}
-.slot .time small{display:block;font-family:var(--sans);font-weight:400;font-size:11px;color:var(--muted);}
+.slot .time{flex:0 0 50px;font-family:var(--serif);font-weight:600;color:var(--ink);font-size:15px;padding-top:2px;}
 .slot .body{flex:1;}
 .slot .tag{
-  display:inline-block;font-size:11px;letter-spacing:.02em;color:#fff;background:var(--sea);
-  padding:2px 9px;border-radius:100px;margin-bottom:6px;font-weight:500;
+  display:inline-block;font-family:var(--serif);font-size:11.5px;color:var(--ink);
+  border:1px solid var(--line);padding:1px 10px;margin-bottom:8px;line-height:1.5;
 }
-.slot .tag.break{background:#b7ab8e;}
-.slot .tag.t-오프닝,.slot .tag.t-뒤풀이{background:var(--coral);}
-.slot .tag.t-전시,.slot .tag.t-토크{background:var(--ink-soft);}
-.slot .tag.t-퍼포먼스{background:#8a5a9e;}
-.slot .tag.t-워크숍{background:var(--gold);}
-.slot .ti{font-family:var(--serif);font-weight:600;font-size:15.5px;color:var(--ink);line-height:1.4;}
-.slot .live{color:var(--coral);font-weight:700;}
-.slot .sub{font-size:13px;color:var(--muted);margin-top:3px;}
-.slot .sub .who{color:var(--ink-soft);}
-.slot.is-break{opacity:.6;}
-.slot.is-break .body{align-self:center;}
+.tag.t-오프닝,.tag.t-뒤풀이,.tag.t-투어{background:var(--p-yellow);}
+.tag.t-공유{background:var(--p-green);}
+.tag.t-낭독{background:var(--p-blue);}
+.tag.t-워크숍{background:var(--p-lilac);}
+.tag.t-상영{background:var(--p-pink);}
+.tag.t-퍼포먼스{background:var(--p-lilac);}
+.tag.t-토크,.tag.t-전시{background:#f1f1f1;}
+.slot .ti{font-family:var(--serif);font-weight:600;font-size:16px;color:var(--ink);line-height:1.4;}
+.slot .live{font-weight:700;}
+.slot .sub{font-size:13px;color:var(--muted);margin-top:4px;}
+.slot .sub .who{color:var(--ink-2);}
 
-/* ---------- program ---------- */
-.filterbar{display:flex;gap:7px;overflow-x:auto;padding:14px 22px 4px;scrollbar-width:none;}
+/* ---------------- program ---------------- */
+.filterbar{display:flex;gap:0;overflow-x:auto;border-bottom:1px solid var(--line);scrollbar-width:none;}
 .filterbar::-webkit-scrollbar{display:none;}
 .chip{
-  flex:0 0 auto;border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);
-  border-radius:100px;padding:7px 15px;font-size:13px;cursor:pointer;transition:.2s;white-space:nowrap;
+  flex:0 0 auto;border:none;border-right:1px solid var(--hair);background:var(--bg);
+  color:var(--ink-2);padding:12px 17px;font-family:var(--serif);font-size:14px;cursor:pointer;white-space:nowrap;
 }
-.chip.active{background:var(--sea);border-color:var(--sea);color:#fff;}
+.chip.active{background:var(--ink);color:#fff;}
 
-.prog{
-  border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:14px 22px;
-  background:var(--paper);box-shadow:var(--shadow);
-}
-.prog-head{padding:16px 18px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;}
-.prog-head .idx{
-  font-family:var(--display);font-style:italic;font-size:15px;color:var(--sea-2);flex:0 0 auto;padding-top:3px;
-}
+.prog{border-bottom:1px solid var(--line);}
+.prog-head{padding:18px 24px;cursor:pointer;display:flex;gap:14px;align-items:flex-start;}
+.prog-head .idx{font-family:var(--display);font-style:italic;font-size:15px;color:var(--muted);flex:0 0 24px;padding-top:4px;}
 .prog-head .h-main{flex:1;}
-.prog .kind{font-size:11px;letter-spacing:.03em;color:var(--sea);font-weight:600;text-transform:uppercase;}
-.prog .p-title{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);line-height:1.35;margin-top:2px;}
-.prog .p-title-en{font-family:var(--display);font-style:italic;font-size:13.5px;color:var(--muted);margin-top:2px;}
-.prog .p-artist{font-size:13px;color:var(--ink-soft);margin-top:7px;}
-.prog .chev{flex:0 0 auto;color:var(--sea);transition:transform .3s;padding-top:2px;}
+.prog .kind{font-family:var(--display);font-style:italic;font-size:13px;color:var(--ink-2);}
+.prog .p-title{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);line-height:1.35;margin-top:3px;}
+.prog .p-title-en{font-family:var(--display);font-style:italic;font-size:14px;color:var(--muted);margin-top:2px;}
+.prog .p-artist{font-size:13.5px;color:var(--ink-2);margin-top:9px;}
+.prog .chev{flex:0 0 auto;color:var(--ink);transition:transform .3s;padding-top:3px;}
 .prog.open .chev{transform:rotate(180deg);}
-.prog-meta{display:flex;flex-wrap:wrap;gap:6px 8px;margin-top:10px;}
-.prog-meta span{font-size:11.5px;color:var(--muted);background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:3px 9px;}
+.prog-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px;}
+.prog-meta span{font-size:11.5px;color:var(--ink-2);border:1px solid var(--hair);padding:3px 10px;}
 .prog-body{max-height:0;overflow:hidden;transition:max-height .45s ease;}
-.prog.open .prog-body{max-height:1600px;}
-.prog-body-inner{padding:0 18px 18px;border-top:1px solid var(--line);margin-top:2px;}
-.prog-body-inner h4{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--sea);margin:16px 0 6px;font-weight:600;}
-.prog-body-inner p{font-size:13.5px;line-height:1.85;color:var(--text);}
-.prog-link{
-  display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13px;color:var(--coral);
-  text-decoration:none;font-weight:500;border-bottom:1px solid rgba(221,94,55,.35);padding-bottom:1px;
-}
+.prog.open .prog-body{max-height:1800px;}
+.prog-body-inner{padding:2px 24px 22px 62px;}
+.prog-body-inner h4{font-family:var(--display);font-style:italic;font-size:13px;color:var(--ink);margin:16px 0 6px;}
+.prog-body-inner p{font-size:13.5px;line-height:1.85;color:var(--ink-2);}
 
-/* ---------- venue ---------- */
-.map-schematic{margin:16px 22px 4px;border-radius:18px;overflow:hidden;background:var(--ink);box-shadow:var(--shadow);}
+/* ---------------- venue ---------------- */
+.map-schematic{margin:20px 24px 6px;border:1px solid var(--line);}
 .map-schematic svg{display:block;width:100%;height:auto;}
-.venue{
-  border:1px solid var(--line);border-radius:16px;margin:14px 22px;padding:16px 18px;background:var(--paper);
-}
-.venue .v-top{display:flex;align-items:baseline;gap:8px;}
-.venue .v-dot{width:11px;height:11px;border-radius:50%;background:var(--sea);flex:0 0 auto;transform:translateY(1px);}
-.venue .v-name{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);}
-.venue .v-role{font-size:12px;color:var(--sea);margin:4px 0 0 19px;}
-.venue .v-addr{font-size:13.5px;color:var(--text);margin:10px 0 0 19px;line-height:1.6;}
-.venue .v-hours{font-size:12.5px;color:var(--muted);margin:6px 0 0 19px;}
+.venue{border-bottom:1px solid var(--hair);padding:18px 24px;}
+.venue:last-child{border-bottom:none;}
+.venue .v-top{display:flex;align-items:baseline;gap:9px;}
+.venue .v-dot{width:10px;height:10px;border:1px solid var(--line);flex:0 0 auto;transform:translateY(1px);}
+.venue .v-name{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);}
+.venue .v-role{font-family:var(--display);font-style:italic;font-size:12.5px;color:var(--ink-2);margin:5px 0 0 19px;}
+.venue .v-addr{font-size:14px;color:var(--ink);margin:11px 0 0 19px;line-height:1.6;}
+.venue .v-hours{font-size:12.5px;color:var(--muted);margin:5px 0 0 19px;}
 .venue .v-actions{display:flex;gap:8px;margin:14px 0 0 19px;flex-wrap:wrap;}
 .mapbtn{
   display:inline-flex;align-items:center;gap:6px;text-decoration:none;
-  font-size:12.5px;font-weight:500;padding:8px 13px;border-radius:100px;
-  border:1px solid var(--line);color:var(--ink-soft);background:var(--paper-2);
+  font-family:var(--serif);font-size:12.5px;padding:8px 14px;
+  border:1px solid var(--line);color:var(--ink);background:var(--bg);transition:background .2s;
 }
-.mapbtn.primary{background:var(--sea);color:#fff;border-color:var(--sea);}
-.mapbtn svg{width:13px;height:13px;}
+.mapbtn:hover{background:var(--accent);}
+.mapbtn svg{width:12px;height:12px;}
 
-/* exhibitions list reuse venue */
-.subhead{font-family:var(--display);font-style:italic;color:var(--sea);font-size:15px;margin:24px 22px 2px;}
+.subhead{
+  font-family:var(--display);font-style:italic;font-size:15px;color:var(--ink);
+  margin:26px 24px 0;padding-bottom:8px;border-bottom:1px solid var(--line);
+}
 
-/* ---------- footer credit ---------- */
-.foot{padding:30px 22px 20px;text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:26px;}
-.foot .mk{font-family:var(--serif);color:var(--ink);font-size:16px;}
-.foot .dt{font-size:12px;margin-top:6px;letter-spacing:.06em;}
-.foot .host{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sea);margin-top:12px;}
+/* ---------------- footer ---------------- */
+.foot{padding:34px 24px 22px;text-align:center;border-top:1px solid var(--line);margin-top:28px;}
+.foot .mk{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--ink);}
+.foot .dt{font-family:var(--display);font-style:italic;font-size:13px;color:var(--ink-2);margin-top:6px;}
+.foot .host{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:12px;}
 
-/* ---------- bottom nav ---------- */
+/* ---------------- bottom nav ---------------- */
 .nav{
-  position:fixed;left:50%;transform:translateX(-50%);
-  bottom:0;width:100%;max-width:480px;z-index:50;
-  background:rgba(251,246,234,.94);backdrop-filter:saturate(1.3) blur(12px);
-  border-top:1px solid var(--line);
-  display:flex;justify-content:space-around;
-  padding:8px 6px calc(env(safe-area-inset-bottom) + 8px);
+  position:fixed;left:50%;transform:translateX(-50%);bottom:0;
+  width:100%;max-width:480px;z-index:50;background:var(--bg);
+  border-top:1px solid var(--line);display:flex;
+  padding-bottom:env(safe-area-inset-bottom);
 }
-@media(min-width:520px){.nav{border-radius:0 0 26px 26px;bottom:24px;}}
+@media(min-width:520px){.nav{bottom:24px;}}
 .navbtn{
-  flex:1;background:none;border:none;cursor:pointer;color:var(--muted);
-  display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;font-family:var(--sans);
+  flex:1;background:none;border:none;border-right:1px solid var(--hair);cursor:pointer;color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 2px;font-family:var(--serif);
 }
-.navbtn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
-.navbtn span{font-size:10.5px;letter-spacing:.01em;}
-.navbtn.active{color:var(--coral);}
-.navbtn.active svg{stroke:var(--coral);}
+.navbtn:last-child{border-right:none;}
+.navbtn svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
+.navbtn span{font-size:11px;}
+.navbtn.active{background:var(--accent);}
 </style>
 </head>
 <body>
@@ -297,52 +254,45 @@ body{
   <!-- ============ HOME ============ -->
   <section id="view-home" class="view active" data-view="home">
     <div class="cover">
-      <svg class="cover-sea" viewBox="0 0 480 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-        <defs>
-          <linearGradient id="wv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#2f8a99" stop-opacity=".0"/>
-            <stop offset="1" stop-color="#2f8a99" stop-opacity=".22"/>
-          </linearGradient>
-        </defs>
-        <path d="M0 640 Q120 600 240 640 T480 640 V900 H0 Z" fill="url(#wv)"/>
-        <path d="M0 700 Q120 660 240 700 T480 700 V900 H0 Z" fill="url(#wv)"/>
-        <path d="M0 760 Q120 720 240 760 T480 760 V900 H0 Z" fill="url(#wv)"/>
-        <!-- islands + bridge -->
-        <g opacity=".85">
-          <ellipse cx="96" cy="628" rx="42" ry="12" fill="#0c2033"/>
-          <ellipse cx="300" cy="612" rx="56" ry="15" fill="#0c2033"/>
-          <path d="M132 624 Q210 590 250 610" fill="none" stroke="#e9c98b" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>
-          <path d="M356 608 Q410 596 448 612" fill="none" stroke="#dd5e37" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>
-          <circle cx="96" cy="624" r="3" fill="#e9c98b"/>
-          <circle cx="300" cy="606" r="3" fill="#e9c98b"/>
-          <circle cx="448" cy="610" r="3" fill="#dd5e37"/>
-        </g>
-      </svg>
-
       <div class="cover-top">
-        <span><b>YPC</b> presents</span>
-        <span>SEOUL · 2026</span>
+        <span>YPC <span style="font-style:normal;font-family:var(--serif)">presents</span></span>
+        <span class="r">Seoul · 2026</span>
       </div>
 
       <div class="cover-mid">
         <div class="cover-kicker">2026 서머 캠프</div>
         <h1 class="cover-title">섬과<span class="sep"></span>다리</h1>
         <div class="cover-title-en">Summer Camp 2026<br>Islands and Bridges</div>
-        <hr class="cover-rule">
+
+        <div class="cover-mark"></div>
+
+        <svg class="cover-svg" viewBox="0 0 432 92" fill="none" aria-hidden="true">
+          <!-- islands (outlined) connected by dashed bridges -->
+          <ellipse cx="70" cy="60" rx="34" ry="9" stroke="#141414" fill="#f5ecc9"/>
+          <ellipse cx="216" cy="52" rx="40" ry="10" stroke="#141414" fill="#dde8ef"/>
+          <ellipse cx="366" cy="62" rx="34" ry="9" stroke="#141414" fill="#f6dfe2"/>
+          <path d="M104 56 Q160 30 176 48" stroke="#141414" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M256 50 Q320 34 332 56" stroke="#141414" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <circle cx="70" cy="55" r="2.5" fill="#141414"/>
+          <circle cx="216" cy="46" r="2.5" fill="#141414"/>
+          <circle cx="366" cy="57" r="2.5" fill="#141414"/>
+        </svg>
+
         <div class="cover-meta">
-          <div class="dates">2026. 8. 6 <span style="opacity:.5">—</span> 8. 9</div>
+          <div class="dates">2026. 8. 6 — 8. 9</div>
           <div class="host">주최 · Organized by YPC</div>
         </div>
+
         <button class="cover-cta" onclick="go('about')">
           브로슈어 살펴보기
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
 
         <div class="cover-links">
-          <div class="cover-link" onclick="go('about')"><span class="n">01</span>행사 소개</div>
-          <div class="cover-link" onclick="go('schedule')"><span class="n">02</span>일정표</div>
-          <div class="cover-link" onclick="go('program')"><span class="n">03</span>세부 프로그램</div>
-          <div class="cover-link" onclick="go('venue')"><span class="n">04</span>장소 · 지도</div>
+          <div class="cover-link" onclick="go('about')"><span class="n">01</span><span class="t">행사 소개</span><span class="go">→</span></div>
+          <div class="cover-link" onclick="go('schedule')"><span class="n">02</span><span class="t">일정표</span><span class="go">→</span></div>
+          <div class="cover-link" onclick="go('program')"><span class="n">03</span><span class="t">세부 프로그램</span><span class="go">→</span></div>
+          <div class="cover-link" onclick="go('venue')"><span class="n">04</span><span class="t">행사 장소 · 지도</span><span class="go">→</span></div>
         </div>
       </div>
     </div>
@@ -351,7 +301,7 @@ body{
   <!-- ============ ABOUT ============ -->
   <section id="view-about" class="view" data-view="about">
     <div class="page-head">
-      <div class="section-eyebrow">01 · Introduction</div>
+      <div class="section-eyebrow">01 — Introduction</div>
       <div class="section-title">행사 소개</div>
     </div>
     <div class="pad">
@@ -360,7 +310,7 @@ body{
       <p class="para">전시장은 서울 중구와 종로 일대에 섬처럼 자리하고, 공유모임·낭독·워크숍·상영·퍼포먼스·토크가 그 사이를 오갑니다. 관객은 도시를 건너다니며 각각의 섬에 상륙하고, 그 사이에 놓인 다리를 함께 걷도록 초대받습니다.</p>
 
       <div class="factbox">
-        <div class="factrow"><div class="k">행사명</div><div class="v"><b>2026 서머 캠프 〈섬과 다리〉</b><br><span style="color:var(--muted);font-style:italic">Summer Camp 2026 · Islands and Bridges</span></div></div>
+        <div class="factrow"><div class="k">행사명</div><div class="v"><b>2026 서머 캠프 〈섬과 다리〉</b><br><i>Summer Camp 2026 · Islands and Bridges</i></div></div>
         <div class="factrow"><div class="k">기간</div><div class="v"><b>2026. 8. 6 (목) — 8. 9 (일)</b> · 4일간</div></div>
         <div class="factrow"><div class="k">장소</div><div class="v">YPC SPACE 외 서울 중구·종로 일대</div></div>
         <div class="factrow"><div class="k">주최</div><div class="v"><b>YPC</b></div></div>
@@ -372,7 +322,7 @@ body{
         <div><b>✱</b> 표시된 프로그램은 <b>2b-temp-cast</b>(임시 온라인 방송국)를 통해 실시간 라이브로 방송되어, 현장에 없는 이들에게도 가닿습니다.</div>
       </div>
 
-      <p class="para muted" style="font-size:13px;">아래 하단 메뉴로 일정표 · 세부 프로그램 · 장소 지도를 이어서 확인하세요.</p>
+      <p class="para muted">아래 하단 메뉴로 일정표 · 세부 프로그램 · 장소 지도를 이어서 확인하세요.</p>
     </div>
     <div class="foot">
       <div class="mk">섬과 다리</div>
@@ -384,21 +334,23 @@ body{
   <!-- ============ SCHEDULE ============ -->
   <section id="view-schedule" class="view" data-view="schedule">
     <div class="page-head">
-      <div class="section-eyebrow">02 · Schedule</div>
+      <div class="section-eyebrow">02 — Schedule</div>
       <div class="section-title">일정표</div>
     </div>
     <div class="daytabs" id="daytabs"></div>
     <div id="daypanels"></div>
-    <div class="note" style="margin:22px;">
-      <span class="star">✱</span>
-      <div><b>✱</b> 표시 프로그램은 2b-temp-cast를 통해 실시간 라이브 방송됩니다. 전시는 기간 내 상시 관람 가능하며, 장소별 관람 시간은 <b onclick="go('venue')" style="color:var(--coral);cursor:pointer;">장소 페이지</b>를 참고하세요.</div>
+    <div class="pad">
+      <div class="note">
+        <span class="star">✱</span>
+        <div><b>✱</b> 표시 프로그램은 2b-temp-cast를 통해 실시간 라이브 방송됩니다. 전시는 기간 내 상시 관람 가능하며, 장소별 관람 시간은 <span class="linky" onclick="go('venue')">장소 페이지</span>를 참고하세요.</div>
+      </div>
     </div>
   </section>
 
   <!-- ============ PROGRAM ============ -->
   <section id="view-program" class="view" data-view="program">
     <div class="page-head">
-      <div class="section-eyebrow">03 · Program</div>
+      <div class="section-eyebrow">03 — Program</div>
       <div class="section-title">세부 프로그램</div>
     </div>
     <div class="filterbar" id="filterbar"></div>
@@ -408,37 +360,37 @@ body{
   <!-- ============ VENUE ============ -->
   <section id="view-venue" class="view" data-view="venue">
     <div class="page-head">
-      <div class="section-eyebrow">04 · Venues</div>
+      <div class="section-eyebrow">04 — Venues</div>
       <div class="section-title">행사 장소 · 지도</div>
     </div>
 
     <div class="map-schematic">
-      <svg viewBox="0 0 480 300" aria-hidden="true">
-        <rect width="480" height="300" fill="#0e2438"/>
-        <g opacity=".5" stroke="#2f8a99" stroke-width="1" fill="none">
-          <path d="M0 210 Q120 190 240 210 T480 210"/>
-          <path d="M0 240 Q120 220 240 240 T480 240"/>
-          <path d="M0 270 Q120 250 240 270 T480 270"/>
+      <svg viewBox="0 0 480 280" aria-hidden="true">
+        <rect width="480" height="280" fill="#ffffff"/>
+        <g stroke="#c9c9c9" stroke-width="1" fill="none">
+          <path d="M0 210 Q120 194 240 210 T480 210"/>
+          <path d="M0 236 Q120 220 240 236 T480 236"/>
+          <path d="M0 262 Q120 246 240 262 T480 262"/>
         </g>
         <!-- bridges -->
-        <g stroke-width="1.6" fill="none" stroke-dasharray="2 6" stroke-linecap="round">
-          <path d="M120 120 Q200 80 250 120" stroke="#e9c98b"/>
-          <path d="M250 120 Q320 150 360 110" stroke="#e9c98b"/>
-          <path d="M120 120 Q110 170 170 195" stroke="#dd5e37"/>
-          <path d="M360 110 Q400 160 350 200" stroke="#dd5e37"/>
+        <g stroke="#141414" stroke-width="1.2" fill="none" stroke-dasharray="2 6" stroke-linecap="round">
+          <path d="M124 116 Q200 82 248 116"/>
+          <path d="M262 116 Q320 140 356 108"/>
+          <path d="M120 122 Q112 168 168 190"/>
+          <path d="M360 112 Q398 156 350 192"/>
         </g>
         <!-- islands -->
-        <g font-family="'Noto Sans KR',sans-serif" font-size="10" fill="#dfeaec">
-          <g><ellipse cx="120" cy="122" rx="30" ry="9" fill="#16697a"/><circle cx="120" cy="118" r="4" fill="#e9c98b"/><text x="120" y="100" text-anchor="middle" fill="#fbf6ea" font-size="11" font-weight="600">YPC SPACE</text></g>
-          <g><ellipse cx="255" cy="122" rx="24" ry="8" fill="#16697a"/><circle cx="255" cy="118" r="4" fill="#e9c98b"/><text x="255" y="100" text-anchor="middle" fill="#fbf6ea" font-size="11" font-weight="600">PCO</text></g>
-          <g><ellipse cx="362" cy="112" rx="26" ry="8" fill="#16697a"/><circle cx="362" cy="108" r="4" fill="#e9c98b"/><text x="362" y="90" text-anchor="middle" fill="#fbf6ea" font-size="11" font-weight="600">FF Seoul</text></g>
-          <g><ellipse cx="172" cy="200" rx="24" ry="8" fill="#1d5566"/><circle cx="172" cy="196" r="4" fill="#dd5e37"/><text x="172" y="223" text-anchor="middle" fill="#dfeaec" font-size="10">전망</text></g>
-          <g><ellipse cx="348" cy="204" rx="30" ry="8" fill="#1d5566"/><circle cx="348" cy="200" r="4" fill="#dd5e37"/><text x="348" y="227" text-anchor="middle" fill="#dfeaec" font-size="10">충무 · 동국대</text></g>
+        <g font-family="'Noto Serif KR',serif">
+          <g><ellipse cx="120" cy="118" rx="30" ry="8" stroke="#141414" fill="#f5ecc9"/><circle cx="120" cy="114" r="3" fill="#141414"/><text x="120" y="98" text-anchor="middle" fill="#141414" font-size="12" font-weight="600">YPC SPACE</text></g>
+          <g><ellipse cx="255" cy="118" rx="24" ry="8" stroke="#141414" fill="#dde8ef"/><circle cx="255" cy="114" r="3" fill="#141414"/><text x="255" y="98" text-anchor="middle" fill="#141414" font-size="12" font-weight="600">PCO</text></g>
+          <g><ellipse cx="362" cy="108" rx="26" ry="8" stroke="#141414" fill="#f6dfe2"/><circle cx="362" cy="104" r="3" fill="#141414"/><text x="362" y="88" text-anchor="middle" fill="#141414" font-size="12" font-weight="600">FF Seoul</text></g>
+          <g><ellipse cx="168" cy="194" rx="24" ry="8" stroke="#141414" fill="#e0eadb"/><circle cx="168" cy="190" r="3" fill="#141414"/><text x="168" y="216" text-anchor="middle" fill="#141414" font-size="11">전망</text></g>
+          <g><ellipse cx="348" cy="196" rx="30" ry="8" stroke="#141414" fill="#e7e0ef"/><circle cx="348" cy="192" r="3" fill="#141414"/><text x="348" y="218" text-anchor="middle" fill="#141414" font-size="11">충무 · 동국대</text></g>
         </g>
-        <text x="24" y="40" font-family="Georgia,serif" font-style="italic" font-size="15" fill="#8fb6ba">Islands &amp; Bridges — Seoul</text>
+        <text x="22" y="38" font-family="Georgia,serif" font-style="italic" font-size="15" fill="#141414">Islands &amp; Bridges — Seoul</text>
       </svg>
     </div>
-    <p class="para muted" style="padding:0 22px;font-size:12.5px;">위 그림은 장소의 위치 관계를 나타낸 도식입니다. 각 카드의 버튼으로 실제 지도를 열 수 있어요.</p>
+    <p class="para muted" style="padding:0 24px;">위 그림은 장소의 위치 관계를 나타낸 도식입니다. 각 카드의 버튼으로 실제 지도를 열 수 있어요.</p>
 
     <div class="subhead">프로그램 장소</div>
     <div id="venuelist"></div>
@@ -462,10 +414,10 @@ body{
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r=".6" fill="currentColor"/></svg><span>소개</span>
     </button>
     <button class="navbtn" data-nav="schedule" onclick="go('schedule')">
-      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="3" x2="8" y2="6"/><line x1="16" y1="3" x2="16" y2="6"/></svg><span>일정</span>
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="3" x2="8" y2="6"/><line x1="16" y1="3" x2="16" y2="6"/></svg><span>일정</span>
     </button>
     <button class="navbtn" data-nav="program" onclick="go('program')">
-      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1.2"/><circle cx="3.5" cy="12" r="1.2"/><circle cx="3.5" cy="18" r="1.2"/></svg><span>프로그램</span>
+      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.6" cy="6" r="1"/><circle cx="3.6" cy="12" r="1"/><circle cx="3.6" cy="18" r="1"/></svg><span>프로그램</span>
     </button>
     <button class="navbtn" data-nav="venue" onclick="go('venue')">
       <svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span>장소</span>
@@ -480,7 +432,6 @@ function go(view){
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active', v.dataset.view===view));
   document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active', b.dataset.nav===view));
   window.scrollTo({top:0,behavior:'instant'});
-  document.getElementById('app').scrollTop=0;
   history.replaceState(null,'',view==='home'?location.pathname:'#'+view);
 }
 window.addEventListener('DOMContentLoaded',()=>{
@@ -521,7 +472,7 @@ function renderSchedule(){
   const tabs=document.getElementById('daytabs');
   const panels=document.getElementById('daypanels');
   days.forEach((day,i)=>{
-    const tab=document.createElement('div');
+    const tab=document.createElement('button');
     tab.className='daytab'+(i===0?' active':'');
     tab.innerHTML=`<div class="d">${day.d}</div><div class="w">${day.w}</div>`;
     tab.onclick=()=>{
@@ -534,11 +485,10 @@ function renderSchedule(){
     panel.className='day-panel'+(i===0?' active':'');
     let html=`<div class="day-head">${day.label}</div>`;
     day.items.forEach(it=>{
-      const tagClass='tag t-'+it.tag;
       html+=`<div class="slot">
         <div class="time">${it.t}</div>
         <div class="body">
-          <span class="${tagClass}">${it.tag}</span>
+          <span class="tag t-${it.tag}">${it.tag}</span>
           <div class="ti">${it.live?'<span class="live">✱ </span>':''}${it.ti}</div>
           <div class="sub"><span class="who">${it.who}</span> · ${it.pl}${it.note?' · '+it.note:''}</div>
         </div>
@@ -597,7 +547,7 @@ function renderPrograms(){
   const bar=document.getElementById('filterbar');
   bar.innerHTML='';
   cats.forEach(c=>{
-    const chip=document.createElement('div');
+    const chip=document.createElement('button');
     chip.className='chip'+(c===activeCat?' active':'');
     chip.textContent=c;
     chip.onclick=()=>{activeCat=c;renderPrograms();};
@@ -623,12 +573,12 @@ function renderPrograms(){
         <div class="idx">${String(i+1).padStart(2,'0')}</div>
         <div class="h-main">
           <div class="kind">${p.kind}</div>
-          <div class="p-title">${p.live?'<span style="color:var(--coral)">✱ </span>':''}${p.title}</div>
+          <div class="p-title">${p.live?'<span class="live">✱ </span>':''}${p.title}</div>
           ${p.en?`<div class="p-title-en">${p.en}</div>`:''}
           ${p.artist?`<div class="p-artist">${p.artist}</div>`:''}
           <div class="prog-meta">${meta.map(m=>`<span>${m}</span>`).join('')}</div>
         </div>
-        <div class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
       </div>
       ${body}`;
     card.querySelector('.prog-head').onclick=()=>card.classList.toggle('open');
@@ -640,7 +590,7 @@ function renderPrograms(){
 function mapLinks(q){
   const e=encodeURIComponent(q);
   return `<div class="v-actions">
-    <a class="mapbtn primary" target="_blank" rel="noopener" href="https://map.naver.com/p/search/${e}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>네이버 지도</a>
+    <a class="mapbtn" target="_blank" rel="noopener" href="https://map.naver.com/p/search/${e}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>네이버 지도</a>
     <a class="mapbtn" target="_blank" rel="noopener" href="https://map.kakao.com/?q=${e}">카카오맵</a>
     <a class="mapbtn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${e}">Google Maps</a>
   </div>`;
@@ -678,7 +628,7 @@ function renderVenues(){
     const el=document.createElement('div');
     el.className='venue';
     el.innerHTML=`
-      <div class="v-top"><span class="v-dot" style="background:var(--coral)"></span><span class="v-name">${x.name}</span></div>
+      <div class="v-top"><span class="v-dot" style="background:var(--accent)"></span><span class="v-name">${x.name}</span></div>
       <div class="v-role">${x.artist}</div>
       <div class="v-addr">${x.addr}</div>
       <div class="v-hours">관람 · ${x.hours}</div>
