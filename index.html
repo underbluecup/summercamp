@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0e2438">
+<title>2026 서머 캠프 · 섬과 다리 | Summer Camp 2026 Islands and Bridges</title>
+<meta name="description" content="2026 서머 캠프 〈섬과 다리〉 · 2026.8.6–8.9 · 주최 YPC. 서울 곳곳에서 열리는 나흘간의 전시·공유모임·낭독·워크숍·상영·퍼포먼스.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0e2438;
+  --ink-soft:#20374d;
+  --sea:#186b7c;
+  --sea-2:#2f8a99;
+  --sea-mist:#cfe1e2;
+  --sand:#f4ecdb;
+  --paper:#fbf6ea;
+  --paper-2:#f6efe0;
+  --coral:#dd5e37;
+  --gold:#c99442;
+  --line:#e2d7bf;
+  --text:#1d2a33;
+  --muted:#5f6f77;
+  --shadow:0 10px 30px rgba(14,36,56,.10);
+  --serif:'Noto Serif KR', 'Fraunces', Georgia, serif;
+  --display:'Fraunces', 'Noto Serif KR', Georgia, serif;
+  --sans:'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:var(--sans);
+  color:var(--text);
+  background:#c9d6d2;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* phone frame on wide screens */
+#app{
+  max-width:480px;
+  margin:0 auto;
+  min-height:100vh;
+  min-height:100dvh;
+  background:var(--paper);
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 60px rgba(0,0,0,.18);
+}
+@media(min-width:520px){
+  body{padding:24px 0;}
+  #app{border-radius:26px;min-height:calc(100dvh - 48px);}
+}
+
+/* ---------- views ---------- */
+.view{
+  display:none;
+  padding:0 0 108px;
+  min-height:100dvh;
+  animation:fade .45s ease;
+}
+.view.active{display:block;}
+@keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+.pad{padding:0 22px;}
+.section-eyebrow{
+  font-family:var(--display);
+  font-style:italic;
+  color:var(--sea);
+  font-size:15px;
+  letter-spacing:.02em;
+}
+.section-title{
+  font-family:var(--serif);
+  font-weight:600;
+  color:var(--ink);
+  font-size:25px;
+  line-height:1.25;
+  margin:2px 0 4px;
+}
+.page-head{
+  padding:26px 22px 18px;
+  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:20;
+  background:rgba(251,246,234,.92);
+  backdrop-filter:saturate(1.2) blur(8px);
+}
+
+/* ---------- HOME / cover ---------- */
+#view-home{padding-bottom:108px;background:var(--ink);color:#f4ecdb;min-height:100dvh;}
+.cover{
+  position:relative;
+  min-height:100dvh;
+  display:flex;flex-direction:column;
+  padding:calc(env(safe-area-inset-top) + 40px) 26px 120px;
+  overflow:hidden;
+  background:
+    radial-gradient(120% 80% at 80% 8%, rgba(47,138,153,.45), transparent 60%),
+    radial-gradient(90% 60% at 10% 95%, rgba(221,94,55,.28), transparent 60%),
+    linear-gradient(180deg,#0e2438 0%, #113049 55%, #0c2033 100%);
+}
+.cover-sea{position:absolute;inset:0;z-index:0;opacity:.9;}
+.cover-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;
+  font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#a9c6c9;}
+.cover-top b{color:#f4ecdb;font-weight:500;letter-spacing:.16em;}
+.cover-mid{position:relative;z-index:2;margin-top:auto;margin-bottom:auto;padding-top:36px;}
+.cover-kicker{
+  font-family:var(--display);font-style:italic;font-size:18px;color:#e9c98b;margin-bottom:14px;
+}
+.cover-title{
+  font-family:var(--serif);font-weight:600;color:#fbf6ea;
+  font-size:clamp(44px,15vw,60px);line-height:1.02;letter-spacing:-.01em;
+}
+.cover-title .sep{display:block;height:10px;}
+.cover-title-en{
+  font-family:var(--display);font-style:italic;font-weight:400;
+  font-size:clamp(20px,6vw,25px);color:#8fb6ba;margin-top:18px;line-height:1.2;
+}
+.cover-rule{width:52px;height:2px;background:var(--coral);margin:26px 0 20px;border:none;}
+.cover-meta{position:relative;z-index:2;color:#d6e2e2;}
+.cover-meta .dates{font-family:var(--serif);font-size:22px;color:#fbf6ea;font-weight:500;letter-spacing:.01em;}
+.cover-meta .host{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#93b3b7;margin-top:10px;}
+.cover-cta{
+  position:relative;z-index:2;margin-top:30px;display:inline-flex;align-items:center;gap:10px;
+  align-self:flex-start;
+  background:var(--coral);color:#fff;border:none;
+  font-family:var(--sans);font-size:15px;font-weight:500;
+  padding:13px 22px;border-radius:100px;cursor:pointer;
+  box-shadow:0 8px 22px rgba(221,94,55,.4);
+}
+.cover-cta svg{width:16px;height:16px;}
+.cover-scroll{position:relative;z-index:2;margin-top:22px;font-size:12px;letter-spacing:.14em;color:#7fa1a6;text-transform:uppercase;}
+
+/* islands quick nav on cover */
+.cover-links{position:relative;z-index:2;margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.cover-link{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;padding:13px 14px;cursor:pointer;
+  font-size:14px;color:#dfeaec;transition:.2s;
+}
+.cover-link:hover{background:rgba(255,255,255,.12);}
+.cover-link .n{font-family:var(--display);font-style:italic;color:#e9c98b;font-size:15px;}
+
+/* ---------- generic cards ---------- */
+.lead{font-family:var(--serif);font-size:18px;line-height:1.85;color:var(--ink-soft);margin:18px 0;}
+.para{font-size:14.5px;line-height:1.9;color:var(--text);margin:14px 0;}
+.para.muted{color:var(--muted);}
+
+.factbox{
+  background:var(--paper-2);border:1px solid var(--line);border-radius:16px;
+  padding:16px 18px;margin:20px 0;
+}
+.factrow{display:flex;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line);}
+.factrow:last-child{border-bottom:none;}
+.factrow .k{flex:0 0 62px;font-size:12.5px;color:var(--sea);font-weight:500;letter-spacing:.04em;padding-top:2px;}
+.factrow .v{flex:1;font-size:14px;color:var(--text);}
+.factrow .v b{font-weight:600;color:var(--ink);}
+
+.note{
+  display:flex;gap:10px;align-items:flex-start;
+  background:rgba(24,107,124,.07);border-left:3px solid var(--sea);
+  border-radius:0 12px 12px 0;padding:12px 14px;margin:18px 0;font-size:13px;color:var(--ink-soft);
+}
+.note .star{color:var(--coral);font-weight:700;}
+
+/* ---------- schedule ---------- */
+.daytabs{display:flex;gap:7px;overflow-x:auto;padding:14px 22px 4px;scrollbar-width:none;}
+.daytabs::-webkit-scrollbar{display:none;}
+.daytab{
+  flex:0 0 auto;border:1px solid var(--line);background:var(--paper);
+  border-radius:12px;padding:9px 14px;cursor:pointer;text-align:center;min-width:66px;
+  transition:.2s;
+}
+.daytab .d{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);line-height:1;}
+.daytab .w{font-size:11px;color:var(--muted);margin-top:3px;}
+.daytab.active{background:var(--ink);border-color:var(--ink);}
+.daytab.active .d{color:#fbf6ea;}
+.daytab.active .w{color:#9fbabd;}
+
+.day-panel{display:none;padding:8px 22px 0;}
+.day-panel.active{display:block;animation:fade .35s ease;}
+.day-head{font-family:var(--display);font-style:italic;color:var(--sea);font-size:15px;margin:14px 0 6px;}
+
+.slot{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);}
+.slot:last-child{border-bottom:none;}
+.slot .time{flex:0 0 52px;font-family:var(--serif);font-weight:600;color:var(--sea);font-size:15px;line-height:1.3;padding-top:1px;}
+.slot .time small{display:block;font-family:var(--sans);font-weight:400;font-size:11px;color:var(--muted);}
+.slot .body{flex:1;}
+.slot .tag{
+  display:inline-block;font-size:11px;letter-spacing:.02em;color:#fff;background:var(--sea);
+  padding:2px 9px;border-radius:100px;margin-bottom:6px;font-weight:500;
+}
+.slot .tag.break{background:#b7ab8e;}
+.slot .tag.t-오프닝,.slot .tag.t-뒤풀이{background:var(--coral);}
+.slot .tag.t-전시,.slot .tag.t-토크{background:var(--ink-soft);}
+.slot .tag.t-퍼포먼스{background:#8a5a9e;}
+.slot .tag.t-워크숍{background:var(--gold);}
+.slot .ti{font-family:var(--serif);font-weight:600;font-size:15.5px;color:var(--ink);line-height:1.4;}
+.slot .live{color:var(--coral);font-weight:700;}
+.slot .sub{font-size:13px;color:var(--muted);margin-top:3px;}
+.slot .sub .who{color:var(--ink-soft);}
+.slot.is-break{opacity:.6;}
+.slot.is-break .body{align-self:center;}
+
+/* ---------- program ---------- */
+.filterbar{display:flex;gap:7px;overflow-x:auto;padding:14px 22px 4px;scrollbar-width:none;}
+.filterbar::-webkit-scrollbar{display:none;}
+.chip{
+  flex:0 0 auto;border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);
+  border-radius:100px;padding:7px 15px;font-size:13px;cursor:pointer;transition:.2s;white-space:nowrap;
+}
+.chip.active{background:var(--sea);border-color:var(--sea);color:#fff;}
+
+.prog{
+  border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:14px 22px;
+  background:var(--paper);box-shadow:var(--shadow);
+}
+.prog-head{padding:16px 18px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;}
+.prog-head .idx{
+  font-family:var(--display);font-style:italic;font-size:15px;color:var(--sea-2);flex:0 0 auto;padding-top:3px;
+}
+.prog-head .h-main{flex:1;}
+.prog .kind{font-size:11px;letter-spacing:.03em;color:var(--sea);font-weight:600;text-transform:uppercase;}
+.prog .p-title{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);line-height:1.35;margin-top:2px;}
+.prog .p-title-en{font-family:var(--display);font-style:italic;font-size:13.5px;color:var(--muted);margin-top:2px;}
+.prog .p-artist{font-size:13px;color:var(--ink-soft);margin-top:7px;}
+.prog .chev{flex:0 0 auto;color:var(--sea);transition:transform .3s;padding-top:2px;}
+.prog.open .chev{transform:rotate(180deg);}
+.prog-meta{display:flex;flex-wrap:wrap;gap:6px 8px;margin-top:10px;}
+.prog-meta span{font-size:11.5px;color:var(--muted);background:var(--paper-2);border:1px solid var(--line);border-radius:8px;padding:3px 9px;}
+.prog-body{max-height:0;overflow:hidden;transition:max-height .45s ease;}
+.prog.open .prog-body{max-height:1600px;}
+.prog-body-inner{padding:0 18px 18px;border-top:1px solid var(--line);margin-top:2px;}
+.prog-body-inner h4{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--sea);margin:16px 0 6px;font-weight:600;}
+.prog-body-inner p{font-size:13.5px;line-height:1.85;color:var(--text);}
+.prog-link{
+  display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13px;color:var(--coral);
+  text-decoration:none;font-weight:500;border-bottom:1px solid rgba(221,94,55,.35);padding-bottom:1px;
+}
+
+/* ---------- venue ---------- */
+.map-schematic{margin:16px 22px 4px;border-radius:18px;overflow:hidden;background:var(--ink);box-shadow:var(--shadow);}
+.map-schematic svg{display:block;width:100%;height:auto;}
+.venue{
+  border:1px solid var(--line);border-radius:16px;margin:14px 22px;padding:16px 18px;background:var(--paper);
+}
+.venue .v-top{display:flex;align-items:baseline;gap:8px;}
+.venue .v-dot{width:11px;height:11px;border-radius:50%;background:var(--sea);flex:0 0 auto;transform:translateY(1px);}
+.venue .v-name{font-family:var(--serif);font-weight:600;font-size:17px;color:var(--ink);}
+.venue .v-role{font-size:12px;color:var(--sea);margin:4px 0 0 19px;}
+.venue .v-addr{font-size:13.5px;color:var(--text);margin:10px 0 0 19px;line-height:1.6;}
+.venue .v-hours{font-size:12.5px;color:var(--muted);margin:6px 0 0 19px;}
+.venue .v-actions{display:flex;gap:8px;margin:14px 0 0 19px;flex-wrap:wrap;}
+.mapbtn{
+  display:inline-flex;align-items:center;gap:6px;text-decoration:none;
+  font-size:12.5px;font-weight:500;padding:8px 13px;border-radius:100px;
+  border:1px solid var(--line);color:var(--ink-soft);background:var(--paper-2);
+}
+.mapbtn.primary{background:var(--sea);color:#fff;border-color:var(--sea);}
+.mapbtn svg{width:13px;height:13px;}
+
+/* exhibitions list reuse venue */
+.subhead{font-family:var(--display);font-style:italic;color:var(--sea);font-size:15px;margin:24px 22px 2px;}
+
+/* ---------- footer credit ---------- */
+.foot{padding:30px 22px 20px;text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:26px;}
+.foot .mk{font-family:var(--serif);color:var(--ink);font-size:16px;}
+.foot .dt{font-size:12px;margin-top:6px;letter-spacing:.06em;}
+.foot .host{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sea);margin-top:12px;}
+
+/* ---------- bottom nav ---------- */
+.nav{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:0;width:100%;max-width:480px;z-index:50;
+  background:rgba(251,246,234,.94);backdrop-filter:saturate(1.3) blur(12px);
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-around;
+  padding:8px 6px calc(env(safe-area-inset-bottom) + 8px);
+}
+@media(min-width:520px){.nav{border-radius:0 0 26px 26px;bottom:24px;}}
+.navbtn{
+  flex:1;background:none;border:none;cursor:pointer;color:var(--muted);
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 2px;font-family:var(--sans);
+}
+.navbtn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.navbtn span{font-size:10.5px;letter-spacing:.01em;}
+.navbtn.active{color:var(--coral);}
+.navbtn.active svg{stroke:var(--coral);}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ============ HOME ============ -->
+  <section id="view-home" class="view active" data-view="home">
+    <div class="cover">
+      <svg class="cover-sea" viewBox="0 0 480 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="wv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2f8a99" stop-opacity=".0"/>
+            <stop offset="1" stop-color="#2f8a99" stop-opacity=".22"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 640 Q120 600 240 640 T480 640 V900 H0 Z" fill="url(#wv)"/>
+        <path d="M0 700 Q120 660 240 700 T480 700 V900 H0 Z" fill="url(#wv)"/>
+        <path d="M0 760 Q120 720 240 760 T480 760 V900 H0 Z" fill="url(#wv)"/>
+        <!-- islands + bridge -->
+        <g opacity=".85">
+          <ellipse cx="96" cy="628" rx="42" ry="12" fill="#0c2033"/>
+          <ellipse cx="300" cy="612" rx="56" ry="15" fill="#0c2033"/>
+          <path d="M132 624 Q210 590 250 610" fill="none" stroke="#e9c98b" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>
+          <path d="M356 608 Q410 596 448 612" fill="none" stroke="#dd5e37" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>
+          <circle cx="96" cy="624" r="3" fill="#e9c98b"/>
+          <circle cx="300" cy="606" r="3" fill="#e9c98b"/>
+          <circle cx="448" cy="610" r="3" fill="#dd5e37"/>
+        </g>
+      </svg>
+
+      <div class="cover-top">
+        <span><b>YPC</b> presents</span>
+        <span>SEOUL · 2026</span>
+      </div>
+
+      <div class="cover-mid">
+        <div class="cover-kicker">2026 서머 캠프</div>
+        <h1 class="cover-title">섬과<span class="sep"></span>다리</h1>
+        <div class="cover-title-en">Summer Camp 2026<br>Islands and Bridges</div>
+        <hr class="cover-rule">
+        <div class="cover-meta">
+          <div class="dates">2026. 8. 6 <span style="opacity:.5">—</span> 8. 9</div>
+          <div class="host">주최 · Organized by YPC</div>
+        </div>
+        <button class="cover-cta" onclick="go('about')">
+          브로슈어 살펴보기
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+
+        <div class="cover-links">
+          <div class="cover-link" onclick="go('about')"><span class="n">01</span>행사 소개</div>
+          <div class="cover-link" onclick="go('schedule')"><span class="n">02</span>일정표</div>
+          <div class="cover-link" onclick="go('program')"><span class="n">03</span>세부 프로그램</div>
+          <div class="cover-link" onclick="go('venue')"><span class="n">04</span>장소 · 지도</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="view-about" class="view" data-view="about">
+    <div class="page-head">
+      <div class="section-eyebrow">01 · Introduction</div>
+      <div class="section-title">행사 소개</div>
+    </div>
+    <div class="pad">
+      <p class="lead">섬과 섬 사이에는 다리가 놓입니다. 나흘 동안, 바다를 건너온 사람과 사물, 문장과 이미지가 서울 곳곳에서 서로에게 가닿습니다.</p>
+      <p class="para">2026 서머 캠프 〈섬과 다리〉는 이주와 디아스포라, 번역과 항해, 연결과 고립의 감각을 실마리로 삼는 자리입니다. 제주로 건너온 감귤나무의 사회사에서, 바다를 건너는 해방운동의 항해로, 서로의 일기와 노트를 소리 내어 읽는 낭독의 시간으로, 그리고 공간의 현재를 실시간으로 송출하는 임시 방송국으로 — 서로 다른 섬처럼 흩어진 이야기들이 프로그램이라는 다리로 이어집니다.</p>
+      <p class="para">전시장은 서울 중구와 종로 일대에 섬처럼 자리하고, 공유모임·낭독·워크숍·상영·퍼포먼스·토크가 그 사이를 오갑니다. 관객은 도시를 건너다니며 각각의 섬에 상륙하고, 그 사이에 놓인 다리를 함께 걷도록 초대받습니다.</p>
+
+      <div class="factbox">
+        <div class="factrow"><div class="k">행사명</div><div class="v"><b>2026 서머 캠프 〈섬과 다리〉</b><br><span style="color:var(--muted);font-style:italic">Summer Camp 2026 · Islands and Bridges</span></div></div>
+        <div class="factrow"><div class="k">기간</div><div class="v"><b>2026. 8. 6 (목) — 8. 9 (일)</b> · 4일간</div></div>
+        <div class="factrow"><div class="k">장소</div><div class="v">YPC SPACE 외 서울 중구·종로 일대</div></div>
+        <div class="factrow"><div class="k">주최</div><div class="v"><b>YPC</b></div></div>
+        <div class="factrow"><div class="k">구성</div><div class="v">전시 · 공유모임 · 낭독 · 워크숍 · 상영 · 퍼포먼스 · 토크</div></div>
+      </div>
+
+      <div class="note">
+        <span class="star">✱</span>
+        <div><b>✱</b> 표시된 프로그램은 <b>2b-temp-cast</b>(임시 온라인 방송국)를 통해 실시간 라이브로 방송되어, 현장에 없는 이들에게도 가닿습니다.</div>
+      </div>
+
+      <p class="para muted" style="font-size:13px;">아래 하단 메뉴로 일정표 · 세부 프로그램 · 장소 지도를 이어서 확인하세요.</p>
+    </div>
+    <div class="foot">
+      <div class="mk">섬과 다리</div>
+      <div class="dt">2026. 8. 6 — 8. 9</div>
+      <div class="host">Organized by YPC</div>
+    </div>
+  </section>
+
+  <!-- ============ SCHEDULE ============ -->
+  <section id="view-schedule" class="view" data-view="schedule">
+    <div class="page-head">
+      <div class="section-eyebrow">02 · Schedule</div>
+      <div class="section-title">일정표</div>
+    </div>
+    <div class="daytabs" id="daytabs"></div>
+    <div id="daypanels"></div>
+    <div class="note" style="margin:22px;">
+      <span class="star">✱</span>
+      <div><b>✱</b> 표시 프로그램은 2b-temp-cast를 통해 실시간 라이브 방송됩니다. 전시는 기간 내 상시 관람 가능하며, 장소별 관람 시간은 <b onclick="go('venue')" style="color:var(--coral);cursor:pointer;">장소 페이지</b>를 참고하세요.</div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRAM ============ -->
+  <section id="view-program" class="view" data-view="program">
+    <div class="page-head">
+      <div class="section-eyebrow">03 · Program</div>
+      <div class="section-title">세부 프로그램</div>
+    </div>
+    <div class="filterbar" id="filterbar"></div>
+    <div id="proglist"></div>
+  </section>
+
+  <!-- ============ VENUE ============ -->
+  <section id="view-venue" class="view" data-view="venue">
+    <div class="page-head">
+      <div class="section-eyebrow">04 · Venues</div>
+      <div class="section-title">행사 장소 · 지도</div>
+    </div>
+
+    <div class="map-schematic">
+      <svg viewBox="0 0 480 300" aria-hidden="true">
+        <rect width="480" height="300" fill="#0e2438"/>
+        <g opacity=".5" stroke="#2f8a99" stroke-width="1" fill="none">
+          <path d="M0 210 Q120 190 240 210 T480 210"/>
+          <path d="M0 240 Q120 220 240 240 T480 240"/>
+          <path d="M0 270 Q120 250 240 270 T480 270"/>
+        </g>
+        <!-- bridges -->
+        <g stroke-width="1.6" fill="none" stroke-dasharray="2 6" stroke-linecap="round">
+          <path d="M120 120 Q200 80 250 120" stroke="#e9c98b"/>
+          <path d="M250 120 Q320 150 360 110" stroke="#e9c98b"/>
+          <path d="M120 120 Q110 170 170 195" stroke="#dd5e37"/>
+          <path d="M360 110 Q400 160 350 200" stroke="#dd5e37"/>
+        </g>
+        <!-- islands -->
+        <g font-family="'Noto Sans KR',sans-serif" font-size="10" fill="#dfeaec">
+          <g><ellipse cx="120" cy="122" rx="30" ry="9" fill="#16697a"/><circle cx="120" cy="118" r="4" fill="#e9c98b"/><text x="120" y="100" text-anchor="middle" fill="#fbf6ea" font-size="11" font-weight="600">YPC SPACE</text></g>
+          <g><ellipse cx="255" cy="122" rx="24" ry="8" fill="#16697a"/><circle cx="255" cy="118" r="4" fill="#e9c98b"/><text x="255" y="100" text-anchor="middle" fill="#fbf6ea" font-size="11" font-weight="600">PCO</text></g>
+          <g><ellipse cx="362" cy="112" rx="26" ry="8" fill="#16697a"/><circle cx="362" cy="108" r="4" fill="#e9c98b"/><text x="362" y="90" text-anchor="middle" fill="#fbf6ea" font-size="11" font-weight="600">FF Seoul</text></g>
+          <g><ellipse cx="172" cy="200" rx="24" ry="8" fill="#1d5566"/><circle cx="172" cy="196" r="4" fill="#dd5e37"/><text x="172" y="223" text-anchor="middle" fill="#dfeaec" font-size="10">전망</text></g>
+          <g><ellipse cx="348" cy="204" rx="30" ry="8" fill="#1d5566"/><circle cx="348" cy="200" r="4" fill="#dd5e37"/><text x="348" y="227" text-anchor="middle" fill="#dfeaec" font-size="10">충무 · 동국대</text></g>
+        </g>
+        <text x="24" y="40" font-family="Georgia,serif" font-style="italic" font-size="15" fill="#8fb6ba">Islands &amp; Bridges — Seoul</text>
+      </svg>
+    </div>
+    <p class="para muted" style="padding:0 22px;font-size:12.5px;">위 그림은 장소의 위치 관계를 나타낸 도식입니다. 각 카드의 버튼으로 실제 지도를 열 수 있어요.</p>
+
+    <div class="subhead">프로그램 장소</div>
+    <div id="venuelist"></div>
+
+    <div class="subhead">전시 · Exhibitions</div>
+    <div id="exhlist"></div>
+
+    <div class="foot">
+      <div class="mk">섬과 다리</div>
+      <div class="dt">2026. 8. 6 — 8. 9 · Seoul</div>
+      <div class="host">Organized by YPC</div>
+    </div>
+  </section>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav" id="nav">
+    <button class="navbtn active" data-nav="home" onclick="go('home')">
+      <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>홈</span>
+    </button>
+    <button class="navbtn" data-nav="about" onclick="go('about')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r=".6" fill="currentColor"/></svg><span>소개</span>
+    </button>
+    <button class="navbtn" data-nav="schedule" onclick="go('schedule')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="3" x2="8" y2="6"/><line x1="16" y1="3" x2="16" y2="6"/></svg><span>일정</span>
+    </button>
+    <button class="navbtn" data-nav="program" onclick="go('program')">
+      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1.2"/><circle cx="3.5" cy="12" r="1.2"/><circle cx="3.5" cy="18" r="1.2"/></svg><span>프로그램</span>
+    </button>
+    <button class="navbtn" data-nav="venue" onclick="go('venue')">
+      <svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span>장소</span>
+    </button>
+  </nav>
+
+</div>
+
+<script>
+/* ---------------- routing ---------------- */
+function go(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active', v.dataset.view===view));
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active', b.dataset.nav===view));
+  window.scrollTo({top:0,behavior:'instant'});
+  document.getElementById('app').scrollTop=0;
+  history.replaceState(null,'',view==='home'?location.pathname:'#'+view);
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  const h=location.hash.replace('#','');
+  if(['about','schedule','program','venue'].includes(h)) go(h);
+  renderSchedule(); renderPrograms(); renderVenues();
+});
+
+/* ---------------- SCHEDULE DATA ---------------- */
+const days=[
+  {d:'6',w:'목',label:'8월 6일 목요일',items:[
+    {t:'14:00',tag:'오프닝',ti:'서머 캠프에 초대합니다',live:true,who:'YPC',pl:'YPC SPACE'},
+    {t:'15:00',tag:'투어',ti:'릴레이 오프닝',who:'YPC',pl:'YPC SPACE'},
+    {t:'18:00',tag:'공유',ti:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',live:true,who:'권준희',pl:'YPC SPACE'},
+  ]},
+  {d:'7',w:'금',label:'8월 7일 금요일',items:[
+    {t:'15:00',tag:'낭독',ti:'건너오는 문장들 ①',live:true,who:'임수영',pl:'YPC SPACE'},
+    {t:'16:00',tag:'낭독',ti:'건너오는 문장들 ②',live:true,who:'김재형, 연정모',pl:'YPC SPACE'},
+    {t:'18:00',tag:'상영',ti:'많은 방과 흔적의 지도',who:'찬하우춘',pl:'충무아트센터'},
+  ]},
+  {d:'8',w:'토',label:'8월 8일 토요일',items:[
+    {t:'11:00',tag:'워크숍',ti:'예술 노동자의 시간 계산하기, 그리고 교환하기',who:'쿤치 스터디 포럼 & 콜렉티브',pl:'YPC SPACE',note:'비공개 / closed-door'},
+    {t:'12:00',tag:'낭독',ti:'건너오는 문장들 ③',live:true,who:'한여진',pl:'YPC SPACE'},
+    {t:'14:00',tag:'토크',ti:'아티스트 토크',live:true,who:'정리애, 하이바라 치아키, 이정옥, 츠치야 미치코',pl:'YPC SPACE'},
+    {t:'16:00',tag:'퍼포먼스',ti:'양윤화 (제목 미정)',who:'양윤화',pl:'YPC SPACE'},
+    {t:'18:00',tag:'공유',ti:'해방운동의 방법으로서의 항해',who:'이승준',pl:'동국대학교 학림관 소강당'},
+  ]},
+  {d:'9',w:'일',label:'8월 9일 일요일',items:[
+    {t:'10:00',tag:'워크숍',ti:'손 다음 손',who:'게게르보요',pl:'PCO'},
+    {t:'12:00',tag:'토크',ti:'아티스트 토크',who:'현남',pl:'PCO'},
+    {t:'14:00',tag:'토크',ti:'아티스트 토크',live:true,who:'이동현',pl:'YPC SPACE'},
+    {t:'15:00',tag:'토크',ti:'아티스트 토크',live:true,who:'쿤치 스터디 포럼 & 콜렉티브 ⅹ 와룽 시킬',pl:'YPC SPACE'},
+    {t:'18:00',tag:'뒤풀이',ti:'2026 서머 캠프를 마치며 + [퍼포먼스] 2b-temp-cast',live:true,who:'YPC · 2bpencil',pl:'YPC SPACE'},
+  ]},
+];
+
+function renderSchedule(){
+  const tabs=document.getElementById('daytabs');
+  const panels=document.getElementById('daypanels');
+  days.forEach((day,i)=>{
+    const tab=document.createElement('div');
+    tab.className='daytab'+(i===0?' active':'');
+    tab.innerHTML=`<div class="d">${day.d}</div><div class="w">${day.w}</div>`;
+    tab.onclick=()=>{
+      document.querySelectorAll('.daytab').forEach((t,j)=>t.classList.toggle('active',j===i));
+      document.querySelectorAll('.day-panel').forEach((p,j)=>p.classList.toggle('active',j===i));
+    };
+    tabs.appendChild(tab);
+
+    const panel=document.createElement('div');
+    panel.className='day-panel'+(i===0?' active':'');
+    let html=`<div class="day-head">${day.label}</div>`;
+    day.items.forEach(it=>{
+      const tagClass='tag t-'+it.tag;
+      html+=`<div class="slot">
+        <div class="time">${it.t}</div>
+        <div class="body">
+          <span class="${tagClass}">${it.tag}</span>
+          <div class="ti">${it.live?'<span class="live">✱ </span>':''}${it.ti}</div>
+          <div class="sub"><span class="who">${it.who}</span> · ${it.pl}${it.note?' · '+it.note:''}</div>
+        </div>
+      </div>`;
+    });
+    panel.innerHTML=html;
+    panels.appendChild(panel);
+  });
+}
+
+/* ---------------- PROGRAM DATA ---------------- */
+const programs=[
+  {kind:'전시',cat:'전시',title:'베이스캠프',en:'Base camp',artist:'YPC',place:'YPC SPACE',when:'8.6 – 9 · 목–금 14–19시 / 토–일 11–19시',
+   desc:'서머 캠프의 거점이 되는 전시. 나흘간의 프로그램이 시작되고 모이는 자리다.'},
+  {kind:'전시',cat:'전시',title:'관문',en:'Gateways',artist:'현남, 게게르보요',place:'PCO',when:'8.6 – 9 · 매일 12–19시',
+   desc:'게게르보요와 현남이 함께 여는 전시 〈관문〉. 8월 9일(일) 두 작가의 아티스트 토크가 연계 진행된다.'},
+  {kind:'전시',cat:'전시',title:'파이프릴레이',en:'Pipe-relay',artist:'이동현',place:'FF Seoul',when:'8.6 – 9 · 목–토 11–19시 / 일 11–18시',
+   desc:'세운상가 한켠에서 열리는 이동현 개인전. 8월 9일(일) 아티스트 토크가 함께 진행된다.'},
+  {kind:'전시',cat:'전시',title:'돌연, 눈앞이 열리고. 경계를 넘어서, 어두운 계단으로 나아가며',en:'Suddenly, the view spreads out before us…',artist:'정리애鄭梨愛, 하이바라 치아키灰原千晶, 이정옥李晶玉, 츠치야 미치코土屋美智子',place:'전망',when:'8.6 – 9 · 매일 12–19시',
+   link:'연계 아티스트 토크 — 8.8(토) 14시, YPC SPACE (일본어·한국어/조선어)',
+   desc:'네 명의 작가가 경계와 이동을 주제로 함께 여는 전시.'},
+
+  {kind:'상영',cat:'상영',title:'많은 방과 흔적의 지도',en:'A Collection of Traces',artist:'찬하우춘 Chan Hau Chun',place:'충무아트센터',when:'8.7(금) 18시',
+   desc:'〈많은 방들의 방〉(2024)과 〈흔적의 지도〉(2025)는 다세대 주택의 내밀한 실내 공간과 변화하는 도시의 풍경 사이를 오가며, 홍콩의 계속되는 변화 속에서도 남아있는 삶과 기억, 부재의 흔적을 조용히 따라간다. 방과 거리, 목소리, 비어 있는 좌석, 흐려지는 풍경을 통해 찬하우춘은 낯설어지고 있지만 아직 잊히지 않은 어떤 장소의 연약한 흔적들을 모은다.',
+   bio:'찬하우춘은 홍콩을 기반으로 활동하는 작가로, 시적인 미니멀리즘과 일상적 이미지에서 영감을 받아 개인적 서사와 집단적 서사가 교차하는 지점에 주목한다. 토론토 국제영화제, 금마장(金馬獎), 대만국제다큐멘터리영화제, 이미지 포럼 페스티벌, 오버하우젠 국제단편영화제 등 국제 영화제와 홍콩의 WMA 스페이스, 엠프티 갤러리(Empty Gallery)에서 작품이 소개된 바 있다.',
+   linked:'상영이 끝난 후 아티스트 토크가 진행됩니다.'},
+
+  {kind:'공유모임',cat:'공유',title:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Sharing session',artist:'권준희 Kwon June Hee',place:'YPC SPACE',when:'8.6(목) 18시',live:true,
+   desc:'제주도의 대표 산업인 감귤 재배는 재일제주인이 고향을 돕기 위해 감귤 묘목을 ‘선물’하는 것으로 본격화되었다. 이 모임에서는 사람의 이주, 나무의 이주가 국가 주도의 냉전 발전주의와 결합하며 제주의 농업, 생태, 경제, 그리고 삶의 조건을 재구성하는 과정을 살펴본다. 나아가 참여자들과 문답을 나누며 (비)인간 이주로 인한 환경/사회의 변화, 경계지대의 존재들과 이를 둘러싼 구조에 대해 이야기한다.',
+   bio:'캘리포니아 주립대학교 새크라멘토 아시안학과 교수. 동북아시아 변경 지역, 냉전 개발주의, 디아스포라와 이주, 생태정치를 주제로 연구하고 가르친다. 저서 『Borderland Dreams: The Transnational Lives of Korean Chinese Workers』(2023)로 2024년 미국동아시아인류학회(SEAA) 프랜시스 L. K. 쉬 저술상을 수상했다. 이 책은 『이주, 경계, 꿈』이라는 제목으로 번역 출간되었으며, 현재 감귤나무의 사회사를 다루는 『Frontier Fruits: The Social Power of Citrus Trees in Jeju, Korea』를 집필 중이다.'},
+
+  {kind:'공유모임',cat:'공유',title:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice',artist:'이승준 Jonathan Sungjun Lee',place:'동국대학교 학림관 소강당',when:'8.8(토) 18시 · 영어',
+   desc:'해양을 경유한 반전 운동에 참여해온 승준은 올해 가자지구로 향하는 국제 구호선단에 탑승했다가 나포되어 귀국했다. 이 토크에서는 가자지구로 향하는 항해 중에 찍은 푸티지를 상영하고 해방의 동력으로서 항해 운동의 내러티브와 의미에 대해 논한다. 그가 몸으로 체험한 항해의 경험을 토대로 바다를 건너는 행위 자체가 가진 생성적 힘을 제시한다.',
+   bio:'조나단 승준 리는 가족, 디아스포라, 생태를 주제로 영상을 만드는 영화 감독이자 활동가다. 그는 강정마을 해군기지 반대운동과 ‘공정과 평화의 바다’ 등 해양을 경유하는 여러 반전운동에 참여하였다.'},
+
+  {kind:'낭독',cat:'낭독',title:'건너오는 문장들',en:'Crossing Sentences',artist:'김재형·연정모, 임수영, 한여진',place:'YPC SPACE',when:'8.7(금) 15·16시, 8.8(토) 12시',live:true,
+   desc:'각자가 써온 일기와 메모, 연구 노트, 크고 작은 창작물을 함께 읽는 자리다. 홀로 쌓아온 관심과 사유를 타인 앞에 꺼내어 나누는 이 시간은 2b-temp-cast(온라인 방송국)를 통해 실시간으로 송출되어 현장에 없는 이들에게도 가닿는다. 김재형과 연정모는 오랜 글쓰기 메이트로서 주고받은 편지와 대화를 함께 정리하여 읽는다. 임수영은 미학 연구자로서 서울과 광주를 오가며 쓴 일기를 읽으며 삶과 연구의 조화와 불화를 내비친다. 한여진은 태어나기 이전의 시간과 ‘없는 기억’ 속 타인의 흔적을 상상하며 존재 이전과 이후를 잇는 시를 쓴다.',
+   bio:'한여진 — 시인이자 건축 엔지니어. 시집 『두부를 구우면 겨울이 온다』 등이 있다.'},
+
+  {kind:'워크숍',cat:'워크숍',title:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Workshop',artist:'쿤치 스터디 포럼 & 콜렉티브 ⅹ 와룽 시킬',place:'YPC SPACE',when:'8.8(토) 11시',
+   desc:'예술 노동자의 시간을 어떻게 계산하고 또 교환할 수 있을지 함께 다루는 워크숍.',
+   linked:'연계 토크 프로그램 — 8.9(일) 15시, YPC SPACE'},
+
+  {kind:'퍼포먼스',cat:'퍼포먼스',title:'양윤화 (제목 미정)',en:'Performance — Walk in the dark',artist:'양윤화',place:'YPC SPACE',when:'8.8(토) 16시',
+   desc:'양윤화의 신작 퍼포먼스.'},
+
+  {kind:'프로그램',cat:'프로그램',title:'2b-temp-cast',en:'2b-temp-cast',artist:'2bpencil (희주, 재형)',place:'YPC SPACE',when:'8.6 – 9 · 퍼포먼스 8.9(일) 19시',live:true,
+   desc:'2b-temp-cast(이비 템프 캐스트)는 YPC SPACE를 하나의 임시적인 실험적 방송국으로 전환하는 프로그램이다. 인터넷 라디오의 방식으로 공유모임, 낭독회, 퍼포먼스 등 공간의 현재를 실시간으로 송출한다. 희주·재형의 퍼포먼스는 SSTV(Slow Scan Television) 방식을 차용해 이미지를 주파수로 변환해 송수신하고, SDR(Software Defined Radio)을 활용해 전파 환경을 탐색하며, 서로의 신호를 주고받는 과정에서 발생하는 왜곡과 노이즈, 픽셀의 흔적을 드러낸다. 매체를 통해 증폭되고 멀리 전달되는 전자기적 풍경을 듣는 경험은 세계와 연결되는 동시에 고립의 감각을 환기한다.',
+   bio:'희주는 소리를 매개로 감각적 연결의 방식과 그것이 구성되는 조건들을 탐구한다. 재형은 감각에 배반당해온 경험을 뒤로하고 그 자리를 채우는 이야기들에 주목한다. 최근에는 자체 호스팅 서버를 기반으로 연결과 만남을 시도하며, 그 접점에서 발생하는 이야기들을 인터페이스의 표면 위로 공유하고 기록하는 실험을 지속한다. 두 사람은 2bpencil.online을 서로의 세계가 맞닿는 중간지대로 삼는다.'},
+];
+
+const cats=['전체','전시','공유','낭독','워크숍','상영','퍼포먼스','프로그램'];
+let activeCat='전체';
+
+function renderPrograms(){
+  const bar=document.getElementById('filterbar');
+  bar.innerHTML='';
+  cats.forEach(c=>{
+    const chip=document.createElement('div');
+    chip.className='chip'+(c===activeCat?' active':'');
+    chip.textContent=c;
+    chip.onclick=()=>{activeCat=c;renderPrograms();};
+    bar.appendChild(chip);
+  });
+  const list=document.getElementById('proglist');
+  list.innerHTML='';
+  const shown=programs.filter(p=>activeCat==='전체'||p.cat===activeCat);
+  shown.forEach((p,i)=>{
+    const card=document.createElement('div');
+    card.className='prog';
+    const meta=[];
+    if(p.place) meta.push(p.place);
+    if(p.when) meta.push(p.when);
+    let body=`<div class="prog-body"><div class="prog-body-inner">`;
+    if(p.desc) body+=`<h4>프로그램 소개</h4><p>${p.desc}</p>`;
+    if(p.bio) body+=`<h4>참여작가</h4><p>${p.bio}</p>`;
+    if(p.linked) body+=`<h4>연계 프로그램</h4><p>${p.linked}</p>`;
+    if(p.link) body+=`<h4>연계</h4><p>${p.link}</p>`;
+    body+=`</div></div>`;
+    card.innerHTML=`
+      <div class="prog-head">
+        <div class="idx">${String(i+1).padStart(2,'0')}</div>
+        <div class="h-main">
+          <div class="kind">${p.kind}</div>
+          <div class="p-title">${p.live?'<span style="color:var(--coral)">✱ </span>':''}${p.title}</div>
+          ${p.en?`<div class="p-title-en">${p.en}</div>`:''}
+          ${p.artist?`<div class="p-artist">${p.artist}</div>`:''}
+          <div class="prog-meta">${meta.map(m=>`<span>${m}</span>`).join('')}</div>
+        </div>
+        <div class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      ${body}`;
+    card.querySelector('.prog-head').onclick=()=>card.classList.toggle('open');
+    list.appendChild(card);
+  });
+}
+
+/* ---------------- VENUE DATA ---------------- */
+function mapLinks(q){
+  const e=encodeURIComponent(q);
+  return `<div class="v-actions">
+    <a class="mapbtn primary" target="_blank" rel="noopener" href="https://map.naver.com/p/search/${e}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>네이버 지도</a>
+    <a class="mapbtn" target="_blank" rel="noopener" href="https://map.kakao.com/?q=${e}">카카오맵</a>
+    <a class="mapbtn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${e}">Google Maps</a>
+  </div>`;
+}
+const venues=[
+  {name:'YPC SPACE',role:'베이스캠프 · 오프닝 · 공유모임 · 낭독 · 워크숍 · 퍼포먼스 · 토크',addr:'서울 중구 퇴계로 258, 4층',hours:'전시 관람 · 목–금 14–19시 / 토–일 11–19시',q:'서울 중구 퇴계로 258'},
+  {name:'PCO',role:'전시 〈관문〉 · 워크숍 · 토크',addr:'서울 중구 서애로 15-6',hours:'전시 관람 · 매일 12–19시',q:'서울 중구 서애로 15-6'},
+  {name:'FF Seoul',role:'전시 〈파이프릴레이〉',addr:'서울 종로구 청계천로 159, 세운상가 가동 바열 325호',hours:'전시 관람 · 목–토 11–19시 / 일 11–18시',q:'서울 종로구 청계천로 159 세운상가'},
+  {name:'전망 (Sionmang)',role:'전시 〈돌연, 눈앞이 열리고…〉',addr:'서울 중구 동호로34길 8-9, 3층',hours:'전시 관람 · 매일 12–19시',q:'서울 중구 동호로34길 8-9'},
+  {name:'충무아트센터',role:'상영 〈많은 방과 흔적의 지도〉',addr:'서울 중구 (충무아트센터)',hours:'8.7(금) 18시',q:'충무아트센터'},
+  {name:'동국대학교 학림관 소강당',role:'공유모임 〈해방운동의 방법으로서의 항해〉',addr:'서울 중구 필동 동국대학교 학림관',hours:'8.8(토) 18시',q:'동국대학교 학림관'},
+];
+const exhibitions=[
+  {name:'베이스 캠프',artist:'YPC · YPC SPACE',addr:'서울 중구 퇴계로 258, 4층',hours:'목–금 14–19시 / 토–일 11–19시',q:'서울 중구 퇴계로 258'},
+  {name:'게게르보요 x 현남: 관문',artist:'PCO',addr:'서울 중구 서애로 15-6',hours:'목–일 12–19시',q:'서울 중구 서애로 15-6'},
+  {name:'이동현: 파이프 릴레이',artist:'FF Seoul',addr:'서울 종로구 청계천로 159, 세운상가 가동 바열 325호',hours:'목–토 11–19시 / 일 11–18시',q:'서울 종로구 청계천로 159 세운상가'},
+  {name:'돌연, 눈 앞이 열리고…',artist:'전망 (Sionmang)',addr:'서울 중구 동호로34길 8-9, 3층',hours:'목–일 12–19시',q:'서울 중구 동호로34길 8-9'},
+];
+
+function renderVenues(){
+  const vl=document.getElementById('venuelist');
+  venues.forEach(v=>{
+    const el=document.createElement('div');
+    el.className='venue';
+    el.innerHTML=`
+      <div class="v-top"><span class="v-dot"></span><span class="v-name">${v.name}</span></div>
+      <div class="v-role">${v.role}</div>
+      <div class="v-addr">${v.addr}</div>
+      <div class="v-hours">${v.hours}</div>
+      ${mapLinks(v.q)}`;
+    vl.appendChild(el);
+  });
+  const xl=document.getElementById('exhlist');
+  exhibitions.forEach(x=>{
+    const el=document.createElement('div');
+    el.className='venue';
+    el.innerHTML=`
+      <div class="v-top"><span class="v-dot" style="background:var(--coral)"></span><span class="v-name">${x.name}</span></div>
+      <div class="v-role">${x.artist}</div>
+      <div class="v-addr">${x.addr}</div>
+      <div class="v-hours">관람 · ${x.hours}</div>
+      ${mapLinks(x.q)}`;
+    xl.appendChild(el);
+  });
+}
+</script>
+</body>
+</html>
