@@ -124,6 +124,9 @@ body.lang-en .only-ko{display:none;}
 .tag.t-퍼포먼스{background:var(--p-lilac);}
 .tag.t-토크,.tag.t-전시{background:#f1f1f1;}
 .slot .ti{font-weight:600;font-size:16px;line-height:1.4;}
+.slot .ti-link{font-family:inherit;font-weight:600;font-size:16px;line-height:1.4;color:var(--ink);background:none;border:none;padding:0;text-align:left;cursor:pointer;display:inline;text-decoration:underline;text-decoration-color:var(--muted);text-decoration-thickness:1px;text-underline-offset:3px;}
+.slot .ti-link:hover{text-decoration-color:var(--ink);}
+.slot .ti-arrow{font-family:var(--sans-latin);font-weight:400;font-size:12.5px;color:var(--muted);margin-left:5px;text-decoration:none;display:inline-block;}
 .slot .live{font-weight:700;}
 .slot .sub{font-size:13px;color:var(--muted);margin-top:4px;}
 .slot .sub .who{color:var(--ink-2);}
@@ -144,6 +147,9 @@ body.lang-en .only-ko{display:none;}
 .prog-meta span{font-size:11.5px;color:var(--ink-2);border:1px solid var(--hair);border-radius:100px;padding:3px 11px;}
 .prog-body{max-height:0;overflow:hidden;transition:max-height .45s ease;}
 .prog.open .prog-body{max-height:2600px;}
+.prog.flash{animation:flashcard 1.2s ease;}
+@keyframes flashcard{0%,100%{background:var(--bg);}22%{background:var(--band);}}
+@media (prefers-reduced-motion: reduce){.prog.flash{animation:none;}}
 .prog-body-inner{padding:2px 22px 20px 57px;}
 .prog-body-inner h4{font-family:var(--sans-latin);font-style:italic;font-size:12.5px;color:var(--ink);margin:15px 0 5px;}
 .prog-body-inner p{font-size:13.5px;line-height:1.85;color:var(--ink-2);}
@@ -343,6 +349,20 @@ function go(view){
   window.scrollTo({top:0,behavior:'instant'});
   history.replaceState(null,'',view==='home'?location.pathname:'#'+view);
 }
+/* jump from a schedule item to its program detail */
+function goProgram(id){
+  go('program');
+  requestAnimationFrame(()=>{
+    const card=document.getElementById('prog-'+id);
+    if(!card) return;
+    document.querySelectorAll('.prog.open').forEach(c=>{ if(c!==card) c.classList.remove('open'); });
+    card.classList.add('open');
+    const y=card.getBoundingClientRect().top + window.scrollY - 116;
+    window.scrollTo({top:Math.max(0,y), behavior:'smooth'});
+    card.classList.add('flash');
+    setTimeout(()=>card.classList.remove('flash'), 1200);
+  });
+}
 window.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.lg').forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
   const totop=document.getElementById('totop');
@@ -358,26 +378,26 @@ const days=[
   {d:'6',w:{ko:'목',en:'Thu'},label:{ko:'8월 6일 목요일',en:'August 6, Thursday'},items:[
     {t:'14:00',tag:'오프닝',tagEn:'Opening',ti:{ko:'서머 캠프에 초대합니다',en:'Invitation to Summer Camp'},live:true,who:{ko:'YPC',en:'YPC'},pl:'YPC SPACE'},
     {t:'15:00',tag:'투어',tagEn:'Tour',ti:{ko:'릴레이 오프닝',en:'Relay Opening'},who:'YPC',pl:'YPC SPACE'},
-    {t:'18:00',tag:'공유',tagEn:'Sharing',ti:{ko:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Citrus Trees Crossing the Sea: Diaspora, Jeju, Gifts'},live:true,who:{ko:'권준희',en:'Kwon June Hee'},pl:'YPC SPACE'},
+    {ref:'citrus',t:'18:00',tag:'공유',tagEn:'Sharing',ti:{ko:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Citrus Trees Crossing the Sea: Diaspora, Jeju, Gifts'},live:true,who:{ko:'권준희',en:'Kwon June Hee'},pl:'YPC SPACE'},
   ]},
   {d:'7',w:{ko:'금',en:'Fri'},label:{ko:'8월 7일 금요일',en:'August 7, Friday'},items:[
-    {t:'15:00',tag:'낭독',tagEn:'Reading',ti:{ko:'건너오는 문장들 ①',en:'Crossing Sentences ①'},live:true,who:{ko:'임수영',en:'Lim Suyeong'},pl:'YPC SPACE'},
-    {t:'16:00',tag:'낭독',tagEn:'Reading',ti:{ko:'건너오는 문장들 ②',en:'Crossing Sentences ②'},live:true,who:{ko:'김재형, 연정모',en:'Kim Jaehyung, Yeon Jeongmo'},pl:'YPC SPACE'},
-    {t:'18:00',tag:'상영',tagEn:'Screening',ti:{ko:'많은 방과 흔적의 지도',en:'A Collection of Traces'},who:{ko:'찬하우춘',en:'Chan Hau Chun'},pl:{ko:'충무아트센터',en:'Chungmu Arts Center'}},
+    {ref:'crossing',t:'15:00',tag:'낭독',tagEn:'Reading',ti:{ko:'건너오는 문장들 ①',en:'Crossing Sentences ①'},live:true,who:{ko:'임수영',en:'Lim Suyeong'},pl:'YPC SPACE'},
+    {ref:'crossing',t:'16:00',tag:'낭독',tagEn:'Reading',ti:{ko:'건너오는 문장들 ②',en:'Crossing Sentences ②'},live:true,who:{ko:'김재형, 연정모',en:'Kim Jaehyung, Yeon Jeongmo'},pl:'YPC SPACE'},
+    {ref:'traces',t:'18:00',tag:'상영',tagEn:'Screening',ti:{ko:'많은 방과 흔적의 지도',en:'A Collection of Traces'},who:{ko:'찬하우춘',en:'Chan Hau Chun'},pl:{ko:'충무아트센터',en:'Chungmu Arts Center'}},
   ]},
   {d:'8',w:{ko:'토',en:'Sat'},label:{ko:'8월 8일 토요일',en:'August 8, Saturday'},items:[
-    {t:'11:00',tag:'워크숍',tagEn:'Workshop',ti:{ko:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Calculating and Exchanging the Time of Art Workers'},who:{ko:'쿤치 스터디 포럼 & 콜렉티브',en:'KUNCI Study Forum & Collective'},pl:'YPC SPACE',note:{ko:'비공개',en:'closed-door'}},
-    {t:'12:00',tag:'낭독',tagEn:'Reading',ti:{ko:'건너오는 문장들 ③',en:'Crossing Sentences ③'},live:true,who:{ko:'한여진',en:'Han Yeojin'},pl:'YPC SPACE'},
-    {t:'14:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'정리애, 하이바라 치아키, 이정옥, 츠치야 미치코',en:'Jeong Ri-ae, Haibara Chiaki, Lee Jeong-ok, Tsuchiya Michiko'},pl:'YPC SPACE'},
-    {t:'16:00',tag:'퍼포먼스',tagEn:'Performance',ti:{ko:'양윤화 (제목 미정)',en:'Yang Yunhwa — Walk in the dark'},who:{ko:'양윤화',en:'Yang Yunhwa'},pl:'YPC SPACE'},
-    {t:'18:00',tag:'공유',tagEn:'Sharing',ti:{ko:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice'},who:{ko:'이승준',en:'Jonathan Sungjun Lee'},pl:{ko:'동국대학교 학림관 소강당',en:'Dongguk University, Haklim Hall'}},
+    {ref:'artworkers',t:'11:00',tag:'워크숍',tagEn:'Workshop',ti:{ko:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Calculating and Exchanging the Time of Art Workers'},who:{ko:'쿤치 스터디 포럼 & 콜렉티브',en:'KUNCI Study Forum & Collective'},pl:'YPC SPACE',note:{ko:'비공개',en:'closed-door'}},
+    {ref:'crossing',t:'12:00',tag:'낭독',tagEn:'Reading',ti:{ko:'건너오는 문장들 ③',en:'Crossing Sentences ③'},live:true,who:{ko:'한여진',en:'Han Yeojin'},pl:'YPC SPACE'},
+    {ref:'suddenly',t:'14:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'정리애, 하이바라 치아키, 이정옥, 츠치야 미치코',en:'Jeong Ri-ae, Haibara Chiaki, Lee Jeong-ok, Tsuchiya Michiko'},pl:'YPC SPACE'},
+    {ref:'yangyunhwa',t:'16:00',tag:'퍼포먼스',tagEn:'Performance',ti:{ko:'양윤화 (제목 미정)',en:'Yang Yunhwa — Walk in the dark'},who:{ko:'양윤화',en:'Yang Yunhwa'},pl:'YPC SPACE'},
+    {ref:'sailing',t:'18:00',tag:'공유',tagEn:'Sharing',ti:{ko:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice'},who:{ko:'이승준',en:'Jonathan Sungjun Lee'},pl:{ko:'동국대학교 학림관 소강당',en:'Dongguk University, Haklim Hall'}},
   ]},
   {d:'9',w:{ko:'일',en:'Sun'},label:{ko:'8월 9일 일요일',en:'August 9, Sunday'},items:[
-    {t:'10:00',tag:'워크숍',tagEn:'Workshop',ti:{ko:'손 다음 손',en:'Hand After Hand'},who:{ko:'게게르보요',en:'Gegerboyo'},pl:'PCO'},
-    {t:'12:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},who:{ko:'현남',en:'Hyun Nahm'},pl:'PCO'},
-    {t:'14:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'이동현',en:'Lee Dong-hyun'},pl:'YPC SPACE'},
-    {t:'15:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'쿤치 스터디 포럼 & 콜렉티브 ⅹ 와룽 시킬',en:'KUNCI ⅹ Warung Sikil'},pl:'YPC SPACE'},
-    {t:'18:00',tag:'뒤풀이',tagEn:'Closing',ti:{ko:'2026 서머 캠프를 마치며 + [퍼포먼스] 2b-temp-cast',en:'Closing the 2026 Summer Camp + [Performance] 2b-temp-cast'},live:true,who:{ko:'YPC · 2bpencil',en:'YPC · 2bpencil'},pl:'YPC SPACE'},
+    {ref:'gateways',t:'10:00',tag:'워크숍',tagEn:'Workshop',ti:{ko:'손 다음 손',en:'Hand After Hand'},who:{ko:'게게르보요',en:'Gegerboyo'},pl:'PCO'},
+    {ref:'gateways',t:'12:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},who:{ko:'현남',en:'Hyun Nahm'},pl:'PCO'},
+    {ref:'piperelay',t:'14:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'이동현',en:'Lee Dong-hyun'},pl:'YPC SPACE'},
+    {ref:'artworkers',t:'15:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'쿤치 스터디 포럼 & 콜렉티브 ⅹ 와룽 시킬',en:'KUNCI ⅹ Warung Sikil'},pl:'YPC SPACE'},
+    {ref:'tempcast',t:'18:00',tag:'뒤풀이',tagEn:'Closing',ti:{ko:'2026 서머 캠프를 마치며 + [퍼포먼스] 2b-temp-cast',en:'Closing the 2026 Summer Camp + [Performance] 2b-temp-cast'},live:true,who:{ko:'YPC · 2bpencil',en:'YPC · 2bpencil'},pl:'YPC SPACE'},
   ]},
 ];
 
@@ -388,11 +408,15 @@ function renderSchedule(){
     let html=`<div class="band">${t(day.label)}</div>`;
     day.items.forEach(it=>{
       const note=it.note?' · '+t(it.note):'';
+      const liveMark=it.live?'<span class="live">✱ </span>':'';
+      const titleHtml=it.ref
+        ? `<button class="ti ti-link" onclick="goProgram('${it.ref}')">${liveMark}${t(it.ti)}<span class="ti-arrow" aria-hidden="true">↗</span></button>`
+        : `<div class="ti">${liveMark}${t(it.ti)}</div>`;
       html+=`<div class="slot">
         <div class="time">${it.t}</div>
         <div class="body">
           <span class="tag t-${it.tag}">${lang==='ko'?it.tag:it.tagEn}</span>
-          <div class="ti">${it.live?'<span class="live">✱ </span>':''}${t(it.ti)}</div>
+          ${titleHtml}
           <div class="sub"><span class="who">${t(it.who)}</span> · ${t(it.pl)}${note}</div>
         </div></div>`;
     });
@@ -402,41 +426,41 @@ function renderSchedule(){
 
 /* ---------------- PROGRAM DATA ---------------- */
 const programs=[
-  {cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'베이스캠프',en:'Base camp'},artist:{ko:'YPC',en:'YPC'},place:'YPC SPACE',when:{ko:'8.6 – 9 · 목–금 14–19시 / 토–일 11–19시',en:'Aug 6–9 · Thu–Fri 2–7pm / Sat–Sun 11am–7pm'},
+  {id:'basecamp',cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'베이스캠프',en:'Base camp'},artist:{ko:'YPC',en:'YPC'},place:'YPC SPACE',when:{ko:'8.6 – 9 · 목–금 14–19시 / 토–일 11–19시',en:'Aug 6–9 · Thu–Fri 2–7pm / Sat–Sun 11am–7pm'},
    desc:{ko:'서머 캠프의 거점이 되는 전시. 나흘간의 프로그램이 시작되고 모이는 자리다.',en:'The exhibition at the heart of Summer Camp — where the four days of programs begin and come together.'}},
-  {cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'관문',en:'Gateways'},artist:{ko:'현남, 게게르보요',en:'Hyun Nahm, Gegerboyo'},place:'PCO',when:{ko:'8.6 – 9 · 매일 12–19시',en:'Aug 6–9 · Daily 12–7pm'},
+  {id:'gateways',cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'관문',en:'Gateways'},artist:{ko:'현남, 게게르보요',en:'Hyun Nahm, Gegerboyo'},place:'PCO',when:{ko:'8.6 – 9 · 매일 12–19시',en:'Aug 6–9 · Daily 12–7pm'},
    desc:{ko:'게게르보요와 현남이 함께 여는 전시 〈관문〉. 8월 9일(일) 두 작가의 아티스트 토크가 연계 진행된다.',en:'A two-person exhibition, “Gateways,” by Gegerboyo and Hyun Nahm. Artist talks by both accompany the show on Sunday, Aug 9.'}},
-  {cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'파이프릴레이',en:'Pipe-relay'},artist:{ko:'이동현',en:'Lee Donghyun'},place:'FF Seoul',when:{ko:'8.6 – 9 · 목–토 11–19시 / 일 11–18시',en:'Aug 6–9 · Thu–Sat 11am–7pm / Sun 11am–6pm'},
+  {id:'piperelay',cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'파이프릴레이',en:'Pipe-relay'},artist:{ko:'이동현',en:'Lee Donghyun'},place:'FF Seoul',when:{ko:'8.6 – 9 · 목–토 11–19시 / 일 11–18시',en:'Aug 6–9 · Thu–Sat 11am–7pm / Sun 11am–6pm'},
    desc:{ko:'세운상가 한켠에서 열리는 이동현 개인전. 8월 9일(일) 아티스트 토크가 함께 진행된다.',en:'A solo exhibition by Lee Donghyun tucked into Sewoon Plaza. An artist talk accompanies it on Sunday, Aug 9.'}},
-  {cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'돌연, 눈앞이 열리고. 경계를 넘어서, 어두운 계단으로 나아가며',en:'Suddenly, the view spreads out before us…'},artist:{ko:'정리애鄭梨愛, 하이바라 치아키灰原千晶, 이정옥李晶玉, 츠치야 미치코土屋美智子',en:'Jeong Ri-ae, Haibara Chiaki, Lee Jeong-ok, Tsuchiya Michiko'},place:{ko:'전망',en:'Sionmang'},when:{ko:'8.6 – 9 · 매일 12–19시',en:'Aug 6–9 · Daily 12–7pm'},
+  {id:'suddenly',cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'돌연, 눈앞이 열리고. 경계를 넘어서, 어두운 계단으로 나아가며',en:'Suddenly, the view spreads out before us…'},artist:{ko:'정리애鄭梨愛, 하이바라 치아키灰原千晶, 이정옥李晶玉, 츠치야 미치코土屋美智子',en:'Jeong Ri-ae, Haibara Chiaki, Lee Jeong-ok, Tsuchiya Michiko'},place:{ko:'전망',en:'Sionmang'},when:{ko:'8.6 – 9 · 매일 12–19시',en:'Aug 6–9 · Daily 12–7pm'},
    link:{ko:'연계 아티스트 토크 — 8.8(토) 14시, YPC SPACE (일본어·한국어/조선어)',en:'Related artist talk — Aug 8 (Sat) 2pm, YPC SPACE (Japanese · Korean)'},
    desc:{ko:'네 명의 작가가 경계와 이동을 주제로 함께 여는 전시.',en:'A group exhibition by four artists exploring boundaries and movement.'}},
 
-  {cat:'상영',kind:{ko:'상영',en:'Screening'},title:{ko:'많은 방과 흔적의 지도',en:'A Collection of Traces'},artist:{ko:'찬하우춘 Chan Hau Chun',en:'Chan Hau Chun'},place:{ko:'충무아트센터',en:'Chungmu Arts Center'},when:{ko:'8.7(금) 18시',en:'Aug 7 (Fri) 6pm'},
+  {id:'traces',cat:'상영',kind:{ko:'상영',en:'Screening'},title:{ko:'많은 방과 흔적의 지도',en:'A Collection of Traces'},artist:{ko:'찬하우춘 Chan Hau Chun',en:'Chan Hau Chun'},place:{ko:'충무아트센터',en:'Chungmu Arts Center'},when:{ko:'8.7(금) 18시',en:'Aug 7 (Fri) 6pm'},
    desc:{ko:'〈많은 방들의 방〉(2024)과 〈흔적의 지도〉(2025)는 다세대 주택의 내밀한 실내 공간과 변화하는 도시의 풍경 사이를 오가며, 홍콩의 계속되는 변화 속에서도 남아있는 삶과 기억, 부재의 흔적을 조용히 따라간다. 방과 거리, 목소리, 비어 있는 좌석, 흐려지는 풍경을 통해 찬하우춘은 낯설어지고 있지만 아직 잊히지 않은 어떤 장소의 연약한 흔적들을 모은다.',en:'Moving between the intimate interiors of subdivided flats and the changing landscapes of the city, A Room of Many Rooms (2024) and Map of Traces (2025) quietly trace the lives, memories, and absences that remain amid Hong Kong’s ongoing transformation. Through rooms, streets, voices, empty seats, and fading views, Chan gathers the fragile signs of a place that is becoming unfamiliar, yet not forgotten.'},
    bio:{ko:'찬하우춘은 홍콩을 기반으로 활동하는 작가로, 시적인 미니멀리즘과 일상적 이미지에서 영감을 받아 개인적 서사와 집단적 서사가 교차하는 지점에 주목한다. 토론토 국제영화제, 금마장(金馬獎), 대만국제다큐멘터리영화제, 이미지 포럼 페스티벌, 오버하우젠 국제단편영화제 등 국제 영화제와 홍콩의 WMA 스페이스, 엠프티 갤러리(Empty Gallery)에서 작품이 소개된 바 있다.',en:'Chan Hau Chun is a Hong Kong–based artist whose work is inspired by poetic minimalism and everyday imagery, focusing on the intersection of personal and collective narratives. Her films have been showcased at international festivals such as the Toronto International Film Festival, Golden Horse Awards, Taiwan International Documentary Festival, Image Forum Festival, and International Short Film Festival Oberhausen, and at Hong Kong’s WMA Space and Empty Gallery.'},
    linked:{ko:'상영이 끝난 후 아티스트 토크가 진행됩니다.',en:'An artist talk will follow the screening.'}},
 
-  {cat:'공유',kind:{ko:'공유모임',en:'Sharing'},title:{ko:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Citrus Trees Crossing the Sea: Diaspora, Jeju, Gifts'},artist:{ko:'권준희',en:'Kwon June Hee'},place:'YPC SPACE',when:{ko:'8.6(목) 18시',en:'Aug 6 (Thu) 6pm'},live:true,
+  {id:'citrus',cat:'공유',kind:{ko:'공유모임',en:'Sharing'},title:{ko:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Citrus Trees Crossing the Sea: Diaspora, Jeju, Gifts'},artist:{ko:'권준희',en:'Kwon June Hee'},place:'YPC SPACE',when:{ko:'8.6(목) 18시',en:'Aug 6 (Thu) 6pm'},live:true,
    desc:{ko:'제주도의 대표 산업인 감귤 재배는 재일제주인이 고향을 돕기 위해 감귤 묘목을 ‘선물’하는 것으로 본격화되었다. 이 모임에서는 사람의 이주, 나무의 이주가 국가 주도의 냉전 발전주의와 결합하며 제주의 농업, 생태, 경제, 그리고 삶의 조건을 재구성하는 과정을 살펴본다. 나아가 참여자들과 문답을 나누며 (비)인간 이주로 인한 환경/사회의 변화, 경계지대의 존재들과 이를 둘러싼 구조에 대해 이야기한다.',en:'Citrus cultivation, Jeju’s signature industry, took off when Jeju residents in Japan “gifted” citrus saplings to help their hometown. This session traces how the migration of people and of trees, entangled with state-led Cold War developmentalism, reshaped Jeju’s agriculture, ecology, economy, and conditions of life. In dialogue with participants, it considers the environmental and social changes wrought by (non-)human migration, the beings of borderlands, and the structures surrounding them.'},
    bio:{ko:'캘리포니아 주립대학교 새크라멘토 아시안학과 교수. 동북아시아 변경 지역, 냉전 개발주의, 디아스포라와 이주, 생태정치를 주제로 연구하고 가르친다. 저서 『Borderland Dreams: The Transnational Lives of Korean Chinese Workers』(2023)로 2024년 미국동아시아인류학회(SEAA) 프랜시스 L. K. 쉬 저술상을 수상했다. 이 책은 『이주, 경계, 꿈』이라는 제목으로 번역 출간되었으며, 현재 감귤나무의 사회사를 다루는 『Frontier Fruits: The Social Power of Citrus Trees in Jeju, Korea』를 집필 중이다.',en:'June Hee Kwon is Associate Professor in the Asian Studies Program at California State University, Sacramento. She is the author of Borderland Dreams: The Transnational Lives of Korean Chinese Workers (Duke University Press, 2023), winner of the 2024 Francis L. K. Hsu Book Prize from the Society for East Asian Anthropology. She is currently developing a new book project, Frontier Fruits: The Social Power of Citrus Trees in Jeju, Korea.'}},
 
-  {cat:'공유',kind:{ko:'공유모임',en:'Sharing'},title:{ko:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice'},artist:{ko:'이승준 Jonathan Sungjun Lee',en:'Jonathan Sungjun Lee'},place:{ko:'동국대학교 학림관 소강당',en:'Dongguk University, Haklim Hall'},when:{ko:'8.8(토) 18시 · 영어',en:'Aug 8 (Sat) 6pm · English'},
+  {id:'sailing',cat:'공유',kind:{ko:'공유모임',en:'Sharing'},title:{ko:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice'},artist:{ko:'이승준 Jonathan Sungjun Lee',en:'Jonathan Sungjun Lee'},place:{ko:'동국대학교 학림관 소강당',en:'Dongguk University, Haklim Hall'},when:{ko:'8.8(토) 18시 · 영어',en:'Aug 8 (Sat) 6pm · English'},
    desc:{ko:'해양을 경유한 반전 운동에 참여해온 승준은 올해 가자지구로 향하는 국제 구호선단에 탑승했다가 나포되어 귀국했다. 이 토크에서는 가자지구로 향하는 항해 중에 찍은 푸티지를 상영하고 해방의 동력으로서 항해 운동의 내러티브와 의미에 대해 논한다. 그가 몸으로 체험한 항해의 경험을 토대로 바다를 건너는 행위 자체가 가진 생성적 힘을 제시한다.',en:'Sungjun, who has taken part in various sea-based anti-war movements, boarded an international relief flotilla bound for Gaza before being seized and returned to Korea. The talk features footage taken on the voyage toward Gaza and a discussion of the narrative and meaning of oceanic activism as a practice of liberation. Drawing on his own bodily experience of the voyage, he proposes the generative power inherent in the act of crossing the sea itself.'},
    bio:{ko:'조나단 승준 리는 가족, 디아스포라, 생태를 주제로 영상을 만드는 영화 감독이자 활동가다. 그는 강정마을 해군기지 반대운동과 ‘공정과 평화의 바다’ 등 해양을 경유하는 여러 반전운동에 참여하였다.',en:'Jonathan Sungjun Lee is an activist and filmmaker working with themes of family, diaspora, and ecology. He has taken part in various sea-based anti-war movements including the anti–Jeju Naval Base movement in Gangjeong Village and the “Peace Sailing Project.”'}},
 
-  {cat:'낭독',kind:{ko:'낭독',en:'Reading'},title:{ko:'건너오는 문장들',en:'Crossing Sentences'},artist:{ko:'김재형·연정모, 임수영, 한여진',en:'Kim Jaehyung·Yeon Jeongmo, Lim Sooyeong, Han Yeojin'},place:'YPC SPACE',when:{ko:'8.7(금) 15·16시, 8.8(토) 12시',en:'Aug 7 (Fri) 3·4pm, Aug 8 (Sat) 12pm'},live:true,
+  {id:'crossing',cat:'낭독',kind:{ko:'낭독',en:'Reading'},title:{ko:'건너오는 문장들',en:'Crossing Sentences'},artist:{ko:'김재형·연정모, 임수영, 한여진',en:'Kim Jaehyung·Yeon Jeongmo, Lim Sooyeong, Han Yeojin'},place:'YPC SPACE',when:{ko:'8.7(금) 15·16시, 8.8(토) 12시',en:'Aug 7 (Fri) 3·4pm, Aug 8 (Sat) 12pm'},live:true,
    desc:{ko:'각자가 써온 일기와 메모, 연구 노트, 크고 작은 창작물을 함께 읽는 자리다. 홀로 쌓아온 관심과 사유를 타인 앞에 꺼내어 나누는 이 시간은 2b-temp-cast(온라인 방송국)를 통해 실시간으로 송출되어 현장에 없는 이들에게도 가닿는다. 김재형과 연정모는 오랜 글쓰기 메이트로서 주고받은 편지와 대화를 함께 정리하여 읽는다. 임수영은 미학 연구자로서 서울과 광주를 오가며 쓴 일기를 읽으며 삶과 연구의 조화와 불화를 내비친다. 한여진은 태어나기 이전의 시간과 ‘없는 기억’ 속 타인의 흔적을 상상하며 존재 이전과 이후를 잇는 시를 쓴다.',en:'A gathering where each participant reads aloud from the diaries, notes, research journals, and works they have written. This time of taking privately accumulated interests and reflections and offering them to others is broadcast live through 2b-temp-cast (an online station), reaching even those not present. Kim Jaehyung and Yeon Jeongmo, longtime writing companions, read together from the letters and conversations they have shared. Lim Sooyeong, an aesthetics researcher who moves between Seoul and Gwangju, reads from a diary kept across that life, hinting at both harmony and friction between living and researching. Han Yeojin imagines the time before birth and the traces of others held within an “absent memory,” writing poems that connect what comes before existence with what comes after.'},
    bio:{ko:'한여진 — 시인이자 건축 엔지니어. 시집 『두부를 구우면 겨울이 온다』 등이 있다.',en:'Han Yeojin — poet and structural engineer. Her poetry collections include When You Grill Tofu, Winter Comes.'}},
 
-  {cat:'워크숍',kind:{ko:'워크숍',en:'Workshop'},title:{ko:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Calculating and Exchanging the Time of Art Workers'},artist:{ko:'쿤치 스터디 포럼 & 콜렉티브 ⅹ 와룽 시킬',en:'KUNCI Study Forum & Collective ⅹ Warung Sikil'},place:'YPC SPACE',when:{ko:'8.8(토) 11시',en:'Aug 8 (Sat) 11am'},
+  {id:'artworkers',cat:'워크숍',kind:{ko:'워크숍',en:'Workshop'},title:{ko:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Calculating and Exchanging the Time of Art Workers'},artist:{ko:'쿤치 스터디 포럼 & 콜렉티브 ⅹ 와룽 시킬',en:'KUNCI Study Forum & Collective ⅹ Warung Sikil'},place:'YPC SPACE',when:{ko:'8.8(토) 11시',en:'Aug 8 (Sat) 11am'},
    desc:{ko:'예술 노동자의 시간을 어떻게 계산하고 또 교환할 수 있을지 함께 다루는 워크숍.',en:'A workshop exploring how the time of art workers might be calculated, and exchanged.'},
    linked:{ko:'연계 토크 프로그램 — 8.9(일) 15시, YPC SPACE',en:'Related talk program — Aug 9 (Sun) 3pm, YPC SPACE'}},
 
-  {cat:'퍼포먼스',kind:{ko:'퍼포먼스',en:'Performance'},title:{ko:'양윤화 (제목 미정)',en:'Yang Yunhwa — Walk in the dark'},artist:{ko:'양윤화',en:'Yang Yunhwa'},place:'YPC SPACE',when:{ko:'8.8(토) 16시',en:'Aug 8 (Sat) 4pm'},
+  {id:'yangyunhwa',cat:'퍼포먼스',kind:{ko:'퍼포먼스',en:'Performance'},title:{ko:'양윤화 (제목 미정)',en:'Yang Yunhwa — Walk in the dark'},artist:{ko:'양윤화',en:'Yang Yunhwa'},place:'YPC SPACE',when:{ko:'8.8(토) 16시',en:'Aug 8 (Sat) 4pm'},
    desc:{ko:'양윤화의 신작 퍼포먼스.',en:'A new performance by Yang Yunhwa.'}},
 
-  {cat:'프로그램',kind:{ko:'프로그램',en:'Program'},title:{ko:'2b-temp-cast',en:'2b-temp-cast'},artist:{ko:'2bpencil (희주, 재형)',en:'2bpencil (Hee ju, Jaehyung)'},place:'YPC SPACE',when:{ko:'8.6 – 9 · 퍼포먼스 8.9(일) 19시',en:'Aug 6–9 · Performance Aug 9 (Sun) 7pm'},live:true,
+  {id:'tempcast',cat:'프로그램',kind:{ko:'프로그램',en:'Program'},title:{ko:'2b-temp-cast',en:'2b-temp-cast'},artist:{ko:'2bpencil (희주, 재형)',en:'2bpencil (Hee ju, Jaehyung)'},place:'YPC SPACE',when:{ko:'8.6 – 9 · 퍼포먼스 8.9(일) 19시',en:'Aug 6–9 · Performance Aug 9 (Sun) 7pm'},live:true,
    desc:{ko:'2b-temp-cast(이비 템프 캐스트)는 YPC SPACE를 하나의 임시적인 실험적 방송국으로 전환하는 프로그램이다. 인터넷 라디오의 방식으로 공유모임, 낭독회, 퍼포먼스 등 공간의 현재를 실시간으로 송출한다. 희주·재형의 퍼포먼스는 SSTV(Slow Scan Television) 방식을 차용해 이미지를 주파수로 변환해 송수신하고, SDR(Software Defined Radio)을 활용해 전파 환경을 탐색하며, 서로의 신호를 주고받는 과정에서 발생하는 왜곡과 노이즈, 픽셀의 흔적을 드러낸다. 매체를 통해 증폭되고 멀리 전달되는 전자기적 풍경을 듣는 경험은 세계와 연결되는 동시에 고립의 감각을 환기한다.',en:'2b-temp-cast is a program that turns YPC SPACE into a temporary, experimental broadcasting station. In the manner of internet radio, it transmits the present moment of the space—its sharing sessions, readings, performances—live, in real time. Heeju and Jaehyung’s performance borrows the method of SSTV (Slow Scan Television) to convert images into frequencies and transmit and receive them, using SDR (Software Defined Radio) to explore the surrounding radio environment. In the process of exchanging signals, the distortions, noise, and traces of pixels that arise are brought to the surface. Listening to this electromagnetic landscape, amplified and carried across distance through the medium, evokes both a sense of connection to the world and a sense of isolation.'},
    bio:{ko:'희주는 소리를 매개로 감각적 연결의 방식과 그것이 구성되는 조건들을 탐구한다. 재형은 감각에 배반당해온 경험을 뒤로하고 그 자리를 채우는 이야기들에 주목한다. 최근에는 자체 호스팅 서버를 기반으로 연결과 만남을 시도하며, 그 접점에서 발생하는 이야기들을 인터페이스의 표면 위로 공유하고 기록하는 실험을 지속한다. 두 사람은 2bpencil.online을 서로의 세계가 맞닿는 중간지대로 삼는다.',en:'Hee ju explores modes of sensory connection mediated by sound, and the conditions under which such connections are formed. Jaehyung, setting aside experiences in which sensation has betrayed him, turns his attention to the stories that come to fill that place. He has recently been experimenting with connection and encounter based on a self-hosted server, sharing and recording, on the surface of the interface, the stories that arise at those points of contact. The two treat 2bpencil.online as a middle ground where their worlds touch.'}},
 ];
@@ -471,6 +495,7 @@ function renderPrograms(){
       body+=`</div></div>`;
       const card=document.createElement('div');
       card.className='prog';
+      if(p.id){ card.id='prog-'+p.id; card.dataset.pid=p.id; }
       card.innerHTML=`
         <div class="prog-head">
           <div class="idx">${String(idx).padStart(2,'0')}</div>
