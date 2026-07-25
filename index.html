@@ -3,206 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#d4f20c">
 <title>2026 서머 캠프 · 섬과 다리 | Summer Camp 2026 Islands and Bridges</title>
-<meta name="description" content="2026 서머 캠프 〈섬과 다리〉 · 2026.8.6.–8.9. · 주최 YPC. Summer Camp 2026 Islands and Bridges.">
+<meta name="description" content="2026 서머 캠프 〈섬과 다리〉 · 2026.8.6.–8.9. · by Yellow Pen Club">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans:ital,wght@0,400;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   Design tokens — colors are placeholders for later design.
-   (white bg / black text / heavy rules / pastel section bands)
+   2026 Summer Camp — Islands and Bridges
+   Identity: fluorescent lime ground · red type · stitched rules
    ========================================================= */
 :root{
-  --bg:#ffffff;
-  --ink:#141414;
-  --ink-2:#3d3d3d;
-  --muted:#8a8a8a;
-  --line:#141414;
-  --hair:#e4e4e4;
+  --lime:#d4f20c;
+  --lime-deep:#c2e00a;
+  --red:#fb2b06;
+  --paper:#ffffff;
 
-  --p-yellow:#f5ecc9;
-  --p-pink:#f6dfe2;
-  --p-blue:#dde8ef;
-  --p-green:#e0eadb;
-  --p-lilac:#e7e0ef;
-  --accent:#f5ecc9;
+  /* logotype accents */
+  --c1:#f4511e; --c2:#7e9b3f; --c3:#7cb342; --c4:#f4681f;
+  --c5:#f7941e; --c6:#ffd200; --c7:#4dd0b1; --c8:#00bcd4;
+  --c9:#8bc34a; --c10:#e53935;
 
-  --band:transparent;             /* per-page pastel, set on each view */
-  --header-h:104px;
-
+  --header-h:102px;
   --sans:'Noto Sans KR','Noto Sans',-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --sans-latin:'Noto Sans','Noto Sans KR',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+
+  /* cut-paper sheet outline (px-anchored so tall pages keep their corners) */
+  --clip:polygon(
+    46px 2px,
+    calc(100% - 22px) 15px,
+    100% 86px,
+    calc(100% - 3px) calc(100% - 104px),
+    calc(100% - 58px) 100%,
+    52px calc(100% - 13px),
+    2px calc(100% - 74px),
+    7px 64px
+  );
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;}
-body{font-family:var(--sans);color:var(--ink);background:#eaeaea;line-height:1.65;font-weight:400;-webkit-font-smoothing:antialiased;letter-spacing:.005em;}
-#app{max-width:480px;margin:0 auto;position:relative;background:var(--bg);min-height:100vh;min-height:100dvh;}
-@media(min-width:520px){body{padding:24px 0;}#app{border:1px solid var(--line);min-height:calc(100dvh - 48px);}}
+body{font-family:var(--sans);color:var(--red);background:var(--paper);line-height:1.6;font-weight:500;-webkit-font-smoothing:antialiased;}
+#app{max-width:480px;margin:0 auto;position:relative;background:var(--paper);min-height:100vh;min-height:100dvh;}
+@media(min-width:520px){body{padding:20px 0;}#app{min-height:calc(100dvh - 40px);box-shadow:0 0 0 1px #f0f0f0;}}
 
-/* language visibility */
 body.lang-ko .only-en{display:none;}
 body.lang-en .only-ko{display:none;}
 
-/* ================= fixed top header ================= */
-.appheader{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:60;background:var(--bg);border-bottom:1px solid var(--line);}
-@media(min-width:520px){.appheader{top:24px;}}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 16px;border-bottom:1px solid var(--hair);}
-.brand{display:flex;flex-direction:column;line-height:1.12;cursor:pointer;}
-.brand b{font-weight:700;font-size:15px;}
-.brand span{font-family:var(--sans-latin);font-style:italic;font-weight:400;font-size:10.5px;color:var(--muted);}
-.langtoggle{display:flex;border:1px solid var(--line);border-radius:100px;overflow:hidden;flex:0 0 auto;}
-.lg{border:none;background:var(--bg);font-family:var(--sans-latin);font-size:11px;letter-spacing:.05em;padding:6px 11px;cursor:pointer;color:var(--muted);line-height:1;}
-.lg.active{background:var(--ink);color:#fff;}
-.pillnav{display:flex;gap:7px;overflow-x:auto;padding:10px 16px;scrollbar-width:none;}
-.pillnav::-webkit-scrollbar{display:none;}
-.pill{flex:0 0 auto;border:1px solid var(--line);background:var(--bg);border-radius:100px;padding:7px 16px;font-family:var(--sans);font-size:13.5px;cursor:pointer;color:var(--ink);white-space:nowrap;transition:background .15s;}
-.pill:hover{background:var(--accent);}
-.pill.active{background:var(--ink);color:#fff;}
+/* ---------------- decorative stitched rules ---------------- */
+.rule{height:9px;background-repeat:repeat-x;background-position:center;flex:0 0 auto;}
+.rule-dot{background-image:radial-gradient(circle closest-side, var(--red) 98%, transparent 100%);background-size:15px 5px;}
+.rule-dash{background-image:repeating-linear-gradient(90deg,var(--red) 0 9px,transparent 9px 17px);background-size:100% 3.5px;}
+.rule-fine{background-image:radial-gradient(circle closest-side, var(--red) 98%, transparent 100%);background-size:9px 2.4px;height:4px;opacity:.85;}
+.rule-comb{background-image:repeating-linear-gradient(90deg,var(--red) 0 2px,transparent 2px 7px);background-size:100% 7px;background-position:top center;}
+.rule-comb::after{content:"";display:block;height:2px;background:var(--red);position:relative;top:7px;}
+.rule-wave{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='9' viewBox='0 0 24 9'><path d='M0 6 Q6 0 12 6 T24 6' fill='none' stroke='%23fb2b06' stroke-width='2.2'/></svg>");background-size:24px 9px;}
+.rule-tick{background-image:repeating-linear-gradient(90deg,var(--red) 0 1.8px,transparent 1.8px 6px);background-size:100% 8px;background-position:bottom center;}
+.rule-tick::before{content:"";display:block;height:2px;background:var(--red);}
 
-/* ================= views ================= */
-.view{display:none;padding:var(--header-h) 0 90px;min-height:100dvh;animation:fade .4s ease;}
+/* ---------------- fixed header ---------------- */
+.appheader{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:60;background:var(--paper);}
+@media(min-width:520px){.appheader{top:20px;}}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px 9px;}
+.brand{display:flex;flex-direction:column;line-height:1.15;cursor:pointer;}
+.brand b{font-weight:900;font-size:14px;letter-spacing:-.01em;}
+.brand span{font-family:var(--sans-latin);font-style:italic;font-weight:700;font-size:10px;opacity:.8;}
+.langtoggle{display:flex;border:2px solid var(--red);border-radius:100px;overflow:hidden;flex:0 0 auto;}
+.lg{border:none;background:var(--paper);font-family:var(--sans-latin);font-size:11px;font-weight:800;letter-spacing:.04em;padding:5px 11px;cursor:pointer;color:var(--red);line-height:1.2;}
+.lg.active{background:var(--red);color:var(--lime);}
+.pillnav{display:flex;gap:6px;overflow-x:auto;padding:4px 16px 11px;scrollbar-width:none;}
+.pillnav::-webkit-scrollbar{display:none;}
+.pill{flex:0 0 auto;border:2px solid var(--red);background:var(--paper);border-radius:100px;padding:6px 15px;font-family:var(--sans);font-weight:700;font-size:13px;cursor:pointer;color:var(--red);white-space:nowrap;}
+.pill:hover{background:var(--lime);}
+.pill.active{background:var(--red);color:var(--lime);}
+
+/* ---------------- views / sheets ---------------- */
+.view{display:none;padding:var(--header-h) 7px 76px;animation:fade .35s ease;}
 .view.active{display:block;}
 @keyframes fade{from{opacity:0;}to{opacity:1;}}
-.pad{padding:0 22px;}
+.sheet{background:var(--lime);clip-path:var(--clip);padding:52px 22px 60px;min-height:calc(100dvh - var(--header-h) - 84px);}
 
-/* centered big page title (biennale-style) */
-.bigtitle{text-align:center;padding:30px 20px 24px;}
-.bigtitle .t{font-weight:800;font-size:clamp(30px,9.5vw,44px);line-height:1.1;letter-spacing:-.01em;text-wrap:balance;}
-.bigtitle .sub{display:block;font-family:var(--sans-latin);font-style:italic;font-weight:400;font-size:15px;color:var(--muted);margin-top:10px;}
+.pagetitle{text-align:center;font-weight:900;font-size:clamp(26px,8vw,34px);letter-spacing:-.02em;margin-bottom:6px;}
+.pagetitle .sub{display:block;font-family:var(--sans-latin);font-style:italic;font-weight:700;font-size:13px;opacity:.75;margin-top:6px;letter-spacing:0;}
+.metaline{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;font-weight:900;font-size:12.5px;text-align:center;}
 
-/* section band: centered label between heavy rules */
-.band{text-align:center;font-weight:700;font-size:14.5px;letter-spacing:.03em;padding:11px 12px;border-top:2px solid var(--line);border-bottom:2px solid var(--line);background:var(--band);}
-.band + .band{border-top:none;}
-
-/* ================= HOME / cover ================= */
-#view-home{--band:var(--p-yellow);}
-.cover{min-height:calc(100dvh - var(--header-h));display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px 24px 40px;}
-.cover-kicker{font-family:var(--sans-latin);font-style:italic;font-size:16px;color:var(--ink-2);margin-top:24px;}
-.cover-title{font-weight:800;font-size:clamp(48px,17vw,68px);line-height:1.0;letter-spacing:-.015em;margin-top:12px;}
-.cover-title .sep{display:block;height:4px;}
-.cover-title-en{font-family:var(--sans-latin);font-style:italic;font-size:clamp(18px,5.4vw,22px);color:var(--ink-2);margin-top:18px;line-height:1.3;}
-.cover-svg{width:min(360px,86%);height:auto;display:block;margin:30px 0;}
-.cover-rule{width:44px;height:2px;background:var(--line);border:none;margin:6px 0 18px;}
-.cover-dates{font-weight:600;font-size:24px;}
-.cover-host{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-top:10px;}
-.cover-cta{margin-top:28px;display:inline-flex;align-items:center;gap:11px;font-family:var(--sans);font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:100px;padding:13px 24px;cursor:pointer;transition:background .2s;}
-.cover-cta:hover{background:var(--accent);}
+/* ---------------- cover ---------------- */
+.cover{display:flex;flex-direction:column;min-height:calc(100dvh - var(--header-h) - 84px);}
+.cover .metaline{margin-bottom:26px;}
+.logowrap{margin-top:auto;padding-top:24px;}
+.logotype{display:block;width:100%;height:auto;}
+.logotype text{font-family:var(--sans-latin);}
+.cover-cta{margin:28px auto 0;display:flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:700;font-size:15px;color:var(--lime);background:var(--red);border:2px solid var(--red);border-radius:100px;padding:12px 24px;cursor:pointer;}
 .cover-cta svg{width:16px;height:16px;}
-.cover-quick{margin-top:34px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:9px;}
-.cover-quick button{border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:16px 12px;cursor:pointer;font-family:var(--sans);font-size:14.5px;color:var(--ink);display:flex;flex-direction:column;align-items:flex-start;gap:5px;transition:background .15s;}
-.cover-quick button:hover{background:var(--accent);}
-.cover-quick .n{font-family:var(--sans-latin);font-style:italic;font-size:13px;color:var(--muted);}
+.cover-quick{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cover-quick button{border:2px solid var(--red);background:transparent;border-radius:16px;padding:13px 12px;cursor:pointer;font-family:var(--sans);font-weight:700;font-size:14px;color:var(--red);text-align:left;line-height:1.3;}
+.cover-quick button:hover{background:var(--red);color:var(--lime);}
+.cover-quick .n{display:block;font-family:var(--sans-latin);font-style:italic;font-size:11px;opacity:.75;margin-bottom:3px;}
 
-/* ================= typographic blocks ================= */
-.lead{font-size:18px;line-height:1.8;font-weight:600;margin:18px 0;text-wrap:pretty;}
-.para{font-size:14.5px;line-height:1.85;color:var(--ink-2);margin:14px 0;}
-.para.muted{color:var(--muted);font-size:13px;}
-.sec-body{padding:16px 22px 6px;}
-.factrow{display:flex;gap:14px;padding:11px 2px;border-bottom:1px solid var(--hair);}
-.factrow:last-child{border-bottom:none;}
-.factrow .k{flex:0 0 66px;font-size:12.5px;color:var(--muted);font-family:var(--sans-latin);font-style:italic;padding-top:3px;}
-.factrow .v{flex:1;font-size:14.5px;}
-.factrow .v b{font-weight:600;}
-.factrow .v i{font-family:var(--sans-latin);font-style:italic;color:var(--muted);}
-.note{border:1px solid var(--line);padding:14px 16px;margin:2px 0 0;font-size:13.5px;color:var(--ink-2);display:flex;gap:11px;align-items:flex-start;background:var(--band);}
-.note .star{font-weight:700;color:var(--ink);}
-.linky{color:var(--ink);border-bottom:1px solid var(--ink);cursor:pointer;}
+/* ---------------- text blocks ---------------- */
+.lead{font-weight:900;font-size:17.5px;line-height:1.65;margin:18px 0;text-wrap:pretty;}
+.para{font-size:14px;line-height:1.8;font-weight:500;margin:13px 0;}
+.sectlabel{text-align:center;font-weight:900;font-size:15px;padding:10px 4px;}
+.factrow{display:flex;gap:12px;padding:10px 0;}
+.factrow .k{flex:0 0 62px;font-family:var(--sans-latin);font-style:italic;font-weight:700;font-size:12px;opacity:.8;padding-top:2px;}
+.factrow .v{flex:1;font-size:14px;font-weight:700;}
+.factrow .v i{font-family:var(--sans-latin);font-weight:500;opacity:.8;}
+.footnote{text-align:right;font-weight:700;font-size:12px;padding:9px 0 2px;display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap;}
+.linky{text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-weight:900;}
 
-/* ================= schedule ================= */
-#view-schedule{--band:var(--p-blue);}
-.slot{display:flex;gap:15px;padding:16px 22px;border-bottom:1px solid var(--hair);}
-.slot .time{flex:0 0 50px;font-weight:600;font-size:15px;padding-top:2px;}
-.slot .body{flex:1;}
-.slot .tag{display:inline-block;font-size:11.5px;color:var(--ink);border:1px solid var(--line);border-radius:100px;padding:1px 11px;line-height:1.6;}
-.tag.t-오프닝,.tag.t-뒤풀이,.tag.t-투어{background:var(--p-yellow);}
-.tag.t-공유{background:var(--p-green);}
-.tag.t-낭독{background:var(--p-blue);}
-.tag.t-워크숍{background:var(--p-lilac);}
-.tag.t-상영{background:var(--p-pink);}
-.tag.t-퍼포먼스{background:var(--p-lilac);}
-.tag.t-토크,.tag.t-전시{background:#f1f1f1;}
-/* live-stream badge — same pill size as the category tag */
-.live-badge{display:inline-flex;align-items:center;gap:5px;vertical-align:top;font-size:11.5px;line-height:1.6;padding:1px 11px;border:1px solid var(--line);border-radius:100px;background:var(--bg);color:var(--ink);margin-left:6px;white-space:nowrap;}
-.slot .tagrow{margin-bottom:8px;line-height:1;}
-.live-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--ink);flex:0 0 auto;}
+/* live badge */
+.live-badge{display:inline-flex;align-items:center;gap:5px;font-family:var(--sans);font-weight:700;font-size:11px;line-height:1.6;padding:1px 10px;border:2px solid var(--red);border-radius:100px;color:var(--red);white-space:nowrap;}
+.live-badge .dot{width:5px;height:5px;border-radius:50%;background:var(--red);flex:0 0 auto;}
 @media(prefers-reduced-motion:no-preference){.live-badge .dot{animation:pulse 1.6s ease-in-out infinite;}}
-@keyframes pulse{0%,100%{opacity:.35;}50%{opacity:1;}}
-.slot .tag{vertical-align:top;}
-.slot .ti{font-weight:600;font-size:16px;line-height:1.4;}
-.slot .ti-link{font-family:inherit;font-weight:600;font-size:16px;line-height:1.4;color:var(--ink);background:none;border:none;padding:0;text-align:left;cursor:pointer;display:inline-block;text-decoration:underline;text-decoration-color:var(--muted);text-decoration-thickness:1px;text-underline-offset:3px;}
-.slot .ti-link:hover{text-decoration-color:var(--ink);}
-.slot .ti-arrow{font-family:var(--sans-latin);font-weight:400;font-size:12.5px;color:var(--muted);margin-left:5px;text-decoration:none;display:inline-block;}
-.slot .live{font-weight:700;}
-.slot .sub{font-size:13px;color:var(--muted);margin-top:4px;}
-.slot .sub .who{color:var(--ink-2);}
+@keyframes pulse{0%,100%{opacity:.3;}50%{opacity:1;}}
 
-/* ================= program ================= */
-#view-program{--band:var(--p-green);}
-.prog{border-bottom:1px solid var(--hair);}
-.prog:last-child{border-bottom:none;}
-.prog-click{cursor:pointer;}
-.prog-img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;background:#f1f1f1;border-bottom:1px solid var(--hair);}
+/* ---------------- schedule ---------------- */
+.dayhead{text-align:center;font-weight:900;font-size:22px;padding:22px 0 20px;}
+.srow{display:grid;grid-template-columns:84px 1fr;gap:9px;padding:13px 0;}
+.srow .stime{font-family:var(--sans-latin);font-weight:800;font-size:11.5px;padding-top:4px;letter-spacing:-.03em;white-space:nowrap;}
+.srow .scat{font-weight:900;font-size:14px;}
+.srow .stitle{font-weight:900;font-size:15.5px;line-height:1.4;margin-top:1px;}
+button.stitle{font-family:var(--sans);color:var(--red);background:none;border:none;padding:0;text-align:left;cursor:pointer;display:inline-block;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;}
+.srow .sarrow{font-family:var(--sans-latin);font-weight:800;font-size:12px;margin-left:4px;text-decoration:none;display:inline-block;}
+.srow .smeta{font-weight:700;font-size:13px;margin-top:7px;line-height:1.5;opacity:.95;}
+.srow .sbadge{margin-top:8px;}
+
+/* ---------------- program ---------------- */
+.prog{padding:0;}
+.prog-click{cursor:pointer;padding:15px 0;}
+.prog-img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border:2px solid var(--red);background:var(--lime-deep);margin-bottom:12px;}
 .prog-img.failed{display:none;}
-.prog-head{padding:16px 22px;display:flex;gap:13px;align-items:flex-start;}
-.prog-head .idx{font-family:var(--sans-latin);font-style:italic;font-size:14px;color:var(--muted);flex:0 0 22px;padding-top:3px;}
+.prog-head{display:flex;gap:11px;align-items:flex-start;}
+.prog-head .idx{font-family:var(--sans-latin);font-style:italic;font-weight:800;font-size:13px;flex:0 0 22px;padding-top:4px;opacity:.75;}
 .prog-head .h-main{flex:1;}
-.prog .p-title{font-weight:700;font-size:17px;line-height:1.35;}
-.prog .p-title-sub{font-family:var(--sans-latin);font-style:italic;font-size:13.5px;color:var(--muted);margin-top:3px;}
-.prog .p-artist{font-size:13px;color:var(--ink-2);margin-top:8px;}
-.prog .chev{flex:0 0 auto;color:var(--ink);transition:transform .3s;padding-top:3px;}
+.p-title{font-weight:900;font-size:17px;line-height:1.35;}
+.p-title-sub{font-family:var(--sans-latin);font-style:italic;font-weight:700;font-size:13px;opacity:.8;margin-top:2px;}
+.p-artist{font-weight:700;font-size:13.5px;margin-top:7px;}
+.prog-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:9px;}
+.prog-meta > span{font-size:11px;font-weight:700;border:2px solid var(--red);border-radius:100px;padding:2px 10px;}
+.chev{flex:0 0 auto;transition:transform .3s;padding-top:3px;}
 .prog.open .chev{transform:rotate(180deg);}
-.prog-meta{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:10px;}
-.prog-meta > span{font-size:11.5px;color:var(--ink-2);border:1px solid var(--hair);border-radius:100px;padding:3px 11px;}
-.prog-meta .live-badge{margin:0;padding:3px 11px;color:var(--ink);border-color:var(--line);}
 .prog-body{max-height:0;overflow:hidden;transition:max-height .45s ease;}
-.prog.open .prog-body{max-height:2600px;}
+.prog.open .prog-body{max-height:3000px;}
+.prog-body-inner{padding:2px 0 18px 33px;}
+.prog-body-inner h4{font-family:var(--sans-latin);font-style:italic;font-weight:800;font-size:12.5px;margin:14px 0 5px;}
+.prog-body-inner p{font-size:13.5px;line-height:1.8;font-weight:500;}
 .prog.flash{animation:flashcard 1.2s ease;}
-@keyframes flashcard{0%,100%{background:var(--bg);}22%{background:var(--band);}}
-@media (prefers-reduced-motion: reduce){.prog.flash{animation:none;}}
-.prog-body-inner{padding:2px 22px 20px 57px;}
-.prog-body-inner h4{font-family:var(--sans-latin);font-style:italic;font-size:12.5px;color:var(--ink);margin:15px 0 5px;}
-.prog-body-inner p{font-size:13.5px;line-height:1.85;color:var(--ink-2);}
+@keyframes flashcard{0%,100%{background:transparent;}25%{background:var(--lime-deep);}}
+@media(prefers-reduced-motion:reduce){.prog.flash{animation:none;}}
 
-/* ================= venue ================= */
-#view-venue{--band:var(--p-pink);}
-.map-schematic{margin:0;border-bottom:2px solid var(--line);}
-.map-schematic svg{display:block;width:100%;height:auto;}
-.venue{display:flex;gap:14px;border-bottom:1px solid var(--hair);padding:18px 22px;}
-.venue .num{flex:0 0 30px;height:30px;border:1px solid var(--line);border-radius:100px;display:flex;align-items:center;justify-content:center;font-family:var(--sans-latin);font-size:13px;font-weight:500;}
-.venue .vc{flex:1;}
-.venue .v-name{font-weight:700;font-size:17px;}
-.venue .v-role{font-family:var(--sans-latin);font-style:italic;font-size:12.5px;color:var(--ink-2);margin-top:4px;}
-.venue .v-addr{font-size:14px;margin-top:10px;line-height:1.6;}
-.venue .v-hours{font-size:12.5px;color:var(--muted);margin-top:5px;}
-.venue .v-actions{display:flex;gap:8px;margin-top:13px;flex-wrap:wrap;}
-.mapbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-family:var(--sans);font-size:12.5px;padding:8px 14px;border:1px solid var(--line);border-radius:100px;color:var(--ink);background:var(--bg);transition:background .2s;}
-.mapbtn:hover{background:var(--accent);}
-.mapbtn svg{width:12px;height:12px;}
+/* ---------------- venue ---------------- */
+.mapbox{border:2px solid var(--red);background:var(--lime);margin:14px 0 4px;}
+.mapbox svg{display:block;width:100%;height:auto;}
+.venue{display:flex;gap:12px;padding:16px 0;}
+.venue .num{flex:0 0 28px;height:28px;border:2px solid var(--red);border-radius:100px;display:flex;align-items:center;justify-content:center;font-family:var(--sans-latin);font-weight:800;font-size:12.5px;}
+.venue .v-name{font-weight:900;font-size:16.5px;line-height:1.3;}
+.venue .v-role{font-weight:700;font-size:12.5px;margin-top:4px;opacity:.9;}
+.venue .v-addr{font-size:13.5px;font-weight:500;margin-top:9px;line-height:1.55;}
+.venue .v-hours{font-size:12.5px;font-weight:700;margin-top:4px;}
+.v-actions{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap;}
+.mapbtn{display:inline-flex;align-items:center;gap:5px;text-decoration:none;font-family:var(--sans);font-weight:700;font-size:12px;padding:6px 13px;border:2px solid var(--red);border-radius:100px;color:var(--red);}
+.mapbtn:hover{background:var(--red);color:var(--lime);}
+.mapbtn svg{width:11px;height:11px;}
 
-/* ================= footer ================= */
-.foot{padding:34px 22px 26px;text-align:center;border-top:2px solid var(--line);margin-top:24px;}
-.foot .mk{font-weight:700;font-size:18px;}
-.foot .dt{font-family:var(--sans-latin);font-style:italic;font-size:13px;color:var(--ink-2);margin-top:6px;}
-.foot .host{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:12px;}
+/* ---------------- footer ---------------- */
+.foot{text-align:center;padding:26px 0 6px;}
+.foot .mk{font-weight:900;font-size:16px;}
+.foot .dt{font-family:var(--sans-latin);font-style:italic;font-weight:700;font-size:12.5px;margin-top:5px;}
+.foot .host{font-weight:700;font-size:11px;letter-spacing:.1em;margin-top:9px;text-transform:uppercase;}
 
-/* ================= scroll-to-top ================= */
-.totop{position:fixed;bottom:20px;right:16px;z-index:55;width:44px;height:44px;border-radius:100px;border:1px solid var(--line);background:var(--bg);cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.12);}
+/* ---------------- to top ---------------- */
+.totop{position:fixed;bottom:18px;right:14px;z-index:55;width:42px;height:42px;border-radius:100px;border:2px solid var(--red);background:var(--lime);cursor:pointer;display:none;align-items:center;justify-content:center;}
 .totop.show{display:flex;}
-.totop svg{width:19px;height:19px;stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-@media(min-width:520px){.totop{right:calc(50vw - 240px + 16px);}}
+.totop svg{width:18px;height:18px;stroke:var(--red);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+@media(min-width:520px){.totop{right:calc(50vw - 240px + 14px);}}
 </style>
 </head>
 <body class="lang-ko">
 <div id="app">
 
-  <!-- ================= FIXED HEADER ================= -->
+  <!-- ============ HEADER ============ -->
   <div class="appheader">
     <div class="topbar">
       <div class="brand" onclick="go('home')">
-        <b><span class="only-ko">2026 서머 캠프 · 섬과 다리</span><span class="only-en">Summer Camp 2026</span></b>
-        <span class="only-ko">Islands &amp; Bridges</span><span class="only-en">섬과 다리 · Islands &amp; Bridges</span>
+        <b><span class="only-ko">2026 서머 캠프 — 섬과 다리</span><span class="only-en">Summer Camp 2026</span></b>
+        <span class="only-ko">Islands and Bridges · by Yellow Pen Club</span><span class="only-en">Islands and Bridges · by Yellow Pen Club</span>
       </div>
       <div class="langtoggle">
         <button class="lg" data-lang="ko">KO</button>
@@ -215,129 +200,160 @@ body.lang-en .only-ko{display:none;}
       <button class="pill" data-nav="program" onclick="go('program')"><span class="only-ko">프로그램</span><span class="only-en">Program</span></button>
       <button class="pill" data-nav="venue" onclick="go('venue')"><span class="only-ko">장소</span><span class="only-en">Venue</span></button>
     </nav>
+    <div class="rule rule-dot" style="margin:0 7px;"></div>
   </div>
 
-  <!-- ================= HOME ================= -->
+  <!-- ============ HOME ============ -->
   <section id="view-home" class="view active" data-view="home">
-    <div class="cover">
-      <div class="cover-kicker"><span class="only-ko">2026 서머 캠프</span><span class="only-en">Summer Camp 2026</span></div>
-      <h1 class="cover-title"><span class="only-ko">섬과<span class="sep"></span>다리</span><span class="only-en">Islands<span class="sep"></span>&amp; Bridges</span></h1>
-      <div class="cover-title-en"><span class="only-ko">Summer Camp 2026<br>Islands and Bridges</span><span class="only-en">2026 서머 캠프 〈섬과 다리〉</span></div>
+    <div class="sheet">
+      <div class="cover">
+        <div class="metaline">
+          <span class="only-ko">2026 서머 캠프 — 섬과 다리</span><span class="only-en">Summer Camp 2026 — Islands and Bridges</span>
+          <span>2026. 8. 6. – 8. 9.</span>
+          <span>by Yellow Pen Club</span>
+        </div>
 
-      <svg class="cover-svg" viewBox="0 0 432 92" fill="none" aria-hidden="true">
-        <ellipse cx="70" cy="60" rx="34" ry="9" stroke="#141414" fill="#f5ecc9"/>
-        <ellipse cx="216" cy="52" rx="40" ry="10" stroke="#141414" fill="#dde8ef"/>
-        <ellipse cx="366" cy="62" rx="34" ry="9" stroke="#141414" fill="#f6dfe2"/>
-        <path d="M104 56 Q160 30 176 48" stroke="#141414" stroke-dasharray="2 6" stroke-linecap="round"/>
-        <path d="M256 50 Q320 34 332 56" stroke="#141414" stroke-dasharray="2 6" stroke-linecap="round"/>
-        <circle cx="70" cy="55" r="2.5" fill="#141414"/><circle cx="216" cy="46" r="2.5" fill="#141414"/><circle cx="366" cy="57" r="2.5" fill="#141414"/>
-      </svg>
+        <div class="logowrap">
+          <svg class="logotype" viewBox="0 0 400 190" role="img" aria-label="Summer Camp 2026 — Islands and Bridges">
+            <g stroke="#fb2b06" stroke-width="1.5" stroke-dasharray="3 3" paint-order="stroke" stroke-linejoin="round" font-weight="800" font-size="80">
+              <text x="4" y="80">
+                <tspan fill="#f4511e" y="80">S</tspan><tspan fill="#7e9b3f" y="88">u</tspan><tspan fill="#7cb342" y="80">m</tspan><tspan fill="#f4681f" y="88">m</tspan><tspan fill="#f7941e" y="78">e</tspan><tspan fill="#ffd200" y="70">R</tspan>
+              </text>
+              <text x="46" y="158">
+                <tspan fill="#4dd0b1" y="158">C</tspan><tspan fill="#00bcd4" y="164">a</tspan><tspan fill="#8bc34a" y="154">m</tspan><tspan fill="#e53935" y="162">P</tspan>
+              </text>
+            </g>
+            <text x="266" y="30" font-size="14" font-weight="800" fill="#fb2b06" letter-spacing="3">2026</text>
+            <text x="112" y="184" font-size="15" font-weight="800" font-style="italic" fill="#fb2b06" letter-spacing="1.2">Islands and Bridges</text>
+          </svg>
+        </div>
 
-      <hr class="cover-rule">
-      <div class="cover-dates">2026. 8. 6 — 8. 9</div>
-      <div class="cover-host"><span class="only-ko">주최 · Organized by YPC</span><span class="only-en">Organized by YPC</span></div>
+        <button class="cover-cta" onclick="go('about')">
+          <span class="only-ko">브로슈어 살펴보기</span><span class="only-en">Explore the brochure</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
 
-      <button class="cover-cta" onclick="go('about')">
-        <span class="only-ko">브로슈어 살펴보기</span><span class="only-en">Explore the brochure</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
-
-      <div class="cover-quick">
-        <button onclick="go('about')"><span class="n">01</span><span class="only-ko">행사 소개</span><span class="only-en">Introduction</span></button>
-        <button onclick="go('schedule')"><span class="n">02</span><span class="only-ko">일정표</span><span class="only-en">Schedule</span></button>
-        <button onclick="go('program')"><span class="n">03</span><span class="only-ko">세부 프로그램</span><span class="only-en">Programs</span></button>
-        <button onclick="go('venue')"><span class="n">04</span><span class="only-ko">장소 · 지도</span><span class="only-en">Venues · Map</span></button>
+        <div class="cover-quick">
+          <button onclick="go('about')"><span class="n">01</span><span class="only-ko">행사 소개</span><span class="only-en">Introduction</span></button>
+          <button onclick="go('schedule')"><span class="n">02</span><span class="only-ko">일정표</span><span class="only-en">Schedule</span></button>
+          <button onclick="go('program')"><span class="n">03</span><span class="only-ko">세부 프로그램</span><span class="only-en">Programs</span></button>
+          <button onclick="go('venue')"><span class="n">04</span><span class="only-ko">장소 · 지도</span><span class="only-en">Venues · Map</span></button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= ABOUT ================= -->
+  <!-- ============ ABOUT ============ -->
   <section id="view-about" class="view" data-view="about">
-    <div class="bigtitle"><div class="t"><span class="only-ko">소개</span><span class="only-en">Introduction</span></div><span class="sub">01 — Introduction</span></div>
+    <div class="sheet">
+      <div class="pagetitle"><span class="only-ko">소개</span><span class="only-en">Introduction</span><span class="sub">01 — Introduction</span></div>
 
-    <div class="band"><span class="only-ko">소개</span><span class="only-en">About</span></div>
-    <div class="sec-body">
+      <div class="rule rule-dash"></div>
       <div class="only-ko">
         <p class="lead">초대의 글</p>
-        <p class="para">옐로우 펜 클럽의 ‘여름 캠프’는 연중 가장 더운 시기에 펼쳐지는 전시, 나눔, 워크숍, 상영회, 퍼포먼스 등을 아우르는 행사다. 압축된 시간 속에서 연쇄적으로 이어지는 마주침과 그 사이로 스며들어 축적될 감각을 도모한다. 지난 시간 YPC SPACE에 쌓인 대화에서 길어 올린 문제의식, 곧 우리가 놓인 좌표에 충실한 질문으로부터 매해 주제를 정하고, 이미 동료인 이들과 앞으로 동료가 될 이들을 곳곳에서 초대한다. 다양한 분야의 창작자와 연구자가 함께하는 캠프는 볼거리를 늘어놓기보다 함께 머무는 시간을, 과잉 생산보다 주의 깊은 집중을 택하며 지금 이곳에서 예술적 창작과 지식 생산의 조건을 실험한다. </p>
+        <p class="para">옐로우 펜 클럽의 ‘여름 캠프’는 연중 가장 더운 시기에 펼쳐지는 전시, 나눔, 워크숍, 상영회, 퍼포먼스 등을 아우르는 행사다. 압축된 시간 속에서 연쇄적으로 이어지는 마주침과 그 사이로 스며들어 축적될 감각을 도모한다. 지난 시간 YPC SPACE에 쌓인 대화에서 길어 올린 문제의식, 곧 우리가 놓인 좌표에 충실한 질문으로부터 매해 주제를 정하고, 이미 동료인 이들과 앞으로 동료가 될 이들을 곳곳에서 초대한다. 다양한 분야의 창작자와 연구자가 함께하는 캠프는 볼거리를 늘어놓기보다 함께 머무는 시간을, 과잉 생산보다 주의 깊은 집중을 택하며 지금 이곳에서 예술적 창작과 지식 생산의 조건을 실험한다.</p>
         <p class="para">2026년의 주제인 “섬과 바다”는 전 지구적 차원에서 벌어지는 고립과 소외를 마주하는 동시에, 다시 서로 연결될 수 있는 돌봄과 저항의 경로를 꿈꾸려는 열망을 대변한다. 버려진 판자 조각을 모아 만든 계단으로 첨예한 경계를 가볍게 뛰어넘은 두 학교, 해상 봉쇄를 뚫고 고립된 땅을 향해 출항하는 구호선단, 전면적인 검열을 피해 이내 증발할 물로 캐릭터를 그리며 망각에 저항하는 노인, 함께하는 시간과 집중력을 빼앗는 질서를 따돌리기 위해 꾸려진 대안적 모임. 우리는 이러한 움직임에 주목하기로 한다. 서로 다른 상태로 함께 시간을 보내며, 예상치 못한 방식으로 연결되기를 기대하면서.</p>
       </div>
       <div class="only-en">
         <p class="lead">Between islands, bridges are laid. Over four days, the people and things, sentences and images that have crossed the sea reach one another across Seoul.</p>
         <p class="para">Summer Camp 2026 “Islands and Bridges” takes migration and diaspora, translation and voyage, connection and isolation as its threads. From the social history of citrus trees that crossed to Jeju, to a liberatory voyage across the sea, to readings where diaries and notes are spoken aloud, to a temporary broadcasting station transmitting the present of a space in real time — stories scattered like separate islands are joined by the bridge of the program.</p>
-        <p class="para">The exhibition venues sit like islands across Jung-gu and Jongno in Seoul, while sharing sessions, readings, workshops, screenings, performances, and talks move between them. Visitors are invited to cross the city, land on each island, and walk the bridges laid in between.</p>
+        <p class="para">The exhibition venues sit like islands across Jung-gu and Jongno in Seoul, while sharings, readings, workshops, screenings, performances, and talks move between them. Visitors are invited to cross the city, land on each island, and walk the bridges laid in between.</p>
+      </div>
+
+      <div class="rule rule-comb" style="margin-top:14px;"></div>
+      <div class="sectlabel"><span class="only-ko">행사 정보</span><span class="only-en">Details</span></div>
+      <div class="rule rule-dot"></div>
+
+      <div class="factrow"><div class="k"><span class="only-ko">행사명</span><span class="only-en">Title</span></div><div class="v"><span class="only-ko">2026 서머 캠프 — 섬과 다리</span><span class="only-en">Summer Camp 2026 — Islands and Bridges</span><br><i><span class="only-ko">Summer Camp 2026 · Islands and Bridges</span><span class="only-en">2026 서머 캠프 〈섬과 다리〉</span></i></div></div>
+      <div class="rule rule-fine"></div>
+      <div class="factrow"><div class="k"><span class="only-ko">기간</span><span class="only-en">Dates</span></div><div class="v"><span class="only-ko">2026. 8. 6.(목) – 8. 9.(일) · 4일간</span><span class="only-en">Aug 6 (Thu) – Aug 9 (Sun), 2026 · 4 days</span></div></div>
+      <div class="rule rule-fine"></div>
+      <div class="factrow"><div class="k"><span class="only-ko">장소</span><span class="only-en">Venue</span></div><div class="v"><span class="only-ko">YPC SPACE 외 서울 중구·종로 일대</span><span class="only-en">YPC SPACE and around Jung-gu · Jongno, Seoul</span></div></div>
+      <div class="rule rule-fine"></div>
+      <div class="factrow"><div class="k"><span class="only-ko">주최</span><span class="only-en">Host</span></div><div class="v">Yellow Pen Club (YPC)</div></div>
+      <div class="rule rule-fine"></div>
+      <div class="factrow"><div class="k"><span class="only-ko">구성</span><span class="only-en">Programs</span></div><div class="v"><span class="only-ko">전시 · 나눔 · 낭독 · 워크숍 · 스크리닝 · 퍼포먼스 · 토크</span><span class="only-en">Exhibition · Sharing · Reading · Workshop · Screening · Performance · Talk</span></div></div>
+      <div class="rule rule-wave" style="margin-top:8px;"></div>
+
+      <div class="footnote">
+        <span class="live-badge"><span class="dot"></span><span class="only-ko">온라인 방송</span><span class="only-en">Live stream</span></span>
+        <span class="only-ko">2b-temp-cast를 통해 실시간 방송 진행</span><span class="only-en">Broadcast live via 2b-temp-cast</span>
+      </div>
+
+      <div class="foot">
+        <div class="mk"><span class="only-ko">섬과 다리</span><span class="only-en">Islands and Bridges</span></div>
+        <div class="dt">2026. 8. 6. – 8. 9.</div>
+        <div class="host">by Yellow Pen Club</div>
       </div>
     </div>
-
-    <div class="band"><span class="only-ko">행사 정보</span><span class="only-en">Details</span></div>
-    <div class="sec-body">
-      <div class="factrow"><div class="k"><span class="only-ko">행사명</span><span class="only-en">Title</span></div><div class="v"><b><span class="only-ko">2026 서머 캠프 〈섬과 다리〉</span><span class="only-en">Summer Camp 2026 “Islands and Bridges”</span></b><br><i><span class="only-ko">Summer Camp 2026 · Islands and Bridges</span><span class="only-en">2026 서머 캠프 〈섬과 다리〉</span></i></div></div>
-      <div class="factrow"><div class="k"><span class="only-ko">기간</span><span class="only-en">Dates</span></div><div class="v"><span class="only-ko"><b>2026. 8. 6 (목) — 8. 9 (일)</b> · 4일간</span><span class="only-en"><b>Aug 6 (Thu) — Aug 9 (Sun), 2026</b> · 4 days</span></div></div>
-      <div class="factrow"><div class="k"><span class="only-ko">장소</span><span class="only-en">Venue</span></div><div class="v"><span class="only-ko">YPC SPACE 외 서울 중구·종로 일대</span><span class="only-en">YPC SPACE and around Jung-gu · Jongno, Seoul</span></div></div>
-      <div class="factrow"><div class="k"><span class="only-ko">주최</span><span class="only-en">Host</span></div><div class="v"><b>YPC</b></div></div>
-      <div class="factrow"><div class="k"><span class="only-ko">구성</span><span class="only-en">Programs</span></div><div class="v"><span class="only-ko">전시 · 공유모임 · 낭독 · 워크숍 · 상영 · 퍼포먼스 · 토크</span><span class="only-en">Exhibition · Sharing · Reading · Workshop · Screening · Performance · Talk</span></div></div>
-    </div>
-
-    <div class="band"><span class="only-ko">안내</span><span class="only-en">Notes</span></div>
-    <div class="sec-body">
-      <div class="note"><div><span class="live-badge" style="margin:0 5px 0 0;vertical-align:middle"><span class="dot"></span><span class="only-ko">온라인 방송</span><span class="only-en">Live stream</span></span><span class="only-ko">표시가 있는 프로그램은 <b>2b-temp-cast</b>(임시 온라인 방송국)를 통해 실시간 라이브로 방송되어, 현장에 없는 이들에게도 가닿습니다.</span><span class="only-en">Programs with this badge are broadcast live via <b>2b-temp-cast</b> (a temporary online station), reaching those who cannot be there in person.</span></div></div>
-    </div>
-
-    <div class="foot"><div class="mk"><span class="only-ko">섬과 다리</span><span class="only-en">Islands &amp; Bridges</span></div><div class="dt">2026. 8. 6 — 8. 9</div><div class="host">Organized by YPC</div></div>
   </section>
 
-  <!-- ================= SCHEDULE ================= -->
+  <!-- ============ SCHEDULE ============ -->
   <section id="view-schedule" class="view" data-view="schedule">
-    <div class="bigtitle"><div class="t"><span class="only-ko">일정표</span><span class="only-en">Schedule</span></div><span class="sub">02 — Schedule</span></div>
-    <div id="schedule-body"></div>
-    <div class="sec-body">
-      <div class="note"><div><span class="live-badge" style="margin:0 5px 0 0;vertical-align:middle"><span class="dot"></span><span class="only-ko">온라인 방송</span><span class="only-en">Live stream</span></span><span class="only-ko">표시가 있는 프로그램은 2b-temp-cast를 통해 실시간 라이브로 방송됩니다. 전시는 기간 내 상시 관람 가능하며, 장소별 관람 시간은 <span class="linky" onclick="go('venue')">장소 페이지</span>를 참고하세요.</span><span class="only-en">Programs with this badge are broadcast live via 2b-temp-cast. Exhibitions are open throughout; see the <span class="linky" onclick="go('venue')">Venue page</span> for hours by location.</span></div></div>
+    <div class="sheet">
+      <div class="pagetitle"><span class="only-ko">일정표</span><span class="only-en">Schedule</span><span class="sub">02 — Schedule</span></div>
+      <div id="schedule-body"></div>
+      <div class="foot">
+        <div class="mk"><span class="only-ko">섬과 다리</span><span class="only-en">Islands and Bridges</span></div>
+        <div class="dt">2026. 8. 6. – 8. 9.</div>
+        <div class="host">by Yellow Pen Club</div>
+      </div>
     </div>
-    <div class="foot"><div class="mk"><span class="only-ko">섬과 다리</span><span class="only-en">Islands &amp; Bridges</span></div><div class="dt">2026. 8. 6 — 8. 9</div><div class="host">Organized by YPC</div></div>
   </section>
 
-  <!-- ================= PROGRAM ================= -->
+  <!-- ============ PROGRAM ============ -->
   <section id="view-program" class="view" data-view="program">
-    <div class="bigtitle"><div class="t"><span class="only-ko">세부 프로그램</span><span class="only-en">Programs</span></div><span class="sub">03 — Program</span></div>
-    <div id="program-body"></div>
-    <div class="foot"><div class="mk"><span class="only-ko">섬과 다리</span><span class="only-en">Islands &amp; Bridges</span></div><div class="dt">2026. 8. 6 — 8. 9</div><div class="host">Organized by YPC</div></div>
+    <div class="sheet">
+      <div class="pagetitle"><span class="only-ko">세부 프로그램</span><span class="only-en">Programs</span><span class="sub">03 — Program</span></div>
+      <div id="program-body"></div>
+      <div class="foot">
+        <div class="mk"><span class="only-ko">섬과 다리</span><span class="only-en">Islands and Bridges</span></div>
+        <div class="dt">2026. 8. 6. – 8. 9.</div>
+        <div class="host">by Yellow Pen Club</div>
+      </div>
+    </div>
   </section>
 
-  <!-- ================= VENUE ================= -->
+  <!-- ============ VENUE ============ -->
   <section id="view-venue" class="view" data-view="venue">
-    <div class="bigtitle"><div class="t"><span class="only-ko">장소</span><span class="only-en">Venues</span></div><span class="sub">04 — Venues · Map</span></div>
+    <div class="sheet">
+      <div class="pagetitle"><span class="only-ko">장소</span><span class="only-en">Venues</span><span class="sub">04 — Venues · Map</span></div>
 
-    <div class="map-schematic">
-      <svg viewBox="0 0 480 280" aria-hidden="true">
-        <rect width="480" height="280" fill="#ffffff"/>
-        <g stroke="#c9c9c9" stroke-width="1" fill="none">
-          <path d="M0 210 Q120 194 240 210 T480 210"/><path d="M0 236 Q120 220 240 236 T480 236"/><path d="M0 262 Q120 246 240 262 T480 262"/>
-        </g>
-        <g stroke="#141414" stroke-width="1.2" fill="none" stroke-dasharray="2 6" stroke-linecap="round">
-          <path d="M124 116 Q200 82 248 116"/><path d="M262 116 Q320 140 356 108"/><path d="M120 122 Q112 168 168 190"/><path d="M360 112 Q398 156 350 192"/>
-        </g>
-        <g font-family="'Noto Sans KR',sans-serif">
-          <g><ellipse cx="120" cy="118" rx="30" ry="8" stroke="#141414" fill="#f5ecc9"/><circle cx="120" cy="114" r="3" fill="#141414"/><text x="120" y="98" text-anchor="middle" fill="#141414" font-size="12" font-weight="600">YPC SPACE</text></g>
-          <g><ellipse cx="255" cy="118" rx="24" ry="8" stroke="#141414" fill="#dde8ef"/><circle cx="255" cy="114" r="3" fill="#141414"/><text x="255" y="98" text-anchor="middle" fill="#141414" font-size="12" font-weight="600">PCO</text></g>
-          <g><ellipse cx="362" cy="108" rx="26" ry="8" stroke="#141414" fill="#f6dfe2"/><circle cx="362" cy="104" r="3" fill="#141414"/><text x="362" y="88" text-anchor="middle" fill="#141414" font-size="12" font-weight="600">FF Seoul</text></g>
-          <g><ellipse cx="168" cy="194" rx="24" ry="8" stroke="#141414" fill="#e0eadb"/><circle cx="168" cy="190" r="3" fill="#141414"/><text x="168" y="216" text-anchor="middle" fill="#141414" font-size="11">전망 · Sionmang</text></g>
-          <g><ellipse cx="348" cy="196" rx="30" ry="8" stroke="#141414" fill="#e7e0ef"/><circle cx="348" cy="192" r="3" fill="#141414"/><text x="348" y="218" text-anchor="middle" fill="#141414" font-size="11">Chungmu · Dongguk</text></g>
-        </g>
-        <text x="22" y="38" font-family="'Noto Sans',sans-serif" font-style="italic" font-size="15" fill="#141414">Islands &amp; Bridges — Seoul</text>
-      </svg>
+      <div class="mapbox">
+        <svg viewBox="0 0 480 270" aria-hidden="true">
+          <g stroke="#fb2b06" stroke-width="1.6" fill="none" stroke-dasharray="3 5" stroke-linecap="round">
+            <path d="M120 118 Q198 78 250 116"/><path d="M262 116 Q322 142 356 106"/><path d="M116 126 Q106 172 164 192"/><path d="M362 114 Q400 158 350 194"/>
+          </g>
+          <g stroke="#fb2b06" stroke-width="2" font-family="'Noto Sans KR',sans-serif" font-weight="800">
+            <g><ellipse cx="118" cy="118" rx="30" ry="9" fill="#f4511e"/><text x="118" y="96" text-anchor="middle" fill="#fb2b06" font-size="12" stroke="none">YPC SPACE</text></g>
+            <g><ellipse cx="255" cy="117" rx="24" ry="9" fill="#00bcd4"/><text x="255" y="96" text-anchor="middle" fill="#fb2b06" font-size="12" stroke="none">PCO</text></g>
+            <g><ellipse cx="362" cy="106" rx="26" ry="9" fill="#ffd200"/><text x="362" y="85" text-anchor="middle" fill="#fb2b06" font-size="12" stroke="none">FF Seoul</text></g>
+            <g><ellipse cx="166" cy="196" rx="24" ry="9" fill="#7cb342"/><text x="166" y="220" text-anchor="middle" fill="#fb2b06" font-size="11" stroke="none">전망</text></g>
+            <g><ellipse cx="348" cy="198" rx="30" ry="9" fill="#4dd0b1"/><text x="348" y="222" text-anchor="middle" fill="#fb2b06" font-size="11" stroke="none">충무 · 동국대</text></g>
+          </g>
+          <text x="20" y="36" font-family="'Noto Sans',sans-serif" font-style="italic" font-weight="800" font-size="15" fill="#fb2b06">Islands and Bridges — Seoul</text>
+        </svg>
+      </div>
+
+      <div class="rule rule-comb" style="margin-top:16px;"></div>
+      <div class="sectlabel"><span class="only-ko">목록</span><span class="only-en">List</span></div>
+      <div class="rule rule-dot"></div>
+      <div id="venuelist"></div>
+
+      <div class="rule rule-comb" style="margin-top:8px;"></div>
+      <div class="sectlabel"><span class="only-ko">전시</span><span class="only-en">Exhibitions</span></div>
+      <div class="rule rule-dot"></div>
+      <div id="exhlist"></div>
+
+      <div class="foot">
+        <div class="mk"><span class="only-ko">섬과 다리</span><span class="only-en">Islands and Bridges</span></div>
+        <div class="dt">2026. 8. 6. – 8. 9. · Seoul</div>
+        <div class="host">by Yellow Pen Club</div>
+      </div>
     </div>
-
-    <div class="band"><span class="only-ko">목록 · 프로그램 장소</span><span class="only-en">List · Venues</span></div>
-    <div id="venuelist"></div>
-
-    <div class="band"><span class="only-ko">전시 · Exhibitions</span><span class="only-en">Exhibitions</span></div>
-    <div id="exhlist"></div>
-
-    <div class="foot"><div class="mk"><span class="only-ko">섬과 다리</span><span class="only-en">Islands &amp; Bridges</span></div><div class="dt">2026. 8. 6 — 8. 9 · Seoul</div><div class="host">Organized by YPC</div></div>
   </section>
 
   <button class="totop" id="totop" aria-label="맨 위로 / To top"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button>
-
 </div>
 
 <script>
@@ -360,7 +376,6 @@ function go(view){
   window.scrollTo({top:0,behavior:'instant'});
   history.replaceState(null,'',view==='home'?location.pathname:'#'+view);
 }
-/* jump from a schedule item to its program detail */
 function goProgram(id){
   go('program');
   requestAnimationFrame(()=>{
@@ -368,7 +383,7 @@ function goProgram(id){
     if(!card) return;
     document.querySelectorAll('.prog.open').forEach(c=>{ if(c!==card) c.classList.remove('open'); });
     card.classList.add('open');
-    const y=card.getBoundingClientRect().top + window.scrollY - 116;
+    const y=card.getBoundingClientRect().top + window.scrollY - 118;
     window.scrollTo({top:Math.max(0,y), behavior:'smooth'});
     card.classList.add('flash');
     setTimeout(()=>card.classList.remove('flash'), 1200);
@@ -384,31 +399,32 @@ window.addEventListener('DOMContentLoaded',()=>{
   if(['about','schedule','program','venue'].includes(h)) go(h);
 });
 
-/* ---------------- SCHEDULE DATA ---------------- */
+/* ---------------- SCHEDULE ---------------- */
 const days=[
-  {d:'6',w:{ko:'목',en:'Thu'},label:{ko:'8월 6일 목요일',en:'August 6, Thursday'},items:[
-    {t:'14:00',tag:'오프닝',tagEn:'Opening',ti:{ko:'서머 캠프에 초대합니다',en:'Invitation to Summer Camp'},live:true,who:{ko:'YPC',en:'YPC'},pl:'YPC SPACE'},
-    {t:'15:00',tag:'투어',tagEn:'Tour',ti:{ko:'릴레이 오프닝',en:'Relay Opening'},who:'YPC',pl:'YPC SPACE'},
-    {ref:'citrus',t:'18:00',tag:'공유',tagEn:'Sharing',ti:{ko:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Citrus Trees Crossing the Sea: Diaspora, Jeju, Gifts'},live:true,who:{ko:'권준희',en:'Kwon June Hee'},pl:'YPC SPACE'},
+  {label:{ko:'8월 6일 (목)',en:'August 6 (Thu)'},rule:'rule-dash',items:[
+    {t:'14:00-15:00',cat:{ko:'오프닝',en:'Opening'},ti:{ko:'서머 캠프에 초대합니다',en:'Invitation to Summer Camp'},live:true,who:'YPC',pl:'YPC SPACE'},
+    {t:'15:00-17:00',cat:{ko:'투어',en:'Tour'},ti:{ko:'릴레이 오프닝',en:'Relay Opening'},who:'YPC',pl:{ko:'YPC SPACE / PCO / 전망 / FF Seoul',en:'YPC SPACE / PCO / Sionmang / FF Seoul'}},
+    {t:'18:00-20:00',ref:'citrus',cat:{ko:'나눔',en:'Sharing'},ti:{ko:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Citrus Trees Crossing the Sea: Diaspora, Jeju, Gifts'},live:true,who:{ko:'권준희',en:'Kwon June Hee'},pl:'YPC SPACE'},
   ]},
-  {d:'7',w:{ko:'금',en:'Fri'},label:{ko:'8월 7일 금요일',en:'August 7, Friday'},items:[
-    {ref:'crossing',t:'15:00',tag:'낭독',tagEn:'Reading',ti:{ko:'건너오는 문장들 ①',en:'Crossing Sentences ①'},live:true,who:{ko:'임수영',en:'Lim Suyeong'},pl:'YPC SPACE'},
-    {ref:'crossing',t:'16:00',tag:'낭독',tagEn:'Reading',ti:{ko:'건너오는 문장들 ②',en:'Crossing Sentences ②'},live:true,who:{ko:'김재형, 연정모',en:'Kim Jaehyung, Yeon Jeongmo'},pl:'YPC SPACE'},
-    {ref:'traces',t:'18:00',tag:'상영',tagEn:'Screening',ti:{ko:'많은 방과 흔적의 지도',en:'A Collection of Traces'},who:{ko:'찬하우춘',en:'Chan Hau Chun'},pl:{ko:'충무아트센터',en:'Chungmu Arts Center'}},
+  {label:{ko:'8월 7일 (금)',en:'August 7 (Fri)'},rule:'rule-dot',items:[
+    {t:'15:00-16:00',ref:'crossing',cat:{ko:'낭독',en:'Reading'},ti:{ko:'건너오는 문장들 1',en:'Crossing Sentences 1'},live:true,who:{ko:'임수영',en:'Lim Suyeong'},pl:'YPC SPACE'},
+    {t:'16:00-17:00',ref:'crossing',cat:{ko:'낭독',en:'Reading'},ti:{ko:'건너오는 문장들 2',en:'Crossing Sentences 2'},live:true,who:{ko:'김재형, 연정모',en:'Kim Jaehyung, Yeon Jeongmo'},pl:'YPC SPACE'},
+    {t:'18:00-20:00',ref:'traces',cat:{ko:'스크리닝',en:'Screening'},ti:{ko:'많은 방과 흔적의 지도',en:'A Collection of Traces'},who:{ko:'찬하우춘',en:'Chan Hau Chun'},pl:{ko:'충무아트센터 씨네마',en:'Chungmu Arts Center Cinema'}},
   ]},
-  {d:'8',w:{ko:'토',en:'Sat'},label:{ko:'8월 8일 토요일',en:'August 8, Saturday'},items:[
-    {ref:'artworkers',t:'11:00',tag:'워크숍',tagEn:'Workshop',ti:{ko:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Calculating and Exchanging the Time of Art Workers'},who:{ko:'쿤치 스터디 포럼 & 콜렉티브',en:'KUNCI Study Forum & Collective'},pl:'YPC SPACE',note:{ko:'비공개',en:'closed-door'}},
-    {ref:'crossing',t:'12:00',tag:'낭독',tagEn:'Reading',ti:{ko:'건너오는 문장들 ③',en:'Crossing Sentences ③'},live:true,who:{ko:'한여진',en:'Han Yeojin'},pl:'YPC SPACE'},
-    {ref:'suddenly',t:'14:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'정리애, 하이바라 치아키, 이정옥, 츠치야 미치코',en:'Jeong Ri-ae, Haibara Chiaki, Lee Jeong-ok, Tsuchiya Michiko'},pl:'YPC SPACE'},
-    {ref:'yangyunhwa',t:'16:00',tag:'퍼포먼스',tagEn:'Performance',ti:{ko:'양윤화 (제목 미정)',en:'Yang Yunhwa — Walk in the dark'},who:{ko:'양윤화',en:'Yang Yunhwa'},pl:'YPC SPACE'},
-    {ref:'sailing',t:'18:00',tag:'공유',tagEn:'Sharing',ti:{ko:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice'},who:{ko:'이승준',en:'Jonathan Sungjun Lee'},pl:{ko:'동국대학교 학림관 소강당',en:'Dongguk University, Haklim Hall'}},
+  {label:{ko:'8월 8일 (토)',en:'August 8 (Sat)'},rule:'rule-dash',items:[
+    {t:'11:00-14:00',ref:'artworkers',cat:{ko:'워크숍',en:'Workshop'},ti:{ko:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Calculating and Exchanging the Time of Art Workers'},who:{ko:'쿤치 스터디 포럼 & 콜렉티브 x 와룽 시킬',en:'KUNCI Study Forum & Collective x Warung Sikil'},pl:'YPC SPACE'},
+    {t:'12:00-13:00',ref:'crossing',cat:{ko:'낭독',en:'Reading'},ti:{ko:'건너오는 문장들 3',en:'Crossing Sentences 3'},live:true,who:{ko:'한여진',en:'Han Yeojin'},pl:'YPC SPACE'},
+    {t:'14:00-16:00',ref:'suddenly',cat:{ko:'토크',en:'Talk'},ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'리정옥, 정리애, 츠치야 미치코, 하이바라 치아키',en:'Lee Jeong-ok, Jeong Ri-ae, Tsuchiya Michiko, Haibara Chiaki'},pl:'YPC SPACE'},
+    {t:'16:00-17:00',ref:'dissolve',cat:{ko:'퍼포먼스',en:'Performance'},ti:{ko:'디졸브',en:'Dissolve'},who:{ko:'양윤화',en:'Yang Yunhwa'},pl:'YPC SPACE'},
+    {t:'18:00-20:00',ref:'sailing',cat:{ko:'나눔',en:'Sharing'},ti:{ko:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice'},who:{ko:'이승준',en:'Jonathan Sungjun Lee'},pl:{ko:'동국대 학림관 소강당',en:'Dongguk Univ., Haklim Hall'}},
   ]},
-  {d:'9',w:{ko:'일',en:'Sun'},label:{ko:'8월 9일 일요일',en:'August 9, Sunday'},items:[
-    {ref:'gateways',t:'10:00',tag:'워크숍',tagEn:'Workshop',ti:{ko:'손 다음 손',en:'Hand After Hand'},who:{ko:'게게르보요',en:'Gegerboyo'},pl:'PCO'},
-    {ref:'gateways',t:'12:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},who:{ko:'현남',en:'Hyun Nahm'},pl:'PCO'},
-    {ref:'piperelay',t:'14:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'이동현',en:'Lee Dong-hyun'},pl:'YPC SPACE'},
-    {ref:'artworkers',t:'15:00',tag:'토크',tagEn:'Talk',ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'쿤치 스터디 포럼 & 콜렉티브 ⅹ 와룽 시킬',en:'KUNCI ⅹ Warung Sikil'},pl:'YPC SPACE'},
-    {ref:'tempcast',t:'18:00',tag:'뒤풀이',tagEn:'Closing',ti:{ko:'2026 서머 캠프를 마치며 + [퍼포먼스] 2b-temp-cast',en:'Closing the 2026 Summer Camp + [Performance] 2b-temp-cast'},live:true,who:{ko:'YPC · 2bpencil',en:'YPC · 2bpencil'},pl:'YPC SPACE'},
+  {label:{ko:'8월 9일 (일)',en:'August 9 (Sun)'},rule:'rule-dot',items:[
+    {t:'11:00-12:00',ref:'gateways',cat:{ko:'워크숍',en:'Workshop'},ti:{ko:'손 다음 손',en:'Hand After Hand'},who:{ko:'게게르보요',en:'Gegerboyo'},pl:'PCO'},
+    {t:'12:00-13:00',ref:'gateways',cat:{ko:'토크',en:'Talk'},ti:{ko:'아티스트 토크',en:'Artist Talk'},who:{ko:'현남',en:'Hyun Nahm'},pl:'PCO'},
+    {t:'14:00-15:00',ref:'piperelay',cat:{ko:'토크',en:'Talk'},ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'이동현',en:'Lee Dong-hyun'},pl:'YPC SPACE'},
+    {t:'15:30-17:30',ref:'artworkers',cat:{ko:'토크',en:'Talk'},ti:{ko:'속도의 도시에서 예술을 위한 시간 만들기',en:'Making Time for Art in the City of Speed'},live:true,who:{ko:'쿤치 스터디 포럼 & 콜렉티브 x 와룽 시킬',en:'KUNCI Study Forum & Collective x Warung Sikil'},pl:'YPC SPACE'},
+    {t:'18:00-20:00',cat:{ko:'뒤풀이',en:'Gathering'},ti:{ko:'2026 서머 캠프를 마치며',en:'Closing the 2026 Summer Camp'},live:true,who:'YPC',pl:'YPC SPACE'},
+    {t:'',ref:'tempcast',cat:{ko:'퍼포먼스',en:'Performance'},ti:{ko:'2b-temp-cast',en:'2b-temp-cast'},live:true,who:'2bpencil',pl:'YPC SPACE'},
   ]},
 ];
 
@@ -416,111 +432,120 @@ function renderSchedule(){
   const box=document.getElementById('schedule-body');
   box.innerHTML='';
   days.forEach(day=>{
-    let html=`<div class="band">${t(day.label)}</div>`;
-    day.items.forEach(it=>{
-      const note=it.note?' · '+t(it.note):'';
-      const liveBadge=it.live?`<span class="live-badge"><span class="dot"></span>${lang==='ko'?'온라인 방송':'Live stream'}</span>`:'';
-      const titleHtml=it.ref
-        ? `<button class="ti ti-link" onclick="goProgram('${it.ref}')">${t(it.ti)}<span class="ti-arrow" aria-hidden="true">↗</span></button>`
-        : `<div class="ti">${t(it.ti)}</div>`;
-      html+=`<div class="slot">
-        <div class="time">${it.t}</div>
-        <div class="body">
-          <div class="tagrow"><span class="tag t-${it.tag}">${lang==='ko'?it.tag:it.tagEn}</span>${liveBadge}</div>
-          ${titleHtml}
-          <div class="sub"><span class="who">${t(it.who)}</span> · ${t(it.pl)}${note}</div>
-        </div></div>`;
+    let html=`<div class="dayhead">${t(day.label)}</div><div class="rule ${day.rule}"></div>`;
+    day.items.forEach((it,i)=>{
+      if(i>0) html+=`<div class="rule rule-fine"></div>`;
+      const badge=it.live?`<div class="sbadge"><span class="live-badge"><span class="dot"></span>${lang==='ko'?'온라인 방송':'Live stream'}</span></div>`:'';
+      const title=it.ref
+        ? `<button class="stitle" onclick="goProgram('${it.ref}')">${t(it.ti)}<span class="sarrow">↗</span></button>`
+        : `<div class="stitle">${t(it.ti)}</div>`;
+      html+=`<div class="srow">
+        <div class="stime">${it.t}</div>
+        <div>
+          <div class="scat">[${t(it.cat)}]</div>
+          ${title}
+          <div class="smeta">${t(it.who)} · ${t(it.pl)}</div>
+          ${badge}
+        </div>
+      </div>`;
     });
+    html+=`<div class="rule rule-tick"></div>
+      <div class="footnote">
+        <span class="live-badge"><span class="dot"></span>${lang==='ko'?'온라인 방송':'Live stream'}</span>
+        <span>${lang==='ko'?'2b-temp-cast를 통해 실시간 방송 진행':'Broadcast live via 2b-temp-cast'}</span>
+      </div>`;
     box.insertAdjacentHTML('beforeend', html);
   });
 }
 
-/* ---------------- PROGRAM DATA ---------------- */
+/* ---------------- PROGRAMS ---------------- */
 const programs=[
-  {id:'basecamp',img:'https://i.postimg.cc/NMnzKk7r/DSF7612-small.jpg',cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'베이스캠프',en:'Base camp'},artist:{ko:'YPC',en:'YPC'},place:'YPC SPACE',when:{ko:'8.6 – 9 · 목–금 14–19시 / 토–일 11–19시',en:'Aug 6–9 · Thu–Fri 2–7pm / Sat–Sun 11am–7pm'},
+  {id:'basecamp',img:'https://i.postimg.cc/NMnzKk7r/DSF7612-small.jpg',cat:'전시',title:{ko:'베이스캠프',en:'Base camp'},artist:'YPC',place:'YPC SPACE',when:{ko:'8.6. – 9. · 목–금 14–19시 / 토–일 11–19시',en:'Aug 6–9 · Thu–Fri 2–7pm / Sat–Sun 11am–7pm'},
    desc:{ko:'서머 캠프의 거점이 되는 전시. 나흘간의 프로그램이 시작되고 모이는 자리다.',en:'The exhibition at the heart of Summer Camp — where the four days of programs begin and come together.'}},
-  {id:'gateways',cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'관문',en:'Gateways'},artist:{ko:'현남, 게게르보요',en:'Hyun Nahm, Gegerboyo'},place:'PCO',when:{ko:'8.6 – 9 · 매일 12–19시',en:'Aug 6–9 · Daily 12–7pm'},
-   desc:{ko:'게게르보요와 현남이 함께 여는 전시 〈관문〉. 8월 9일(일) 두 작가의 아티스트 토크가 연계 진행된다.',en:'A two-person exhibition, “Gateways,” by Gegerboyo and Hyun Nahm. Artist talks by both accompany the show on Sunday, Aug 9.'}},
-  {id:'piperelay',cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'파이프릴레이',en:'Pipe-relay'},artist:{ko:'이동현',en:'Lee Donghyun'},place:'FF Seoul',when:{ko:'8.6 – 9 · 목–토 11–19시 / 일 11–18시',en:'Aug 6–9 · Thu–Sat 11am–7pm / Sun 11am–6pm'},
-   desc:{ko:'세운상가 한켠에서 열리는 이동현 개인전. 8월 9일(일) 아티스트 토크가 함께 진행된다.',en:'A solo exhibition by Lee Donghyun tucked into Sewoon Plaza. An artist talk accompanies it on Sunday, Aug 9.'}},
-  {id:'suddenly',cat:'전시',kind:{ko:'전시',en:'Exhibition'},title:{ko:'돌연, 눈앞이 열리고. 경계를 넘어서, 어두운 계단으로 나아가며',en:'Suddenly, the view spreads out before us…'},artist:{ko:'정리애鄭梨愛, 하이바라 치아키灰原千晶, 이정옥李晶玉, 츠치야 미치코土屋美智子',en:'Jeong Ri-ae, Haibara Chiaki, Lee Jeong-ok, Tsuchiya Michiko'},place:{ko:'전망',en:'Sionmang'},when:{ko:'8.6 – 9 · 매일 12–19시',en:'Aug 6–9 · Daily 12–7pm'},
-   link:{ko:'연계 아티스트 토크 — 8.8(토) 14시, YPC SPACE (일본어·한국어/조선어)',en:'Related artist talk — Aug 8 (Sat) 2pm, YPC SPACE (Japanese · Korean)'},
-   desc:{ko:'네 명의 작가가 경계와 이동을 주제로 함께 여는 전시.',en:'A group exhibition by four artists exploring boundaries and movement.'}},
+  {id:'gateways',cat:'전시',title:{ko:'관문',en:'Gateways'},artist:{ko:'게게르보요, 현남',en:'Gegerboyo, Hyun Nahm'},place:'PCO',when:{ko:'8.6. – 9. · 매일 12–19시',en:'Aug 6–9 · Daily 12–7pm'},
+   desc:{ko:'게게르보요와 현남이 함께 여는 전시 〈관문〉.',en:'A two-person exhibition, “Gateways,” by Gegerboyo and Hyun Nahm.'},
+   linked:{ko:'연계 워크숍 〈손 다음 손〉 — 8.9.(일) 11:00–12:00, PCO / 연계 아티스트 토크(현남) — 8.9.(일) 12:00–13:00, PCO',en:'Related workshop “Hand After Hand” — Aug 9 (Sun) 11:00–12:00, PCO / Artist talk (Hyun Nahm) — Aug 9 (Sun) 12:00–13:00, PCO'}},
+  {id:'piperelay',cat:'전시',title:{ko:'파이프 릴레이',en:'Pipe-relay'},artist:{ko:'이동현',en:'Lee Dong-hyun'},place:'FF Seoul',when:{ko:'8.6. – 9. · 목–토 11–19시 / 일 11–18시',en:'Aug 6–9 · Thu–Sat 11am–7pm / Sun 11am–6pm'},
+   desc:{ko:'세운상가 한켠에서 열리는 이동현 개인전.',en:'A solo exhibition by Lee Dong-hyun tucked into Sewoon Plaza.'},
+   linked:{ko:'연계 아티스트 토크 — 8.9.(일) 14:00–15:00, YPC SPACE',en:'Related artist talk — Aug 9 (Sun) 14:00–15:00, YPC SPACE'}},
+  {id:'suddenly',cat:'전시',title:{ko:'돌연, 눈앞이 열리고. 경계를 넘어서, 어두운 계단으로 나아가며',en:'Suddenly, the view spreads out before us…'},artist:{ko:'리정옥, 정리애, 츠치야 미치코, 하이바라 치아키',en:'Lee Jeong-ok, Jeong Ri-ae, Tsuchiya Michiko, Haibara Chiaki'},place:{ko:'전망',en:'Sionmang'},when:{ko:'8.6. – 9. · 매일 12–19시',en:'Aug 6–9 · Daily 12–7pm'},
+   desc:{ko:'네 명의 작가가 경계와 이동을 주제로 함께 여는 전시.',en:'A group exhibition by four artists exploring boundaries and movement.'},
+   linked:{ko:'연계 아티스트 토크 — 8.8.(토) 14:00–16:00, YPC SPACE (일본어·한국어/조선어)',en:'Related artist talk — Aug 8 (Sat) 14:00–16:00, YPC SPACE (Japanese · Korean)'}},
 
-  {id:'traces',cat:'상영',kind:{ko:'상영',en:'Screening'},title:{ko:'많은 방과 흔적의 지도',en:'A Collection of Traces'},artist:{ko:'찬하우춘 Chan Hau Chun',en:'Chan Hau Chun'},place:{ko:'충무아트센터',en:'Chungmu Arts Center'},when:{ko:'8.7(금) 18시',en:'Aug 7 (Fri) 6pm'},
+  {id:'traces',cat:'스크리닝',title:{ko:'많은 방과 흔적의 지도',en:'A Collection of Traces'},artist:{ko:'찬하우춘',en:'Chan Hau Chun'},place:{ko:'충무아트센터 씨네마',en:'Chungmu Arts Center Cinema'},when:{ko:'8.7.(금) 18:00–20:00',en:'Aug 7 (Fri) 18:00–20:00'},
    desc:{ko:'〈많은 방들의 방〉(2024)과 〈흔적의 지도〉(2025)는 다세대 주택의 내밀한 실내 공간과 변화하는 도시의 풍경 사이를 오가며, 홍콩의 계속되는 변화 속에서도 남아있는 삶과 기억, 부재의 흔적을 조용히 따라간다. 방과 거리, 목소리, 비어 있는 좌석, 흐려지는 풍경을 통해 찬하우춘은 낯설어지고 있지만 아직 잊히지 않은 어떤 장소의 연약한 흔적들을 모은다.',en:'Moving between the intimate interiors of subdivided flats and the changing landscapes of the city, A Room of Many Rooms (2024) and Map of Traces (2025) quietly trace the lives, memories, and absences that remain amid Hong Kong’s ongoing transformation. Through rooms, streets, voices, empty seats, and fading views, Chan gathers the fragile signs of a place that is becoming unfamiliar, yet not forgotten.'},
    bio:{ko:'찬하우춘은 홍콩을 기반으로 활동하는 작가로, 시적인 미니멀리즘과 일상적 이미지에서 영감을 받아 개인적 서사와 집단적 서사가 교차하는 지점에 주목한다. 토론토 국제영화제, 금마장(金馬獎), 대만국제다큐멘터리영화제, 이미지 포럼 페스티벌, 오버하우젠 국제단편영화제 등 국제 영화제와 홍콩의 WMA 스페이스, 엠프티 갤러리(Empty Gallery)에서 작품이 소개된 바 있다.',en:'Chan Hau Chun is a Hong Kong–based artist whose work is inspired by poetic minimalism and everyday imagery, focusing on the intersection of personal and collective narratives. Her films have been showcased at international festivals such as the Toronto International Film Festival, Golden Horse Awards, Taiwan International Documentary Festival, Image Forum Festival, and International Short Film Festival Oberhausen, and at Hong Kong’s WMA Space and Empty Gallery.'},
    linked:{ko:'상영이 끝난 후 아티스트 토크가 진행됩니다.',en:'An artist talk will follow the screening.'}},
 
-  {id:'citrus',cat:'공유',kind:{ko:'공유모임',en:'Sharing'},title:{ko:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Citrus Trees Crossing the Sea: Diaspora, Jeju, Gifts'},artist:{ko:'권준희',en:'Kwon June Hee'},place:'YPC SPACE',when:{ko:'8.6(목) 18시',en:'Aug 6 (Thu) 6pm'},live:true,
+  {id:'citrus',cat:'나눔',title:{ko:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Citrus Trees Crossing the Sea: Diaspora, Jeju, Gifts'},artist:{ko:'권준희',en:'Kwon June Hee'},place:'YPC SPACE',when:{ko:'8.6.(목) 18:00–20:00',en:'Aug 6 (Thu) 18:00–20:00'},live:true,
    desc:{ko:'제주도의 대표 산업인 감귤 재배는 재일제주인이 고향을 돕기 위해 감귤 묘목을 ‘선물’하는 것으로 본격화되었다. 이 모임에서는 사람의 이주, 나무의 이주가 국가 주도의 냉전 발전주의와 결합하며 제주의 농업, 생태, 경제, 그리고 삶의 조건을 재구성하는 과정을 살펴본다. 나아가 참여자들과 문답을 나누며 (비)인간 이주로 인한 환경/사회의 변화, 경계지대의 존재들과 이를 둘러싼 구조에 대해 이야기한다.',en:'Citrus cultivation, Jeju’s signature industry, took off when Jeju residents in Japan “gifted” citrus saplings to help their hometown. This session traces how the migration of people and of trees, entangled with state-led Cold War developmentalism, reshaped Jeju’s agriculture, ecology, economy, and conditions of life. In dialogue with participants, it considers the environmental and social changes wrought by (non-)human migration, the beings of borderlands, and the structures surrounding them.'},
-   bio:{ko:'캘리포니아 주립대학교 새크라멘토 아시안학과 교수. 동북아시아 변경 지역, 냉전 개발주의, 디아스포라와 이주, 생태정치를 주제로 연구하고 가르친다. 저서 『Borderland Dreams: The Transnational Lives of Korean Chinese Workers』(2023)로 2024년 미국동아시아인류학회(SEAA) 프랜시스 L. K. 쉬 저술상을 수상했다. 이 책은 『이주, 경계, 꿈』이라는 제목으로 번역 출간되었으며, 현재 감귤나무의 사회사를 다루는 『Frontier Fruits: The Social Power of Citrus Trees in Jeju, Korea』를 집필 중이다.',en:'June Hee Kwon is Associate Professor in the Asian Studies Program at California State University, Sacramento. She is the author of Borderland Dreams: The Transnational Lives of Korean Chinese Workers (Duke University Press, 2023), winner of the 2024 Francis L. K. Hsu Book Prize from the Society for East Asian Anthropology. She is currently developing a new book project, Frontier Fruits: The Social Power of Citrus Trees in Jeju, Korea.'}},
+   bio:{ko:'캘리포니아 주립대학교 새크라멘토 아시안학과 교수. 동북아시아 변경 지역, 냉전 개발주의, 디아스포라와 이주, 생태정치를 주제로 연구하고 가르친다. 저서 『Borderland Dreams: The Transnational Lives of Korean Chinese Workers』(2023)로 2024년 미국동아시아인류학회(SEAA) 프랜시스 L. K. 쉬 저술상을 수상했다. 현재 감귤나무의 사회사를 다루는 『Frontier Fruits: The Social Power of Citrus Trees in Jeju, Korea』를 집필 중이다.',en:'June Hee Kwon is Associate Professor in the Asian Studies Program at California State University, Sacramento. She is the author of Borderland Dreams: The Transnational Lives of Korean Chinese Workers (Duke University Press, 2023), winner of the 2024 Francis L. K. Hsu Book Prize from the Society for East Asian Anthropology. She is currently developing a new book project, Frontier Fruits: The Social Power of Citrus Trees in Jeju, Korea.'}},
 
-  {id:'sailing',cat:'공유',kind:{ko:'공유모임',en:'Sharing'},title:{ko:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice'},artist:{ko:'이승준 Jonathan Sungjun Lee',en:'Jonathan Sungjun Lee'},place:{ko:'동국대학교 학림관 소강당',en:'Dongguk University, Haklim Hall'},when:{ko:'8.8(토) 18시 · 영어',en:'Aug 8 (Sat) 6pm · English'},
-   desc:{ko:'해양을 경유한 반전 운동에 참여해온 승준은 올해 가자지구로 향하는 국제 구호선단에 탑승했다가 나포되어 귀국했다. 이 토크에서는 가자지구로 향하는 항해 중에 찍은 푸티지를 상영하고 해방의 동력으로서 항해 운동의 내러티브와 의미에 대해 논한다. 그가 몸으로 체험한 항해의 경험을 토대로 바다를 건너는 행위 자체가 가진 생성적 힘을 제시한다.',en:'Sungjun, who has taken part in various sea-based anti-war movements, boarded an international relief flotilla bound for Gaza before being seized and returned to Korea. The talk features footage taken on the voyage toward Gaza and a discussion of the narrative and meaning of oceanic activism as a practice of liberation. Drawing on his own bodily experience of the voyage, he proposes the generative power inherent in the act of crossing the sea itself.'},
+  {id:'sailing',cat:'나눔',title:{ko:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice'},artist:{ko:'이승준',en:'Jonathan Sungjun Lee'},place:{ko:'동국대 학림관 소강당',en:'Dongguk Univ., Haklim Hall'},when:{ko:'8.8.(토) 18:00–20:00 · 영어',en:'Aug 8 (Sat) 18:00–20:00 · English'},
+   desc:{ko:'해양을 경유한 반전 운동에 참여해온 승준은 올해 가자지구로 향하는 국제 구호선단에 탑승했다가 나포되어 귀국했다. 이 토크에서는 가자지구로 향하는 항해 중에 찍은 푸티지를 상영하고 해방의 동력으로서 항해 운동의 내러티브와 의미에 대해 논한다. 그가 몸으로 체험한 항해의 경험을 토대로 바다를 건너는 행위 자체가 가진 생성적 힘을 제시한다.',en:'Sungjun, who has taken part in various sea-based anti-war movements, boarded an international relief flotilla bound for Gaza before being seized and returned to Korea. The talk features footage taken on the voyage toward Gaza and a discussion of the narrative and meaning of oceanic activism as a practice of liberation.'},
    bio:{ko:'조나단 승준 리는 가족, 디아스포라, 생태를 주제로 영상을 만드는 영화 감독이자 활동가다. 그는 강정마을 해군기지 반대운동과 ‘공정과 평화의 바다’ 등 해양을 경유하는 여러 반전운동에 참여하였다.',en:'Jonathan Sungjun Lee is an activist and filmmaker working with themes of family, diaspora, and ecology. He has taken part in various sea-based anti-war movements including the anti–Jeju Naval Base movement in Gangjeong Village and the “Peace Sailing Project.”'}},
 
-  {id:'crossing',cat:'낭독',kind:{ko:'낭독',en:'Reading'},title:{ko:'건너오는 문장들',en:'Crossing Sentences'},artist:{ko:'김재형·연정모, 임수영, 한여진',en:'Kim Jaehyung·Yeon Jeongmo, Lim Sooyeong, Han Yeojin'},place:'YPC SPACE',when:{ko:'8.7(금) 15·16시, 8.8(토) 12시',en:'Aug 7 (Fri) 3·4pm, Aug 8 (Sat) 12pm'},live:true,
-   desc:{ko:'각자가 써온 일기와 메모, 연구 노트, 크고 작은 창작물을 함께 읽는 자리다. 홀로 쌓아온 관심과 사유를 타인 앞에 꺼내어 나누는 이 시간은 2b-temp-cast(온라인 방송국)를 통해 실시간으로 송출되어 현장에 없는 이들에게도 가닿는다. 김재형과 연정모는 오랜 글쓰기 메이트로서 주고받은 편지와 대화를 함께 정리하여 읽는다. 임수영은 미학 연구자로서 서울과 광주를 오가며 쓴 일기를 읽으며 삶과 연구의 조화와 불화를 내비친다. 한여진은 태어나기 이전의 시간과 ‘없는 기억’ 속 타인의 흔적을 상상하며 존재 이전과 이후를 잇는 시를 쓴다.',en:'A gathering where each participant reads aloud from the diaries, notes, research journals, and works they have written. This time of taking privately accumulated interests and reflections and offering them to others is broadcast live through 2b-temp-cast (an online station), reaching even those not present. Kim Jaehyung and Yeon Jeongmo, longtime writing companions, read together from the letters and conversations they have shared. Lim Sooyeong, an aesthetics researcher who moves between Seoul and Gwangju, reads from a diary kept across that life, hinting at both harmony and friction between living and researching. Han Yeojin imagines the time before birth and the traces of others held within an “absent memory,” writing poems that connect what comes before existence with what comes after.'},
-   bio:{ko:'한여진 — 시인이자 건축 엔지니어. 시집 『두부를 구우면 겨울이 온다』 등이 있다.',en:'Han Yeojin — poet and structural engineer. Her poetry collections include When You Grill Tofu, Winter Comes.'}},
+  {id:'crossing',cat:'낭독',title:{ko:'건너오는 문장들',en:'Crossing Sentences'},artist:{ko:'임수영, 김재형·연정모, 한여진',en:'Lim Suyeong, Kim Jaehyung·Yeon Jeongmo, Han Yeojin'},place:'YPC SPACE',when:{ko:'8.7.(금) 15:00·16:00 / 8.8.(토) 12:00',en:'Aug 7 (Fri) 15:00·16:00 / Aug 8 (Sat) 12:00'},live:true,
+   desc:{ko:'각자가 써온 일기와 메모, 연구 노트, 크고 작은 창작물을 함께 읽는 자리다. 홀로 쌓아온 관심과 사유를 타인 앞에 꺼내어 나누는 이 시간은 2b-temp-cast(온라인 방송국)를 통해 실시간으로 송출되어 현장에 없는 이들에게도 가닿는다. 김재형과 연정모는 오랜 글쓰기 메이트로서 주고받은 편지와 대화를 함께 정리하여 읽는다. 임수영은 미학 연구자로서 서울과 광주를 오가며 쓴 일기를 읽으며 삶과 연구의 조화와 불화를 내비친다. 한여진은 태어나기 이전의 시간과 ‘없는 기억’ 속 타인의 흔적을 상상하며 존재 이전과 이후를 잇는 시를 쓴다.',en:'A gathering where each participant reads aloud from the diaries, notes, research journals, and works they have written. Broadcast live through 2b-temp-cast, it reaches even those not present. Kim Jaehyung and Yeon Jeongmo, longtime writing companions, read from the letters and conversations they have shared. Lim Suyeong, an aesthetics researcher moving between Seoul and Gwangju, reads from a diary kept across that life. Han Yeojin imagines the time before birth and the traces of others held within an “absent memory.”'},
+   bio:{ko:'한여진 — 시인이자 건축 엔지니어. 시집 『두부를 구우면 겨울이 온다』 등이 있다.',en:'Han Yeojin — poet and structural engineer. Her collections include When You Grill Tofu, Winter Comes.'}},
 
-  {id:'artworkers',cat:'워크숍',kind:{ko:'워크숍',en:'Workshop'},title:{ko:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Calculating and Exchanging the Time of Art Workers'},artist:{ko:'쿤치 스터디 포럼 & 콜렉티브 ⅹ 와룽 시킬',en:'KUNCI Study Forum & Collective ⅹ Warung Sikil'},place:'YPC SPACE',when:{ko:'8.8(토) 11시',en:'Aug 8 (Sat) 11am'},
+  {id:'artworkers',cat:'워크숍',title:{ko:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Calculating and Exchanging the Time of Art Workers'},artist:{ko:'쿤치 스터디 포럼 & 콜렉티브 x 와룽 시킬',en:'KUNCI Study Forum & Collective x Warung Sikil'},place:'YPC SPACE',when:{ko:'8.8.(토) 11:00–14:00',en:'Aug 8 (Sat) 11:00–14:00'},
    desc:{ko:'예술 노동자의 시간을 어떻게 계산하고 또 교환할 수 있을지 함께 다루는 워크숍.',en:'A workshop exploring how the time of art workers might be calculated, and exchanged.'},
-   linked:{ko:'연계 토크 프로그램 — 8.9(일) 15시, YPC SPACE',en:'Related talk program — Aug 9 (Sun) 3pm, YPC SPACE'}},
+   linked:{ko:'연계 토크 〈속도의 도시에서 예술을 위한 시간 만들기〉 — 8.9.(일) 15:30–17:30, YPC SPACE',en:'Related talk “Making Time for Art in the City of Speed” — Aug 9 (Sun) 15:30–17:30, YPC SPACE'}},
 
-  {id:'yangyunhwa',cat:'퍼포먼스',kind:{ko:'퍼포먼스',en:'Performance'},title:{ko:'양윤화 (제목 미정)',en:'Yang Yunhwa — Walk in the dark'},artist:{ko:'양윤화',en:'Yang Yunhwa'},place:'YPC SPACE',when:{ko:'8.8(토) 16시',en:'Aug 8 (Sat) 4pm'},
-   desc:{ko:'양윤화의 신작 퍼포먼스.',en:'A new performance by Yang Yunhwa.'}},
+  {id:'dissolve',cat:'퍼포먼스',title:{ko:'디졸브',en:'Dissolve'},artist:{ko:'양윤화',en:'Yang Yunhwa'},place:'YPC SPACE',when:{ko:'8.8.(토) 16:00–17:00',en:'Aug 8 (Sat) 16:00–17:00'},
+   desc:{ko:'양윤화의 퍼포먼스 〈디졸브〉.',en:'“Dissolve,” a performance by Yang Yunhwa.'}},
 
-  {id:'tempcast',cat:'프로그램',kind:{ko:'프로그램',en:'Program'},title:{ko:'2b-temp-cast',en:'2b-temp-cast'},artist:{ko:'2bpencil (희주, 재형)',en:'2bpencil (Hee ju, Jaehyung)'},place:'YPC SPACE',when:{ko:'8.6 – 9 · 퍼포먼스 8.9(일) 19시',en:'Aug 6–9 · Performance Aug 9 (Sun) 7pm'},live:true,
-   desc:{ko:'2b-temp-cast(이비 템프 캐스트)는 YPC SPACE를 하나의 임시적인 실험적 방송국으로 전환하는 프로그램이다. 인터넷 라디오의 방식으로 공유모임, 낭독회, 퍼포먼스 등 공간의 현재를 실시간으로 송출한다. 희주·재형의 퍼포먼스는 SSTV(Slow Scan Television) 방식을 차용해 이미지를 주파수로 변환해 송수신하고, SDR(Software Defined Radio)을 활용해 전파 환경을 탐색하며, 서로의 신호를 주고받는 과정에서 발생하는 왜곡과 노이즈, 픽셀의 흔적을 드러낸다. 매체를 통해 증폭되고 멀리 전달되는 전자기적 풍경을 듣는 경험은 세계와 연결되는 동시에 고립의 감각을 환기한다.',en:'2b-temp-cast is a program that turns YPC SPACE into a temporary, experimental broadcasting station. In the manner of internet radio, it transmits the present moment of the space—its sharing sessions, readings, performances—live, in real time. Heeju and Jaehyung’s performance borrows the method of SSTV (Slow Scan Television) to convert images into frequencies and transmit and receive them, using SDR (Software Defined Radio) to explore the surrounding radio environment. In the process of exchanging signals, the distortions, noise, and traces of pixels that arise are brought to the surface. Listening to this electromagnetic landscape, amplified and carried across distance through the medium, evokes both a sense of connection to the world and a sense of isolation.'},
-   bio:{ko:'희주는 소리를 매개로 감각적 연결의 방식과 그것이 구성되는 조건들을 탐구한다. 재형은 감각에 배반당해온 경험을 뒤로하고 그 자리를 채우는 이야기들에 주목한다. 최근에는 자체 호스팅 서버를 기반으로 연결과 만남을 시도하며, 그 접점에서 발생하는 이야기들을 인터페이스의 표면 위로 공유하고 기록하는 실험을 지속한다. 두 사람은 2bpencil.online을 서로의 세계가 맞닿는 중간지대로 삼는다.',en:'Hee ju explores modes of sensory connection mediated by sound, and the conditions under which such connections are formed. Jaehyung, setting aside experiences in which sensation has betrayed him, turns his attention to the stories that come to fill that place. He has recently been experimenting with connection and encounter based on a self-hosted server, sharing and recording, on the surface of the interface, the stories that arise at those points of contact. The two treat 2bpencil.online as a middle ground where their worlds touch.'}},
+  {id:'tempcast',cat:'퍼포먼스',title:{ko:'2b-temp-cast',en:'2b-temp-cast'},artist:{ko:'2bpencil (희주, 재형)',en:'2bpencil (Hee ju, Jaehyung)'},place:'YPC SPACE',when:{ko:'8.6. – 9. · 퍼포먼스 8.9.(일) 18:00–20:00',en:'Aug 6–9 · Performance Aug 9 (Sun) 18:00–20:00'},live:true,
+   desc:{ko:'2b-temp-cast(이비 템프 캐스트)는 YPC SPACE를 하나의 임시적인 실험적 방송국으로 전환하는 프로그램이다. 인터넷 라디오의 방식으로 나눔, 낭독회, 퍼포먼스 등 공간의 현재를 실시간으로 송출한다. 희주·재형의 퍼포먼스는 SSTV(Slow Scan Television) 방식을 차용해 이미지를 주파수로 변환해 송수신하고, SDR(Software Defined Radio)을 활용해 전파 환경을 탐색하며, 서로의 신호를 주고받는 과정에서 발생하는 왜곡과 노이즈, 픽셀의 흔적을 드러낸다.',en:'2b-temp-cast turns YPC SPACE into a temporary, experimental broadcasting station. In the manner of internet radio, it transmits the present moment of the space—its sharings, readings, performances—live. Heeju and Jaehyung’s performance borrows SSTV (Slow Scan Television) to convert images into frequencies, using SDR (Software Defined Radio) to explore the radio environment, surfacing the distortions, noise, and traces of pixels that arise in exchanging signals.'},
+   bio:{ko:'희주는 소리를 매개로 감각적 연결의 방식과 그것이 구성되는 조건들을 탐구한다. 재형은 감각에 배반당해온 경험을 뒤로하고 그 자리를 채우는 이야기들에 주목한다. 두 사람은 2bpencil.online을 서로의 세계가 맞닿는 중간지대로 삼는다.',en:'Hee ju explores modes of sensory connection mediated by sound. Jaehyung turns his attention to the stories that come to fill the place where sensation has betrayed him. The two treat 2bpencil.online as a middle ground where their worlds touch.'}},
 ];
-/* section groups in display order */
 const progGroups=[
-  {cat:'전시',ko:'전시 · Exhibitions',en:'Exhibitions'},
-  {cat:'공유',ko:'공유모임 · Sharing',en:'Sharing'},
-  {cat:'낭독',ko:'낭독 · Reading',en:'Reading'},
-  {cat:'워크숍',ko:'워크숍 · Workshop',en:'Workshop'},
-  {cat:'상영',ko:'상영 · Screening',en:'Screening'},
-  {cat:'퍼포먼스',ko:'퍼포먼스 · Performance',en:'Performance'},
-  {cat:'프로그램',ko:'프로그램 · Program',en:'Program'},
+  {cat:'전시',ko:'전시',en:'Exhibition'},
+  {cat:'나눔',ko:'나눔',en:'Sharing'},
+  {cat:'낭독',ko:'낭독',en:'Reading'},
+  {cat:'워크숍',ko:'워크숍',en:'Workshop'},
+  {cat:'스크리닝',ko:'스크리닝',en:'Screening'},
+  {cat:'퍼포먼스',ko:'퍼포먼스',en:'Performance'},
 ];
 
 function renderPrograms(){
   const box=document.getElementById('program-body');
   box.innerHTML='';
-  const hdr=lang==='ko'?{d:'프로그램 소개',a:'참여작가',r:'연계 프로그램',l:'연계'}:{d:'About',a:'Artist',r:'Related program',l:'Related'};
+  const hdr=lang==='ko'?{d:'프로그램 소개',a:'참여작가',r:'연계 프로그램'}:{d:'About',a:'Artist',r:'Related'};
   let idx=0;
   progGroups.forEach(g=>{
     const items=programs.filter(p=>p.cat===g.cat);
     if(!items.length) return;
-    box.insertAdjacentHTML('beforeend', `<div class="band">${lang==='ko'?g.ko:g.en}</div>`);
-    items.forEach(p=>{
+    box.insertAdjacentHTML('beforeend',
+      `<div class="rule rule-comb" style="margin-top:14px;"></div>
+       <div class="sectlabel">${lang==='ko'?g.ko:g.en}</div>
+       <div class="rule rule-dot"></div>`);
+    items.forEach((p,i)=>{
       idx++;
+      if(i>0) box.insertAdjacentHTML('beforeend','<div class="rule rule-fine"></div>');
       const meta=[t(p.place), t(p.when)].filter(Boolean);
       const liveBadge=p.live?`<span class="live-badge"><span class="dot"></span>${lang==='ko'?'온라인 방송':'Live stream'}</span>`:'';
       let body=`<div class="prog-body"><div class="prog-body-inner">`;
       if(p.desc) body+=`<h4>${hdr.d}</h4><p>${t(p.desc)}</p>`;
       if(p.bio) body+=`<h4>${hdr.a}</h4><p>${t(p.bio)}</p>`;
       if(p.linked) body+=`<h4>${hdr.r}</h4><p>${t(p.linked)}</p>`;
-      if(p.link) body+=`<h4>${hdr.l}</h4><p>${t(p.link)}</p>`;
       body+=`</div></div>`;
       const card=document.createElement('div');
       card.className='prog';
-      if(p.id){ card.id='prog-'+p.id; card.dataset.pid=p.id; }
-      const imgHtml=p.img?`<img class="prog-img" src="${p.img}" alt="${t(p.title)}" loading="lazy" onerror="this.classList.add('failed')">`:'';
+      card.id='prog-'+p.id;
       card.innerHTML=`
         <div class="prog-click">
-          ${imgHtml}
+          ${p.img?`<img class="prog-img" src="${p.img}" alt="${t(p.title)}" loading="lazy" onerror="this.classList.add('failed')">`:''}
           <div class="prog-head">
             <div class="idx">${String(idx).padStart(2,'0')}</div>
             <div class="h-main">
               <div class="p-title">${t(p.title)}</div>
               ${lang==='en'?`<div class="p-title-sub">${p.title.ko}</div>`:''}
-              ${p.artist?`<div class="p-artist">${t(p.artist)}</div>`:''}
+              <div class="p-artist">${t(p.artist)}</div>
               <div class="prog-meta">${meta.map(m=>`<span>${m}</span>`).join('')}${liveBadge}</div>
             </div>
-            <div class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="chev"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
           </div>
         </div>${body}`;
       card.querySelector('.prog-click').onclick=()=>card.classList.toggle('open');
@@ -529,42 +554,39 @@ function renderPrograms(){
   });
 }
 
-/* ---------------- VENUE DATA ---------------- */
+/* ---------------- VENUES ---------------- */
 function mapLinks(q){
   const e=encodeURIComponent(q);
-  const naver=lang==='ko'?'네이버 지도':'Naver Map';
-  const kakao=lang==='ko'?'카카오맵':'KakaoMap';
   return `<div class="v-actions">
-    <a class="mapbtn" target="_blank" rel="noopener" href="https://map.naver.com/p/search/${e}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>${naver}</a>
-    <a class="mapbtn" target="_blank" rel="noopener" href="https://map.kakao.com/?q=${e}">${kakao}</a>
+    <a class="mapbtn" target="_blank" rel="noopener" href="https://map.naver.com/p/search/${e}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>${lang==='ko'?'네이버 지도':'Naver Map'}</a>
+    <a class="mapbtn" target="_blank" rel="noopener" href="https://map.kakao.com/?q=${e}">${lang==='ko'?'카카오맵':'KakaoMap'}</a>
     <a class="mapbtn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${e}">Google Maps</a>
   </div>`;
 }
 const venues=[
-  {name:'YPC SPACE',role:{ko:'베이스캠프 · 오프닝 · 공유모임 · 낭독 · 워크숍 · 퍼포먼스 · 토크',en:'Base camp · Opening · Sharing · Reading · Workshop · Performance · Talk'},addr:{ko:'서울 중구 퇴계로 258, 4층',en:'4F, 258 Toegye-ro, Jung-gu, Seoul'},hours:{ko:'전시 관람 · 목–금 14–19시 / 토–일 11–19시',en:'Exhibition · Thu–Fri 2–7pm / Sat–Sun 11am–7pm'},q:'서울 중구 퇴계로 258'},
-  {name:'PCO',role:{ko:'전시 〈관문〉 · 워크숍 · 토크',en:'Exhibition “Gateways” · Workshop · Talk'},addr:{ko:'서울 중구 서애로 15-6',en:'15-6 Seoae-ro, Jung-gu, Seoul'},hours:{ko:'전시 관람 · 매일 12–19시',en:'Exhibition · Daily 12–7pm'},q:'서울 중구 서애로 15-6'},
-  {name:'FF Seoul',role:{ko:'전시 〈파이프릴레이〉',en:'Exhibition “Pipe-relay”'},addr:{ko:'서울 종로구 청계천로 159, 세운상가 가동 바열 325호',en:'Sewoon Plaza Ga-dong #325, 159 Cheonggyecheon-ro, Jongno-gu, Seoul'},hours:{ko:'전시 관람 · 목–토 11–19시 / 일 11–18시',en:'Exhibition · Thu–Sat 11am–7pm / Sun 11am–6pm'},q:'서울 종로구 청계천로 159 세운상가'},
-  {name:{ko:'전망 (Sionmang)',en:'Sionmang'},role:{ko:'전시 〈돌연, 눈앞이 열리고…〉',en:'Exhibition “Suddenly, the view…”'},addr:{ko:'서울 중구 동호로34길 8-9, 3층',en:'3F, 8-9 Dongho-ro 34-gil, Jung-gu, Seoul'},hours:{ko:'전시 관람 · 매일 12–19시',en:'Exhibition · Daily 12–7pm'},q:'서울 중구 동호로34길 8-9'},
-  {name:{ko:'충무아트센터',en:'Chungmu Arts Center'},role:{ko:'상영 〈많은 방과 흔적의 지도〉',en:'Screening “A Collection of Traces”'},addr:{ko:'서울 중구 (충무아트센터)',en:'Chungmu Arts Center, Jung-gu, Seoul'},hours:{ko:'8.7(금) 18시',en:'Aug 7 (Fri) 6pm'},q:'충무아트센터'},
-  {name:{ko:'동국대학교 학림관 소강당',en:'Dongguk University, Haklim Hall'},role:{ko:'공유모임 〈해방운동의 방법으로서의 항해〉',en:'Sharing “Sailing as a method…”'},addr:{ko:'서울 중구 필동 동국대학교 학림관',en:'Haklim Hall, Dongguk University, Pil-dong, Jung-gu, Seoul'},hours:{ko:'8.8(토) 18시',en:'Aug 8 (Sat) 6pm'},q:'동국대학교 학림관'},
+  {name:'YPC SPACE',role:{ko:'베이스캠프 · 오프닝 · 나눔 · 낭독 · 워크숍 · 퍼포먼스 · 토크 · 뒤풀이',en:'Base camp · Opening · Sharing · Reading · Workshop · Performance · Talk'},addr:{ko:'서울 중구 퇴계로 258, 4층',en:'4F, 258 Toegye-ro, Jung-gu, Seoul'},hours:{ko:'전시 · 목–금 14–19시 / 토–일 11–19시',en:'Exhibition · Thu–Fri 2–7pm / Sat–Sun 11am–7pm'},q:'서울 중구 퇴계로 258'},
+  {name:'PCO',role:{ko:'전시 〈관문〉 · 워크숍 · 토크',en:'Exhibition “Gateways” · Workshop · Talk'},addr:{ko:'서울 중구 서애로 15-6',en:'15-6 Seoae-ro, Jung-gu, Seoul'},hours:{ko:'전시 · 매일 12–19시',en:'Exhibition · Daily 12–7pm'},q:'서울 중구 서애로 15-6'},
+  {name:'FF Seoul',role:{ko:'전시 〈파이프 릴레이〉',en:'Exhibition “Pipe-relay”'},addr:{ko:'서울 종로구 청계천로 159, 세운상가 가동 바열 325호',en:'Sewoon Plaza Ga-dong #325, 159 Cheonggyecheon-ro, Jongno-gu, Seoul'},hours:{ko:'전시 · 목–토 11–19시 / 일 11–18시',en:'Exhibition · Thu–Sat 11am–7pm / Sun 11am–6pm'},q:'서울 종로구 청계천로 159 세운상가'},
+  {name:{ko:'전망',en:'Sionmang'},role:{ko:'전시 〈돌연, 눈앞이 열리고…〉',en:'Exhibition “Suddenly, the view…”'},addr:{ko:'서울 중구 동호로34길 8-9, 3층',en:'3F, 8-9 Dongho-ro 34-gil, Jung-gu, Seoul'},hours:{ko:'전시 · 매일 12–19시',en:'Exhibition · Daily 12–7pm'},q:'서울 중구 동호로34길 8-9'},
+  {name:{ko:'충무아트센터 씨네마',en:'Chungmu Arts Center Cinema'},role:{ko:'스크리닝 〈많은 방과 흔적의 지도〉',en:'Screening “A Collection of Traces”'},addr:{ko:'서울 중구 충무아트센터',en:'Chungmu Arts Center, Jung-gu, Seoul'},hours:{ko:'8.7.(금) 18:00–20:00',en:'Aug 7 (Fri) 18:00–20:00'},q:'충무아트센터'},
+  {name:{ko:'동국대 학림관 소강당',en:'Dongguk Univ., Haklim Hall'},role:{ko:'나눔 〈해방운동의 방법으로서의 항해〉',en:'Sharing “Sailing as a method…”'},addr:{ko:'서울 중구 필동 동국대학교 학림관',en:'Haklim Hall, Dongguk University, Pil-dong, Jung-gu, Seoul'},hours:{ko:'8.8.(토) 18:00–20:00',en:'Aug 8 (Sat) 18:00–20:00'},q:'동국대학교 학림관'},
 ];
 const exhibitions=[
-  {name:{ko:'베이스 캠프',en:'Base camp'},artist:'YPC · YPC SPACE',addr:{ko:'서울 중구 퇴계로 258, 4층',en:'4F, 258 Toegye-ro, Jung-gu, Seoul'},hours:{ko:'목–금 14–19시 / 토–일 11–19시',en:'Thu–Fri 2–7pm / Sat–Sun 11am–7pm'},q:'서울 중구 퇴계로 258'},
-  {name:{ko:'게게르보요 x 현남: 관문',en:'Gegerboyo x Hyun Nahm: Gateways'},artist:'PCO',addr:{ko:'서울 중구 서애로 15-6',en:'15-6 Seoae-ro, Jung-gu, Seoul'},hours:{ko:'목–일 12–19시',en:'Thu–Sun 12–7pm'},q:'서울 중구 서애로 15-6'},
-  {name:{ko:'이동현: 파이프 릴레이',en:'Lee Dong-hyun: Pipe-relay'},artist:'FF Seoul',addr:{ko:'서울 종로구 청계천로 159, 세운상가 가동 바열 325호',en:'Sewoon Plaza Ga-dong #325, 159 Cheonggyecheon-ro, Jongno-gu, Seoul'},hours:{ko:'목–토 11–19시 / 일 11–18시',en:'Thu–Sat 11am–7pm / Sun 11am–6pm'},q:'서울 종로구 청계천로 159 세운상가'},
-  {name:{ko:'돌연, 눈 앞이 열리고…',en:'Suddenly, the view spreads out before us…'},artist:{ko:'전망 (Sionmang)',en:'Sionmang'},addr:{ko:'서울 중구 동호로34길 8-9, 3층',en:'3F, 8-9 Dongho-ro 34-gil, Jung-gu, Seoul'},hours:{ko:'목–일 12–19시',en:'Thu–Sun 12–7pm'},q:'서울 중구 동호로34길 8-9'},
+  {name:{ko:'베이스 캠프',en:'Base camp'},artist:'YPC · YPC SPACE',hours:{ko:'목–금 14–19시 / 토–일 11–19시',en:'Thu–Fri 2–7pm / Sat–Sun 11am–7pm'},q:'서울 중구 퇴계로 258'},
+  {name:{ko:'게게르보요 x 현남: 관문',en:'Gegerboyo x Hyun Nahm: Gateways'},artist:'PCO',hours:{ko:'목–일 12–19시',en:'Thu–Sun 12–7pm'},q:'서울 중구 서애로 15-6'},
+  {name:{ko:'이동현: 파이프 릴레이',en:'Lee Dong-hyun: Pipe-relay'},artist:'FF Seoul',hours:{ko:'목–토 11–19시 / 일 11–18시',en:'Thu–Sat 11am–7pm / Sun 11am–6pm'},q:'서울 종로구 청계천로 159 세운상가'},
+  {name:{ko:'돌연, 눈앞이 열리고…',en:'Suddenly, the view spreads out…'},artist:{ko:'전망',en:'Sionmang'},hours:{ko:'목–일 12–19시',en:'Thu–Sun 12–7pm'},q:'서울 중구 동호로34길 8-9'},
 ];
 
 function renderVenues(){
-  const openLabel=lang==='ko'?'관람 · ':'';
   const vl=document.getElementById('venuelist');
   vl.innerHTML='';
   venues.forEach((v,i)=>{
+    if(i>0) vl.insertAdjacentHTML('beforeend','<div class="rule rule-fine"></div>');
     const el=document.createElement('div');
     el.className='venue';
-    el.innerHTML=`
-      <div class="num">${i+1}</div>
-      <div class="vc">
+    el.innerHTML=`<div class="num">${i+1}</div>
+      <div style="flex:1">
         <div class="v-name">${t(v.name)}</div>
         <div class="v-role">${t(v.role)}</div>
         <div class="v-addr">${t(v.addr)}</div>
@@ -576,15 +598,14 @@ function renderVenues(){
   const xl=document.getElementById('exhlist');
   xl.innerHTML='';
   exhibitions.forEach((x,i)=>{
+    if(i>0) xl.insertAdjacentHTML('beforeend','<div class="rule rule-fine"></div>');
     const el=document.createElement('div');
     el.className='venue';
-    el.innerHTML=`
-      <div class="num" style="background:var(--accent)">${String.fromCharCode(65+i)}</div>
-      <div class="vc">
+    el.innerHTML=`<div class="num">${String.fromCharCode(65+i)}</div>
+      <div style="flex:1">
         <div class="v-name">${t(x.name)}</div>
         <div class="v-role">${t(x.artist)}</div>
-        <div class="v-addr">${t(x.addr)}</div>
-        <div class="v-hours">${openLabel}${t(x.hours)}</div>
+        <div class="v-hours">${lang==='ko'?'관람 · ':''}${t(x.hours)}</div>
         ${mapLinks(x.q)}
       </div>`;
     xl.appendChild(el);
