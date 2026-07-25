@@ -91,8 +91,7 @@ body.lang-en .only-ko{display:none;}
 .cover{display:flex;flex-direction:column;min-height:calc(100dvh - var(--header-h) - 84px);}
 .cover .metaline{margin-bottom:26px;}
 .logowrap{margin-top:auto;padding-top:24px;}
-.logotype{display:block;width:100%;height:auto;}
-.logotype text{font-family:var(--sans-latin);}
+.logotype{display:block;width:100%;max-width:100%;height:auto;}
 .cover-cta{margin:28px auto 0;display:flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:700;font-size:15px;color:var(--lime);background:var(--red);border:2px solid var(--red);border-radius:100px;padding:12px 24px;cursor:pointer;}
 .cover-cta svg{width:16px;height:16px;}
 .cover-quick{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
@@ -209,23 +208,11 @@ button.stitle{font-family:var(--sans);color:var(--red);background:none;border:no
       <div class="cover">
         <div class="metaline">
           <span class="only-ko">2026 서머 캠프 — 섬과 다리</span><span class="only-en">Summer Camp 2026 — Islands and Bridges</span>
-          <span>2026. 8. 6. – 8. 9.</span>
-          <span>by Yellow Pen Club</span>
         </div>
 
         <div class="logowrap">
-          <svg class="logotype" viewBox="0 0 400 196" role="img" aria-label="Summer Camp 2026 — Islands and Bridges">
-            <g paint-order="stroke fill" stroke-linejoin="round" font-weight="900" font-size="82">
-              <text x="2" y="82">
-                <tspan y="82" fill="#ff5b00" stroke="#ffe800" stroke-width="6" stroke-dasharray="0 7" stroke-linecap="round">S</tspan><tspan y="90" fill="#6e8b3d" stroke="#ff1500" stroke-width="3.5" stroke-dasharray="9 6">u</tspan><tspan y="82" fill="#3fdd3f" stroke="#ff1500" stroke-width="2.5">m</tspan><tspan y="90" fill="#ff6a00" stroke="#ff1500" stroke-width="5.5" stroke-dasharray="0 9" stroke-linecap="round">m</tspan><tspan y="80" fill="#ffa733" stroke="#c6e000" stroke-width="4" stroke-dasharray="7 4">e</tspan><tspan y="70" fill="#ffee00" stroke="#ff1500" stroke-width="7" stroke-dasharray="0 11" stroke-linecap="round">R</tspan>
-              </text>
-              <text x="44" y="162">
-                <tspan y="162" fill="#5fe3c0" stroke="#ff1500" stroke-width="3.5" stroke-dasharray="3 3">C</tspan><tspan y="168" fill="#00d0ff" stroke="#ff1500" stroke-width="9" stroke-dasharray="0 13" stroke-linecap="round">a</tspan><tspan y="158" fill="#aacd2a" stroke="#ff1500" stroke-width="4.5" stroke-dasharray="2 4">m</tspan><tspan y="166" fill="#f01414" stroke="#c6e000" stroke-width="6.5" stroke-dasharray="0 10" stroke-linecap="round">P</tspan>
-              </text>
-            </g>
-            <text x="264" y="30" font-size="15" font-weight="900" fill="#fb2b06" letter-spacing="4">2026</text>
-            <text x="110" y="190" font-size="16" font-weight="900" font-style="italic" fill="#fb2b06" letter-spacing="1.2">Islands and Bridges</text>
-          </svg>
+          <img class="logotype" src="assets/logo-lockup.png" width="1600" height="869"
+               alt="Summer Camp 2026 — Islands and Bridges · 2026. 8. 6. – 8. 9. · by YPC SPACE">
         </div>
 
         <button class="cover-cta" onclick="go('about')">
