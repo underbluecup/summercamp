@@ -120,9 +120,9 @@ button.stitle{font-family:var(--sans);color:var(--red);background:none;border:no
 .srow .smeta{font-weight:700;font-size:13px;margin-top:7px;line-height:1.5;opacity:.95;}
 .srow .sbadge{margin-top:8px;}
 
-/* ---------------- program ---------------- */
+/* ---------------- program list ---------------- */
 .prog{padding:0;}
-.prog-click{cursor:pointer;padding:15px 0;}
+.prog-click{display:block;width:100%;text-align:left;background:none;border:none;color:var(--red);font-family:var(--sans);cursor:pointer;padding:15px 0;}
 .prog-img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border:2px solid var(--red);background:var(--lime-deep);margin-bottom:12px;}
 .prog-img.failed{display:none;}
 .prog-head{display:flex;gap:11px;align-items:flex-start;}
@@ -133,17 +133,31 @@ button.stitle{font-family:var(--sans);color:var(--red);background:none;border:no
 .p-artist{font-weight:700;font-size:13.5px;margin-top:7px;}
 .prog-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:9px;}
 .prog-meta > span{font-size:11px;font-weight:700;border:2px solid var(--red);border-radius:100px;padding:2px 10px;}
-.chev{flex:0 0 auto;transition:transform .3s;padding-top:3px;}
-.prog.open .chev{transform:rotate(180deg);}
-.prog-body{max-height:0;overflow:hidden;transition:max-height .45s ease;}
-.prog.open .prog-body{max-height:3000px;}
-.prog-body-inner{padding:2px 0 18px 33px;}
-.prog-body-inner h4{font-family:var(--sans-latin);font-style:italic;font-weight:800;font-size:12.5px;margin:14px 0 5px;}
+.chev{flex:0 0 auto;font-family:var(--sans-latin);font-weight:800;font-size:16px;padding-top:2px;}
+
+/* ---------------- program detail page ---------------- */
+.backbtn{display:inline-flex;align-items:center;gap:7px;border:2px solid var(--red);background:transparent;color:var(--red);
+  font-family:var(--sans);font-weight:700;font-size:13px;border-radius:100px;padding:7px 15px;cursor:pointer;margin-bottom:18px;}
+.backbtn:hover{background:var(--red);color:var(--lime);}
+.d-img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border:2px solid var(--red);background:var(--lime-deep);margin-bottom:20px;}
+.d-img.failed{display:none;}
+.d-cat{font-weight:900;font-size:14px;margin-bottom:4px;}
+.d-title{font-weight:900;font-size:clamp(23px,7vw,29px);line-height:1.25;letter-spacing:-.01em;text-wrap:balance;}
+.d-title-sub{font-family:var(--sans-latin);font-style:italic;font-weight:700;font-size:15px;opacity:.8;margin-top:5px;}
+.d-artist{font-weight:700;font-size:15px;margin-top:12px;}
+.d-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0 4px;}
+.d-meta > span{font-size:11.5px;font-weight:700;border:2px solid var(--red);border-radius:100px;padding:3px 11px;}
+.d-sec{text-align:center;font-weight:900;font-size:14px;padding:10px 4px;}
 /* descriptions may contain \n for paragraph breaks */
-.prog-body-inner p{font-size:13.5px;line-height:1.8;font-weight:500;white-space:pre-line;}
-.prog.flash{animation:flashcard 1.2s ease;}
-@keyframes flashcard{0%,100%{background:transparent;}25%{background:var(--lime-deep);}}
-@media(prefers-reduced-motion:reduce){.prog.flash{animation:none;}}
+.d-text{font-size:14px;line-height:1.85;font-weight:500;white-space:pre-line;padding:6px 0 16px;}
+.d-nav{display:flex;gap:8px;margin-top:22px;}
+.d-nav button{flex:1;border:2px solid var(--red);background:transparent;color:var(--red);border-radius:14px;
+  font-family:var(--sans);font-weight:700;font-size:13px;padding:12px 10px;cursor:pointer;text-align:left;line-height:1.35;}
+.d-nav button:hover{background:var(--red);color:var(--lime);}
+.d-nav button:disabled{opacity:.3;cursor:default;}
+.d-nav button:disabled:hover{background:transparent;color:var(--red);}
+.d-nav .lbl{display:block;font-family:var(--sans-latin);font-style:italic;font-size:11px;opacity:.75;margin-bottom:3px;}
+.d-nav .nx{text-align:right;}
 
 /* ---------------- venue ---------------- */
 .mapbox{border:2px solid var(--red);background:var(--lime);margin:14px 0 4px;}
@@ -294,6 +308,11 @@ button.stitle{font-family:var(--sans);color:var(--red);background:none;border:no
     </div>
   </section>
 
+  <!-- ============ PROGRAM DETAIL ============ -->
+  <section id="view-detail" class="view" data-view="detail">
+    <div class="sheet" id="detail-body"></div>
+  </section>
+
   <!-- ============ VENUE ============ -->
   <section id="view-venue" class="view" data-view="venue">
     <div class="sheet">
@@ -347,6 +366,7 @@ function setLang(l){
   document.documentElement.lang=l;
   document.querySelectorAll('.lg').forEach(b=>b.classList.toggle('active', b.dataset.lang===l));
   renderSchedule(); renderPrograms(); renderVenues();
+  if(currentProgram) renderDetail();
 }
 
 /* ---------------- routing ---------------- */
@@ -358,24 +378,25 @@ function scrollToTop(){
     document.getElementById('app').scrollIntoView({block:'start'});
   }
 }
+let currentProgram=null;          /* id of the program detail being shown */
 function go(view){
+  if(view!=='detail') currentProgram=null;
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active', v.dataset.view===view));
-  document.querySelectorAll('.pill').forEach(b=>b.classList.toggle('active', b.dataset.nav===view));
+  /* a detail page still belongs to the Program section */
+  const section = view==='detail' ? 'program' : view;
+  document.querySelectorAll('.pill').forEach(b=>b.classList.toggle('active', b.dataset.nav===section));
   scrollToTop();
-  history.replaceState(null,'',view==='home'?location.pathname:'#'+view);
+  const hash = view==='home' ? location.pathname
+             : view==='detail' ? '#p-'+currentProgram
+             : '#'+view;
+  history.replaceState(null,'',hash);
 }
+/* open a program on its own page (from the list or from the schedule) */
 function goProgram(id){
-  go('program');
-  requestAnimationFrame(()=>{
-    const card=document.getElementById('prog-'+id);
-    if(!card) return;
-    document.querySelectorAll('.prog.open').forEach(c=>{ if(c!==card) c.classList.remove('open'); });
-    card.classList.add('open');
-    const y=card.getBoundingClientRect().top + window.scrollY - 118;
-    window.scrollTo({top:Math.max(0,y), behavior:'smooth'});
-    card.classList.add('flash');
-    setTimeout(()=>card.classList.remove('flash'), 1200);
-  });
+  if(!programs.some(p=>p.id===id)) return;
+  currentProgram=id;
+  renderDetail();
+  go('detail');
 }
 window.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.lg').forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
@@ -384,7 +405,8 @@ window.addEventListener('DOMContentLoaded',()=>{
   window.addEventListener('scroll',()=>totop.classList.toggle('show', window.scrollY>320), {passive:true});
   setLang('ko');
   const h=location.hash.replace('#','');
-  if(['about','schedule','program','venue'].includes(h)) go(h);
+  if(h.startsWith('p-')) goProgram(h.slice(2));
+  else if(['about','schedule','program','venue'].includes(h)) go(h);
 });
 
 /* ---------------- SCHEDULE ---------------- */
@@ -497,10 +519,17 @@ const progGroups=[
   {cat:'퍼포먼스',ko:'퍼포먼스',en:'Performance'},
 ];
 
+/* programs in display order — also the order used by prev/next on a detail page */
+function orderedPrograms(){
+  return progGroups.flatMap(g=>programs.filter(p=>p.cat===g.cat));
+}
+function liveBadgeHTML(){
+  return `<span class="live-badge"><span class="dot"></span>${lang==='ko'?'온라인 방송':'Live stream'}</span>`;
+}
+
 function renderPrograms(){
   const box=document.getElementById('program-body');
   box.innerHTML='';
-  const hdr=lang==='ko'?{d:'프로그램 소개',a:'참여작가',r:'연계 프로그램'}:{d:'About',a:'Artist',r:'Related'};
   let idx=0;
   progGroups.forEach(g=>{
     const items=programs.filter(p=>p.cat===g.cat);
@@ -513,17 +542,11 @@ function renderPrograms(){
       idx++;
       if(i>0) box.insertAdjacentHTML('beforeend','<div class="rule rule-fine"></div>');
       const meta=[t(p.place), t(p.when)].filter(Boolean);
-      const liveBadge=p.live?`<span class="live-badge"><span class="dot"></span>${lang==='ko'?'온라인 방송':'Live stream'}</span>`:'';
-      let body=`<div class="prog-body"><div class="prog-body-inner">`;
-      if(p.desc) body+=`<h4>${hdr.d}</h4><p>${t(p.desc)}</p>`;
-      if(p.bio) body+=`<h4>${hdr.a}</h4><p>${t(p.bio)}</p>`;
-      if(p.linked) body+=`<h4>${hdr.r}</h4><p>${t(p.linked)}</p>`;
-      body+=`</div></div>`;
       const card=document.createElement('div');
       card.className='prog';
       card.id='prog-'+p.id;
       card.innerHTML=`
-        <div class="prog-click">
+        <button class="prog-click" onclick="goProgram('${p.id}')">
           ${p.img?`<img class="prog-img" src="${p.img}" alt="${t(p.title)}" loading="lazy" onerror="this.classList.add('failed')">`:''}
           <div class="prog-head">
             <div class="idx">${String(idx).padStart(2,'0')}</div>
@@ -531,15 +554,59 @@ function renderPrograms(){
               <div class="p-title">${t(p.title)}</div>
               ${lang==='en'?`<div class="p-title-sub">${p.title.ko}</div>`:''}
               <div class="p-artist">${t(p.artist)}</div>
-              <div class="prog-meta">${meta.map(m=>`<span>${m}</span>`).join('')}${liveBadge}</div>
+              <div class="prog-meta">${meta.map(m=>`<span>${m}</span>`).join('')}${p.live?liveBadgeHTML():''}</div>
             </div>
-            <div class="chev"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+            <div class="chev">→</div>
           </div>
-        </div>${body}`;
-      card.querySelector('.prog-click').onclick=()=>card.classList.toggle('open');
+        </button>`;
       box.appendChild(card);
     });
   });
+}
+
+/* ---------------- PROGRAM DETAIL PAGE ---------------- */
+function renderDetail(){
+  const list=orderedPrograms();
+  const i=list.findIndex(x=>x.id===currentProgram);
+  if(i<0) return;
+  const p=list[i], prev=list[i-1], next=list[i+1];
+  const g=progGroups.find(x=>x.cat===p.cat);
+  const meta=[t(p.place), t(p.when)].filter(Boolean);
+  const hdr=lang==='ko'
+    ? {back:'프로그램 목록',d:'프로그램 소개',a:'참여작가',r:'연계 프로그램',prev:'이전',next:'다음'}
+    : {back:'All programs',d:'About',a:'Artist',r:'Related program',prev:'Previous',next:'Next'};
+
+  let html=`
+    <button class="backbtn" onclick="go('program')">← ${hdr.back}</button>
+    ${p.img?`<img class="d-img" src="${p.img}" alt="${t(p.title)}" onerror="this.classList.add('failed')">`:''}
+    <div class="d-cat">[${lang==='ko'?g.ko:g.en}]</div>
+    <h1 class="d-title">${t(p.title)}</h1>
+    ${lang==='en'?`<div class="d-title-sub">${p.title.ko}</div>`:''}
+    <div class="d-artist">${t(p.artist)}</div>
+    <div class="d-meta">${meta.map(m=>`<span>${m}</span>`).join('')}${p.live?liveBadgeHTML():''}</div>`;
+
+  const section=(label,text)=>`<div class="rule" style="margin-top:12px"></div>
+    <div class="d-sec">${label}</div>
+    <div class="rule"></div>
+    <div class="d-text">${text}</div>`;
+  if(p.desc)   html+=section(hdr.d, t(p.desc));
+  if(p.bio)    html+=section(hdr.a, t(p.bio));
+  if(p.linked) html+=section(hdr.r, t(p.linked));
+
+  html+=`<div class="d-nav">
+      <button ${prev?`onclick="goProgram('${prev.id}')"`:'disabled'}>
+        <span class="lbl">← ${hdr.prev}</span>${prev?t(prev.title):'—'}
+      </button>
+      <button class="nx" ${next?`onclick="goProgram('${next.id}')"`:'disabled'}>
+        <span class="lbl">${hdr.next} →</span>${next?t(next.title):'—'}
+      </button>
+    </div>
+    <div class="foot">
+      <div class="mk">${lang==='ko'?'섬과 다리':'Islands and Bridges'}</div>
+      <div class="dt">2026. 8. 6. – 8. 9.</div>
+      <div class="host">by Yellow Pen Club</div>
+    </div>`;
+  document.getElementById('detail-body').innerHTML=html;
 }
 
 /* ---------------- VENUES ---------------- */
