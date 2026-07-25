@@ -50,16 +50,25 @@ body{font-family:var(--sans);color:var(--red);background:var(--paper);line-heigh
 body.lang-ko .only-en{display:none;}
 body.lang-en .only-ko{display:none;}
 
-/* ---------------- decorative stitched rules ---------------- */
-.rule{height:9px;background-repeat:repeat-x;background-position:center;flex:0 0 auto;}
-.rule-dot{background-image:radial-gradient(circle closest-side, var(--red) 98%, transparent 100%);background-size:15px 5px;}
-.rule-dash{background-image:repeating-linear-gradient(90deg,var(--red) 0 9px,transparent 9px 17px);background-size:100% 3.5px;}
-.rule-fine{background-image:radial-gradient(circle closest-side, var(--red) 98%, transparent 100%);background-size:9px 2.4px;height:4px;opacity:.85;}
-.rule-comb{background-image:repeating-linear-gradient(90deg,var(--red) 0 2px,transparent 2px 7px);background-size:100% 7px;background-position:top center;}
-.rule-comb::after{content:"";display:block;height:2px;background:var(--red);position:relative;top:7px;}
-.rule-wave{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='9' viewBox='0 0 24 9'><path d='M0 6 Q6 0 12 6 T24 6' fill='none' stroke='%23fb2b06' stroke-width='2.2'/></svg>");background-size:24px 9px;}
-.rule-tick{background-image:repeating-linear-gradient(90deg,var(--red) 0 1.8px,transparent 1.8px 6px);background-size:100% 8px;background-position:bottom center;}
-.rule-tick::before{content:"";display:block;height:2px;background:var(--red);}
+/* ---------------- decorative stitched rules ----------------
+   Traced from the printed timetable pages: each day gets its own
+   pair of top / bottom stitches.                                */
+.rule{background-repeat:repeat-x;background-position:left center;flex:0 0 auto;}
+
+/* top stitches */
+.rule-dashdot{height:14px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='14'><g fill='%23fb2b06'><rect x='0' y='0' width='18' height='4.2'/><circle cx='2' cy='10.4' r='1.9'/><circle cx='8' cy='10.4' r='1.9'/><circle cx='14' cy='10.4' r='1.9'/><circle cx='20' cy='10.4' r='1.9'/><circle cx='26' cy='10.4' r='1.9'/></g></svg>");background-size:30px 14px;}
+.rule-bigdot{height:14px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='14'><g fill='%23fb2b06'><circle cx='6' cy='7' r='5'/><circle cx='18' cy='7' r='2.1'/></g></svg>");background-size:26px 14px;}
+.rule-linedot{height:13px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='13'><g fill='%23fb2b06'><rect x='0' y='1' width='12' height='1.9'/><circle cx='6' cy='8.6' r='2.7'/></g></svg>");background-size:12px 13px;}
+.rule-block{height:12px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='12'><g fill='%23fb2b06'><rect x='0' y='0' width='16' height='7' rx='2'/><circle cx='20.5' cy='5.4' r='1.7'/><circle cx='26' cy='5.4' r='1.7'/></g></svg>");background-size:30px 12px;}
+
+/* bottom stitches */
+.rule-pin{height:16px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='16'><g fill='%23fb2b06'><rect x='3' y='4' width='2.4' height='11'/><circle cx='4.2' cy='4.2' r='2.7'/></g></svg>");background-size:9px 16px;}
+.rule-wave{height:12px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='12'><path d='M0 8.5 Q6 2.5 12 8.5 T24 8.5' fill='none' stroke='%23fb2b06' stroke-width='1.7'/><rect x='1.5' y='3.6' width='10' height='4.4' rx='2.2' fill='%23fb2b06'/><rect x='13.5' y='3.6' width='10' height='4.4' rx='2.2' fill='%23fb2b06'/></svg>");background-size:24px 12px;}
+.rule-hook{height:14px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='14'><g fill='%23fb2b06'><rect x='1.8' y='3' width='2.2' height='10.5'/><path d='M1.8 3 L7 1.2 L7 3.8 L1.8 5.6 Z'/></g></svg>");background-size:8px 14px;}
+.rule-flag{height:15px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='15'><g fill='%23fb2b06'><rect x='2.6' y='3.4' width='2.4' height='11'/><rect x='2.6' y='2.2' width='4.6' height='3.4' rx='.6'/></g></svg>");background-size:9px 15px;}
+
+/* row separator */
+.rule-fine{height:5px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='5'><circle cx='3' cy='2.5' r='1.35' fill='%23fb2b06'/></svg>");background-size:6px 5px;}
 
 /* ---------------- fixed header ---------------- */
 .appheader{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:60;background:var(--paper);}
@@ -92,8 +101,7 @@ body.lang-en .only-ko{display:none;}
 .cover .metaline{margin-bottom:26px;}
 .logowrap{margin-top:auto;padding-top:24px;}
 .logotype{display:block;width:100%;max-width:100%;height:auto;}
-.cover-cta{margin:28px auto 0;display:flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:700;font-size:15px;color:var(--lime);background:var(--red);border:2px solid var(--red);border-radius:100px;padding:12px 24px;cursor:pointer;}
-.cover-cta svg{width:16px;height:16px;}
+.logo-credit{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:20px;font-weight:900;font-size:15px;}
 .cover-quick{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .cover-quick button{border:2px solid var(--red);background:transparent;border-radius:16px;padding:13px 12px;cursor:pointer;font-family:var(--sans);font-weight:700;font-size:14px;color:var(--red);text-align:left;line-height:1.3;}
 .cover-quick button:hover{background:var(--red);color:var(--lime);}
@@ -199,7 +207,7 @@ button.stitle{font-family:var(--sans);color:var(--red);background:none;border:no
       <button class="pill" data-nav="program" onclick="go('program')"><span class="only-ko">프로그램</span><span class="only-en">Program</span></button>
       <button class="pill" data-nav="venue" onclick="go('venue')"><span class="only-ko">장소</span><span class="only-en">Venue</span></button>
     </nav>
-    <div class="rule rule-dot" style="margin:0 7px;"></div>
+    <div class="rule rule-bigdot" style="margin:0 7px;"></div>
   </div>
 
   <!-- ============ HOME ============ -->
@@ -211,14 +219,13 @@ button.stitle{font-family:var(--sans);color:var(--red);background:none;border:no
         </div>
 
         <div class="logowrap">
-          <img class="logotype" src="assets/logo-lockup.png" width="1600" height="869"
-               alt="Summer Camp 2026 — Islands and Bridges · 2026. 8. 6. – 8. 9. · by YPC SPACE">
+          <img class="logotype" src="assets/logo.png" width="1600" height="691"
+               alt="Summer Camp 2026 — Islands and Bridges">
+          <div class="logo-credit">
+            <span>2026. 8. 6. – 8. 9.</span>
+            <span>by Yellow Pen Club</span>
+          </div>
         </div>
-
-        <button class="cover-cta" onclick="go('about')">
-          <span class="only-ko">브로슈어 살펴보기</span><span class="only-en">Explore the brochure</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
 
         <div class="cover-quick">
           <button onclick="go('about')"><span class="n">01</span><span class="only-ko">행사 소개</span><span class="only-en">Introduction</span></button>
@@ -235,7 +242,7 @@ button.stitle{font-family:var(--sans);color:var(--red);background:none;border:no
     <div class="sheet">
       <div class="pagetitle"><span class="only-ko">소개</span><span class="only-en">Introduction</span><span class="sub">01 — Introduction</span></div>
 
-      <div class="rule rule-dash"></div>
+      <div class="rule rule-dashdot"></div>
       <div class="only-ko">
         <p class="lead">초대의 글</p>
         <p class="para">옐로우 펜 클럽의 ‘여름 캠프’는 연중 가장 더운 시기에 펼쳐지는 전시, 나눔, 워크숍, 상영회, 퍼포먼스 등을 아우르는 행사다. 압축된 시간 속에서 연쇄적으로 이어지는 마주침과 그 사이로 스며들어 축적될 감각을 도모한다. 지난 시간 YPC SPACE에 쌓인 대화에서 길어 올린 문제의식, 곧 우리가 놓인 좌표에 충실한 질문으로부터 매해 주제를 정하고, 이미 동료인 이들과 앞으로 동료가 될 이들을 곳곳에서 초대한다. 다양한 분야의 창작자와 연구자가 함께하는 캠프는 볼거리를 늘어놓기보다 함께 머무는 시간을, 과잉 생산보다 주의 깊은 집중을 택하며 지금 이곳에서 예술적 창작과 지식 생산의 조건을 실험한다.</p>
@@ -247,9 +254,9 @@ button.stitle{font-family:var(--sans);color:var(--red);background:none;border:no
         <p class="para">The exhibition venues sit like islands across Jung-gu and Jongno in Seoul, while sharings, readings, workshops, screenings, performances, and talks move between them. Visitors are invited to cross the city, land on each island, and walk the bridges laid in between.</p>
       </div>
 
-      <div class="rule rule-comb" style="margin-top:14px;"></div>
+      <div class="rule rule-pin" style="margin-top:14px;"></div>
       <div class="sectlabel"><span class="only-ko">행사 정보</span><span class="only-en">Details</span></div>
-      <div class="rule rule-dot"></div>
+      <div class="rule rule-linedot"></div>
 
       <div class="factrow"><div class="k"><span class="only-ko">행사명</span><span class="only-en">Title</span></div><div class="v"><span class="only-ko">2026 서머 캠프 — 섬과 다리</span><span class="only-en">Summer Camp 2026 — Islands and Bridges</span><br><i><span class="only-ko">Summer Camp 2026 · Islands and Bridges</span><span class="only-en">2026 서머 캠프 〈섬과 다리〉</span></i></div></div>
       <div class="rule rule-fine"></div>
@@ -322,14 +329,14 @@ button.stitle{font-family:var(--sans);color:var(--red);background:none;border:no
         </svg>
       </div>
 
-      <div class="rule rule-comb" style="margin-top:16px;"></div>
+      <div class="rule rule-pin" style="margin-top:16px;"></div>
       <div class="sectlabel"><span class="only-ko">목록</span><span class="only-en">List</span></div>
-      <div class="rule rule-dot"></div>
+      <div class="rule rule-linedot"></div>
       <div id="venuelist"></div>
 
-      <div class="rule rule-comb" style="margin-top:8px;"></div>
+      <div class="rule rule-pin" style="margin-top:8px;"></div>
       <div class="sectlabel"><span class="only-ko">전시</span><span class="only-en">Exhibitions</span></div>
-      <div class="rule rule-dot"></div>
+      <div class="rule rule-linedot"></div>
       <div id="exhlist"></div>
 
       <div class="foot">
@@ -388,24 +395,24 @@ window.addEventListener('DOMContentLoaded',()=>{
 
 /* ---------------- SCHEDULE ---------------- */
 const days=[
-  {label:{ko:'8월 6일 (목)',en:'August 6 (Thu)'},rule:'rule-dash',items:[
+  {label:{ko:'8월 6일 (목)',en:'August 6 (Thu)'},rule:'rule-dashdot',endRule:'rule-pin',items:[
     {t:'14:00-15:00',cat:{ko:'오프닝',en:'Opening'},ti:{ko:'서머 캠프에 초대합니다',en:'Invitation to Summer Camp'},live:true,who:'YPC',pl:'YPC SPACE'},
     {t:'15:00-17:00',cat:{ko:'투어',en:'Tour'},ti:{ko:'릴레이 오프닝',en:'Relay Opening'},who:'YPC',pl:{ko:'YPC SPACE / PCO / 전망 / FF Seoul',en:'YPC SPACE / PCO / Sionmang / FF Seoul'}},
     {t:'18:00-20:00',ref:'citrus',cat:{ko:'나눔',en:'Sharing'},ti:{ko:'감귤나무, 바다를 건너다: 디아스포라, 제주, 선물',en:'Citrus Trees Crossing the Sea: Diaspora, Jeju, Gifts'},live:true,who:{ko:'권준희',en:'Kwon June Hee'},pl:'YPC SPACE'},
   ]},
-  {label:{ko:'8월 7일 (금)',en:'August 7 (Fri)'},rule:'rule-dot',items:[
+  {label:{ko:'8월 7일 (금)',en:'August 7 (Fri)'},rule:'rule-bigdot',endRule:'rule-wave',items:[
     {t:'15:00-16:00',ref:'crossing',cat:{ko:'낭독',en:'Reading'},ti:{ko:'건너오는 문장들 1',en:'Crossing Sentences 1'},live:true,who:{ko:'임수영',en:'Lim Suyeong'},pl:'YPC SPACE'},
     {t:'16:00-17:00',ref:'crossing',cat:{ko:'낭독',en:'Reading'},ti:{ko:'건너오는 문장들 2',en:'Crossing Sentences 2'},live:true,who:{ko:'김재형, 연정모',en:'Kim Jaehyung, Yeon Jeongmo'},pl:'YPC SPACE'},
     {t:'18:00-20:00',ref:'traces',cat:{ko:'스크리닝',en:'Screening'},ti:{ko:'많은 방과 흔적의 지도',en:'A Collection of Traces'},who:{ko:'찬하우춘',en:'Chan Hau Chun'},pl:{ko:'충무아트센터 씨네마',en:'Chungmu Arts Center Cinema'}},
   ]},
-  {label:{ko:'8월 8일 (토)',en:'August 8 (Sat)'},rule:'rule-dash',items:[
+  {label:{ko:'8월 8일 (토)',en:'August 8 (Sat)'},rule:'rule-linedot',endRule:'rule-hook',items:[
     {t:'11:00-14:00',ref:'artworkers',cat:{ko:'워크숍',en:'Workshop'},ti:{ko:'예술 노동자의 시간 계산하기, 그리고 교환하기',en:'Calculating and Exchanging the Time of Art Workers'},who:{ko:'쿤치 스터디 포럼 & 콜렉티브 x 와룽 시킬',en:'KUNCI Study Forum & Collective x Warung Sikil'},pl:'YPC SPACE'},
     {t:'12:00-13:00',ref:'crossing',cat:{ko:'낭독',en:'Reading'},ti:{ko:'건너오는 문장들 3',en:'Crossing Sentences 3'},live:true,who:{ko:'한여진',en:'Han Yeojin'},pl:'YPC SPACE'},
     {t:'14:00-16:00',ref:'suddenly',cat:{ko:'토크',en:'Talk'},ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'리정옥, 정리애, 츠치야 미치코, 하이바라 치아키',en:'Lee Jeong-ok, Jeong Ri-ae, Tsuchiya Michiko, Haibara Chiaki'},pl:'YPC SPACE'},
     {t:'16:00-17:00',ref:'dissolve',cat:{ko:'퍼포먼스',en:'Performance'},ti:{ko:'디졸브',en:'Dissolve'},who:{ko:'양윤화',en:'Yang Yunhwa'},pl:'YPC SPACE'},
     {t:'18:00-20:00',ref:'sailing',cat:{ko:'나눔',en:'Sharing'},ti:{ko:'해방운동의 방법으로서의 항해',en:'Sailing as a method of liberatory practice'},who:{ko:'이승준',en:'Jonathan Sungjun Lee'},pl:{ko:'동국대 학림관 소강당',en:'Dongguk Univ., Haklim Hall'}},
   ]},
-  {label:{ko:'8월 9일 (일)',en:'August 9 (Sun)'},rule:'rule-dot',items:[
+  {label:{ko:'8월 9일 (일)',en:'August 9 (Sun)'},rule:'rule-block',endRule:'rule-flag',items:[
     {t:'11:00-12:00',ref:'gateways',cat:{ko:'워크숍',en:'Workshop'},ti:{ko:'손 다음 손',en:'Hand After Hand'},who:{ko:'게게르보요',en:'Gegerboyo'},pl:'PCO'},
     {t:'12:00-13:00',ref:'gateways',cat:{ko:'토크',en:'Talk'},ti:{ko:'아티스트 토크',en:'Artist Talk'},who:{ko:'현남',en:'Hyun Nahm'},pl:'PCO'},
     {t:'14:00-15:00',ref:'piperelay',cat:{ko:'토크',en:'Talk'},ti:{ko:'아티스트 토크',en:'Artist Talk'},live:true,who:{ko:'이동현',en:'Lee Dong-hyun'},pl:'YPC SPACE'},
@@ -436,7 +443,7 @@ function renderSchedule(){
         </div>
       </div>`;
     });
-    html+=`<div class="rule rule-tick"></div>
+    html+=`<div class="rule ${day.endRule}"></div>
       <div class="footnote">
         <span class="live-badge"><span class="dot"></span>${lang==='ko'?'온라인 방송':'Live stream'}</span>
         <span>${lang==='ko'?'2b-temp-cast를 통해 실시간 방송 진행':'Broadcast live via 2b-temp-cast'}</span>
@@ -505,9 +512,9 @@ function renderPrograms(){
     const items=programs.filter(p=>p.cat===g.cat);
     if(!items.length) return;
     box.insertAdjacentHTML('beforeend',
-      `<div class="rule rule-comb" style="margin-top:14px;"></div>
+      `<div class="rule rule-pin" style="margin-top:14px;"></div>
        <div class="sectlabel">${lang==='ko'?g.ko:g.en}</div>
-       <div class="rule rule-dot"></div>`);
+       <div class="rule rule-linedot"></div>`);
     items.forEach((p,i)=>{
       idx++;
       if(i>0) box.insertAdjacentHTML('beforeend','<div class="rule rule-fine"></div>');
