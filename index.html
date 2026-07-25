@@ -42,10 +42,12 @@
   );
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;}
 body{font-family:var(--sans);color:var(--red);background:var(--paper);line-height:1.6;font-weight:500;-webkit-font-smoothing:antialiased;}
-#app{max-width:480px;margin:0 auto;position:relative;background:var(--paper);min-height:100vh;min-height:100dvh;}
-@media(min-width:520px){body{padding:20px 0;}#app{min-height:calc(100dvh - 40px);box-shadow:0 0 0 1px #f0f0f0;}}
+/* No viewport-height units anywhere: this page is also embedded in an
+   auto-height iframe, where 100dvh feeds back into the frame height and
+   makes the layout grow without bound. All heights are content-driven. */
+#app{max-width:480px;margin:0 auto;position:relative;background:var(--paper);}
+@media(min-width:520px){body{padding:20px 0;}#app{box-shadow:0 0 0 1px #f0f0f0;}}
 
 body.lang-ko .only-en{display:none;}
 body.lang-en .only-ko{display:none;}
@@ -73,14 +75,14 @@ body.lang-en .only-ko{display:none;}
 .view{display:none;padding:var(--header-h) 7px 76px;animation:fade .35s ease;}
 .view.active{display:block;}
 @keyframes fade{from{opacity:0;}to{opacity:1;}}
-.sheet{background:var(--lime);clip-path:var(--clip);padding:52px 22px 60px;min-height:calc(100dvh - var(--header-h) - 84px);}
+.sheet{background:var(--lime);clip-path:var(--clip);padding:52px 22px 60px;min-height:560px;}
 
 .pagetitle{text-align:center;font-weight:900;font-size:clamp(26px,8vw,34px);letter-spacing:-.02em;margin-bottom:6px;}
 .pagetitle .sub{display:block;font-family:var(--sans-latin);font-style:italic;font-weight:700;font-size:13px;opacity:.75;margin-top:6px;letter-spacing:0;}
 .metaline{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;font-weight:900;font-size:12.5px;text-align:center;}
 
 /* ---------------- cover ---------------- */
-.cover{display:flex;flex-direction:column;min-height:calc(100dvh - var(--header-h) - 84px);}
+.cover{display:flex;flex-direction:column;min-height:600px;}
 .cover .metaline{margin-bottom:26px;}
 .logowrap{margin-top:auto;padding-top:24px;}
 .logotype{display:block;width:100%;max-width:100%;height:auto;}
@@ -347,10 +349,18 @@ function setLang(l){
 }
 
 /* ---------------- routing ---------------- */
+/* Embedded in an auto-height iframe our own window never scrolls — the
+   parent does. scrollIntoView propagates up through the frames. */
+function scrollToTop(){
+  try{ window.scrollTo({top:0,behavior:'instant'}); }catch(e){ window.scrollTo(0,0); }
+  if(window!==window.parent){
+    document.getElementById('app').scrollIntoView({block:'start'});
+  }
+}
 function go(view){
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active', v.dataset.view===view));
   document.querySelectorAll('.pill').forEach(b=>b.classList.toggle('active', b.dataset.nav===view));
-  window.scrollTo({top:0,behavior:'instant'});
+  scrollToTop();
   history.replaceState(null,'',view==='home'?location.pathname:'#'+view);
 }
 function goProgram(id){
